@@ -6,39 +6,20 @@
 <meta name="theme-color" content="#f7f5ef">
 <title>Closer</title>
 <style>
-:root{
-  --bg:#f7f5ef; --card:#ffffff; --ink:#242424; --muted:#959189;
-  --soft:#ebe8df; --line:#ddd9cf; --dark:#242424; --radius:24px;
-}
+:root{--bg:#f7f5ef;--card:#fff;--ink:#242424;--muted:#918d85;--soft:#ebe8df;--line:#ddd9cf;--dark:#242424;--radius:24px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;background:var(--bg);color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang TC","Noto Sans TC",Arial,sans-serif;
-}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
-  outline:2px solid var(--ink);outline-offset:2px
-}
-.app{
-  width:min(100%,560px);min-height:100vh;margin:0 auto;
-  padding:24px 18px calc(78px + env(safe-area-inset-bottom));
-}
-.header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang TC","Noto Sans TC",Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.app{width:min(100%,560px);min-height:100vh;margin:0 auto;padding:24px 18px calc(76px + env(safe-area-inset-bottom))}
+.header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px}
 .logo{font-size:18px;letter-spacing:4px;font-weight:750}
-.tagline{color:var(--muted);font-size:11px;margin-top:5px}
-.today{color:var(--muted);font-size:12px;padding-top:2px}
-.nav{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:7px;
-  position:sticky;top:0;z-index:20;padding:7px 0 14px;margin-bottom:5px;
-  background:linear-gradient(var(--bg) 74%,rgba(247,245,239,0))
-}
-.nav button{
-  border:0;background:var(--soft);color:#77736c;border-radius:999px;
-  padding:11px 6px;font-size:12px;white-space:nowrap
-}
-.nav button.active{background:var(--dark);color:white}
+.tagline{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5}
+.today{font-size:12px;color:var(--muted);white-space:nowrap;padding-top:2px}
+.nav{display:grid;grid-template-columns:1fr 1fr;gap:7px;position:sticky;top:0;z-index:20;padding:7px 0 14px;margin-bottom:5px;background:linear-gradient(var(--bg) 74%,rgba(247,245,239,0))}
+.nav button{border:0;border-radius:999px;background:var(--soft);color:#77736c;padding:11px 8px;font-size:12px}
+.nav button.active{background:var(--dark);color:#fff}
 .section{display:none}.section.active{display:block}
 .hero{text-align:center;padding:30px 8px 32px}
 .hero-label{font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:15px}
@@ -46,714 +27,406 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .hero-unit{font-size:10px;letter-spacing:4px;margin-top:16px}
 .hero-name{font-size:24px;font-weight:630;line-height:1.3;margin-top:22px}
 .hero-sub{font-size:12px;line-height:1.7;color:var(--muted);margin-top:8px}
-.card,.form,.memory-card,.moment-card{
-  background:var(--card);border-radius:var(--radius);padding:22px;margin-bottom:13px;
-  box-shadow:0 1px 0 rgba(0,0,0,.02)
-}
-.card.dark{background:var(--dark);color:white}
-.eyebrow{font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:13px}
-.dark .eyebrow{color:#aaa}
+.card,.form,.memory-card,.moment-card{background:var(--card);border-radius:var(--radius);padding:22px;margin-bottom:13px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.card.dark{background:var(--dark);color:#fff}
+.eyebrow{font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:13px}.dark .eyebrow{color:#aaa}
 .big{font-size:25px;font-weight:630;line-height:1.3}
-.sub{font-size:13px;line-height:1.7;color:var(--muted);margin-top:8px}
-.dark .sub{color:#c8c8c8}
-.primary,.secondary,.ghost{
-  width:100%;border:0;border-radius:15px;padding:14px 16px;font-size:14px
-}
-.primary{background:var(--dark);color:white}
-.secondary{background:white;color:var(--ink);border:1px solid var(--line)}
-.ghost{background:var(--soft);color:var(--ink)}
+.sub{font-size:13px;line-height:1.7;color:var(--muted);margin-top:8px}.dark .sub{color:#c8c8c8}
+.primary,.secondary,.ghost{width:100%;border:0;border-radius:15px;padding:14px 16px;font-size:14px}
+.primary{background:var(--dark);color:#fff}.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}.ghost{background:var(--soft);color:var(--ink)}
 .form{display:none}.form.open{display:block}
 .form-title{font-size:20px;font-weight:630;margin-bottom:13px}
-.field-label{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  color:#77736c;font-size:11px;margin:13px 2px 5px
-}
+.field-label{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#77736c;font-size:11px;margin:13px 2px 5px}
 .optional{color:#aaa}
-input,select,textarea{
-  width:100%;border:1px solid var(--line);background:#fbfaf7;color:var(--ink);
-  border-radius:13px;padding:13px 14px
-}
+input,select,textarea{width:100%;border:1px solid var(--line);background:#fbfaf7;color:var(--ink);border-radius:13px;padding:13px 14px}
 textarea{min-height:84px;resize:vertical;line-height:1.55}
 .form-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.paste-box{position:relative;margin-top:17px}
-.paste-box input{padding:16px 48px 16px 15px;background:white}
+.quote{text-align:center;padding:29px 22px}
+.quote-main{font-size:18px;line-height:1.75;min-height:64px;display:grid;place-items:center}
+.quote-meta{font-size:10px;letter-spacing:1.8px;color:var(--muted);margin-top:8px}
+.quote-actions{display:flex;justify-content:center;gap:12px;margin-top:13px}
+.quote-actions button{border:0;border-radius:999px;background:var(--soft);padding:8px 13px;font-size:12px;color:#666}
+.paste-box{position:relative;margin-top:17px}.paste-box input{padding:16px 48px 16px 15px;background:#fff}
 .paste-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:18px}
-.detected{
-  display:none;align-items:center;justify-content:space-between;gap:10px;
-  background:var(--bg);border-radius:15px;padding:12px 13px;margin-top:9px
-}
-.detected.show{display:flex}
-.detect-main{display:flex;gap:10px;align-items:center;min-width:0}
-.detect-icon{font-size:22px}.detect-title{font-size:13px;font-weight:620}
-.detect-sub{color:var(--muted);font-size:10px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.list-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 1px 11px}
+.detected{display:none;align-items:center;justify-content:space-between;gap:10px;background:var(--bg);border-radius:15px;padding:12px 13px;margin-top:9px}
+.detected.show{display:flex}.detect-main{display:flex;gap:10px;align-items:center;min-width:0}
+.detect-icon{font-size:22px}.detect-title{font-size:13px;font-weight:620}.detect-sub{color:var(--muted);font-size:10px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 1px 11px}
 .list-title{font-size:10px;letter-spacing:2px;color:var(--muted)}
-.item-row{display:flex;justify-content:space-between;gap:14px;align-items:center}
-.item-main{min-width:0}.item-name{font-size:17px;font-weight:600;line-height:1.35}
-.item-meta{color:var(--muted);font-size:11px;line-height:1.55;margin-top:5px}
+.item-row{display:flex;align-items:center;justify-content:space-between;gap:14px}.item-main{min-width:0}
+.item-name{font-size:17px;font-weight:600;line-height:1.35}.item-meta{color:var(--muted);font-size:11px;line-height:1.55;margin-top:5px}
 .item-days{font-size:27px;font-weight:660;flex:none}
 .actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
-.actions button{
-  border:1px solid var(--line);background:white;border-radius:12px;padding:9px 11px;font-size:12px
-}
+.actions button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;font-size:12px}
 .actions button.danger{color:#aaa;margin-left:auto}
-.note{background:var(--bg);border-radius:13px;padding:12px 13px;margin-top:12px;font-size:13px;line-height:1.6}
-.location-pill{
-  display:inline-flex;align-items:center;gap:5px;background:var(--soft);border-radius:999px;
-  padding:6px 10px;font-size:11px;margin-top:10px;color:#5f5c56
-}
-.status-pill{
-  display:inline-flex;border-radius:999px;padding:5px 9px;font-size:10px;margin-left:5px;
-  background:#f2f0e9;color:#77736c
-}
-.chips{display:flex;gap:7px;overflow:auto;padding:1px 0 13px;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{border:0;border-radius:999px;padding:8px 12px;background:var(--soft);color:#77736c;font-size:12px;white-space:nowrap}
-.chip.active{background:var(--dark);color:white}
-.smart-card{
-  background:linear-gradient(145deg,#2c2c2c,#1f1f1f);color:white;border-radius:28px;
-  padding:23px;margin-bottom:13px;overflow:hidden
-}
-.smart-title{font-size:21px;font-weight:650;line-height:1.35}
-.smart-sub{color:#c9c9c9;font-size:12px;line-height:1.65;margin-top:7px}
+.note{background:var(--bg);border-radius:13px;padding:12px 13px;margin-top:12px;font-size:13px;line-height:1.65}
+.location-pill{display:inline-flex;align-items:center;gap:5px;background:var(--soft);border-radius:999px;padding:6px 10px;font-size:11px;margin-top:10px;color:#5f5c56}
+.status-pill{display:inline-flex;border-radius:999px;padding:5px 9px;font-size:10px;margin-left:5px;background:#f2f0e9;color:#77736c}
+.smart-card{background:linear-gradient(145deg,#2c2c2c,#1f1f1f);color:#fff;border-radius:28px;padding:23px;margin-bottom:13px;overflow:hidden}
+.smart-title{font-size:21px;font-weight:650;line-height:1.35}.smart-sub{color:#c9c9c9;font-size:12px;line-height:1.65;margin-top:7px}
 .suggestion{background:#fff;color:var(--ink);border-radius:17px;padding:14px;margin-top:9px}
-.suggestion-name{font-weight:620;font-size:15px}
-.suggestion-meta{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.5}
+.suggestion-name{font-weight:620;font-size:15px}.suggestion-meta{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.5}
 .suggestion-actions{display:flex;gap:7px;margin-top:10px}
-.suggestion-actions button{border:0;border-radius:11px;padding:8px 10px;font-size:11px;background:var(--soft)}
-.suggestion-actions button:first-child{background:var(--dark);color:white}
+.suggestion-actions button{border:0;border-radius:11px;padding:8px 10px;font-size:11px;background:var(--soft)}.suggestion-actions button:first-child{background:var(--dark);color:#fff}
 .linked-label{font-size:10px;letter-spacing:1.5px;color:#aaa;margin-top:16px}
+.remember-banner{background:var(--soft);border-radius:18px;padding:15px 16px;margin-bottom:13px;font-size:12px;line-height:1.7;color:#5f5c56}
+.memory-head{display:flex;justify-content:space-between;gap:12px}.memory-type{font-size:10px;letter-spacing:1px;color:var(--muted)}
+.memory-name{font-size:19px;font-weight:630;line-height:1.35;margin-top:5px}.memory-meta{font-size:11px;line-height:1.55;color:var(--muted);margin-top:6px}
+.chips{display:flex;gap:7px;overflow:auto;padding:1px 0 13px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{border:0;border-radius:999px;padding:8px 12px;background:var(--soft);color:#77736c;font-size:12px;white-space:nowrap}.chip.active{background:var(--dark);color:#fff}
+.search-wrap{position:relative;margin:3px 0 12px}.search-wrap input{background:#fff;padding-left:39px}.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:#888}
 .empty{color:var(--muted);font-size:13px;line-height:1.8;text-align:center;padding:25px 10px}
-.quote{text-align:center;padding:27px 20px}
-.quote-main{font-size:18px;line-height:1.7}.quote-en{color:var(--muted);font-size:11px;margin-top:8px}
-.quote-actions{display:flex;justify-content:center;gap:18px;margin-top:12px}
-.icon-btn{border:0;background:transparent;font-size:18px;padding:6px 10px}
-.memory-head{display:flex;justify-content:space-between;gap:12px}
-.memory-type{font-size:10px;letter-spacing:1px;color:var(--muted)}
-.memory-name{font-size:19px;font-weight:630;line-height:1.35;margin-top:5px}
-.memory-meta{font-size:11px;line-height:1.55;color:var(--muted);margin-top:6px}
-.remember-banner{
-  background:var(--soft);border-radius:18px;padding:15px 16px;margin-bottom:13px;
-  font-size:12px;line-height:1.7;color:#5f5c56
-}
-.calm-hero{text-align:center;padding:28px 0 20px}
-.breathe-wrap{height:240px;display:grid;place-items:center}
-.breathe-circle{
-  width:130px;height:130px;border-radius:50%;background:white;
-  box-shadow:0 18px 50px rgba(37,37,37,.07);display:grid;place-items:center;
-  transition:transform 4s ease-in-out
-}
-.breathe-circle.running.inhale,.breathe-circle.running.hold{transform:scale(1.5)}
-.breathe-circle.running.exhale{transform:scale(1)}
-.breathe-text{font-size:14px}
-.timer{font-size:44px;font-weight:640;letter-spacing:-2px;margin-top:4px}
-.progress{height:5px;background:var(--soft);border-radius:999px;overflow:hidden;margin-top:18px}
-.progress-bar{height:100%;width:0;background:var(--dark);transition:width .3s linear}
-.calm-options{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:15px}
-.sound-options{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:15px}
-.calm-option,.sound-option{
-  border:0;border-radius:14px;background:var(--soft);padding:11px 4px;font-size:12px
-}
-.calm-option.active,.sound-option.active{background:var(--dark);color:white}
-.sound-option span{display:block;font-size:19px;margin-bottom:4px}
-.volume-row{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;margin-top:14px}
-.volume-row label{font-size:11px;color:var(--muted)}
-input[type="range"]{padding:0;border:0;background:transparent}
-.small-note{font-size:10px;line-height:1.6;color:var(--muted);margin-top:11px}
-.credits{font-size:9px;color:#aaa;line-height:1.55;margin-top:8px}
-.toast{
-  position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));
-  transform:translateX(-50%) translateY(20px);width:min(calc(100% - 36px),520px);
-  background:var(--dark);color:white;padding:13px 16px;border-radius:14px;font-size:13px;
-  text-align:center;opacity:0;pointer-events:none;transition:.2s ease;z-index:50
-}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:390px){
-  .app{padding-left:14px;padding-right:14px}
-  .card,.form,.memory-card,.moment-card{padding:19px}
-  .big{font-size:23px}.sound-option{font-size:10px}
-}
-@media(prefers-reduced-motion:reduce){
-  *{scroll-behavior:auto!important}.breathe-circle,.toast{transition:none!important}
-}
+.small-note{font-size:10px;line-height:1.6;color:var(--muted);margin-top:8px}
+.auto-note{font-size:11px;line-height:1.55;color:#5f5c56;background:var(--soft);padding:10px 12px;border-radius:12px;margin-top:8px}
+.hidden{display:none!important}
+@media(max-width:390px){.app{padding-left:14px;padding-right:14px}.card,.form,.memory-card,.moment-card{padding:19px}.big{font-size:23px}}
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="header">
-    <div>
-      <div class="logo">CLOSER</div>
-      <div class="tagline">你曾經為它心動過。剩下的，交給 Closer 記得。</div>
+<header class="header">
+  <div><div class="logo">CLOSER</div><div class="tagline">你曾經為它心動過。剩下的，交給 Closer 記得。</div></div>
+  <div class="today" id="today"></div>
+</header>
+
+<nav class="nav">
+  <button class="active" onclick="switchMode('moments',this)">⏳ Moments</button>
+  <button onclick="switchMode('memories',this)">🧠 Memories</button>
+</nav>
+
+<section class="section active" id="momentsMode">
+  <div class="hero">
+    <div class="hero-label">COUNTING DOWN TO</div>
+    <div class="hero-number" id="heroNumber">—</div>
+    <div class="hero-unit">DAYS</div>
+    <div class="hero-name" id="heroName">Something Beautiful</div>
+    <div class="hero-sub" id="heroDate">把值得期待的事，放在這裡。</div>
+  </div>
+
+  <div id="smartRecall"></div>
+
+  <div class="card quote">
+    <div class="quote-main" id="quote"></div>
+    <div class="quote-meta" id="quoteMeta">A LITTLE NOTE</div>
+    <div class="quote-actions">
+      <button onclick="favoriteQuote()">♡ 留下這句</button>
+      <button onclick="newQuote()">換一句 ↻</button>
     </div>
-    <div class="today" id="today"></div>
-  </header>
+  </div>
 
-  <nav class="nav">
-    <button class="active" onclick="switchMode('moments',this)">⏳ Moments</button>
-    <button onclick="switchMode('memories',this)">🧠 Memories</button>
-    <button onclick="switchMode('calm',this)">🧘 Calm</button>
-  </nav>
+  <div class="card">
+    <div class="eyebrow">MY MOMENTS</div>
+    <div class="big">有什麼值得期待？</div>
+    <div class="sub">見面、旅行、生日或一個想去的日子。Closer 會在時間靠近時，把你以前留下的相關 Memories 找回來。</div>
+    <button class="primary" style="margin-top:17px" onclick="toggleForm('momentForm')">＋ Add a moment</button>
+  </div>
 
-  <!-- MOMENTS -->
-  <section class="section active" id="momentsMode">
-    <div class="hero">
-      <div class="hero-label">COUNTING DOWN TO</div>
-      <div class="hero-number" id="heroNumber">—</div>
-      <div class="hero-unit">DAYS</div>
-      <div class="hero-name" id="heroName">Something Beautiful</div>
-      <div class="hero-sub" id="heroDate">把值得期待的事，放在這裡。</div>
+  <div class="form" id="momentForm">
+    <div class="form-title">New Moment</div>
+    <label class="field-label" for="momentName">這是什麼？</label>
+    <input id="momentName" placeholder="例如：下次見面 / 宜蘭旅行">
+    <label class="field-label" for="momentDate">日期</label>
+    <input id="momentDate" type="date">
+    <label class="field-label" for="momentWith">和誰？</label>
+    <select id="momentWith">
+      <option value="❤️ 愛人">❤️ 愛人</option>
+      <option value="🫶 朋友">🫶 朋友</option>
+      <option value="👥 一起">👥 一起</option>
+      <option value="🌱 自己">🌱 自己</option>
+    </select>
+    <label class="field-label" for="momentLocation">地點 <span class="optional">選填</span></label>
+    <input id="momentLocation" placeholder="例如：宜蘭 / 台北 / 東京">
+    <div class="small-note">有填地點時，Closer 才能優先找出同區域的舊收藏。</div>
+    <div class="form-actions">
+      <button class="secondary" onclick="toggleForm('momentForm',false)">取消</button>
+      <button class="primary" onclick="addMoment()">建立</button>
     </div>
+  </div>
+  <div id="momentsList"></div>
+</section>
 
-    <div id="smartRecall"></div>
+<section class="section" id="memoriesMode">
+  <div class="hero">
+    <div class="hero-label">YOU SAVED IT FOR A REASON</div>
+    <div class="hero-name">替未來的你記住。</div>
+    <div class="hero-sub">先收藏，不急著決定。真正要出發、要見面、要找靈感時，Closer 再幫你找回來。</div>
+  </div>
 
-    <div class="card quote">
-      <div class="quote-main" id="quote"></div>
-      <div class="quote-en" id="quoteEn"></div>
-      <div class="quote-actions">
-        <button class="icon-btn" onclick="favoriteQuote()">♡</button>
-        <button class="icon-btn" onclick="newQuote()">↻</button>
-      </div>
+  <div class="card dark">
+    <div class="eyebrow">PASTE A LINK</div>
+    <div class="big">看到喜歡的，就先丟進來。</div>
+    <div class="sub">地點、餐廳、住宿、展覽、書籍、影片與貼文都可以。Closer 會先從網址判斷來源、類型與能辨識的地點。</div>
+    <div class="paste-box">
+      <input id="quickUrl" inputmode="url" placeholder="貼上網址…" oninput="previewQuickLink()" onpaste="setTimeout(previewQuickLink,0)">
+      <div class="paste-icon">↗</div>
     </div>
-
-    <div class="card">
-      <div class="eyebrow">MY MOMENTS</div>
-      <div class="big">什麼事情快發生了？</div>
-      <div class="sub">見面、旅行、生日。Closer 會用這些時間，找回你以前存下來的地方。</div>
-      <button class="primary" style="margin-top:17px" onclick="toggleForm('momentForm')">＋ Add a moment</button>
+    <div class="detected" id="quickDetected">
+      <div class="detect-main">
+        <div class="detect-icon" id="quickIcon">🔗</div>
+        <div style="min-width:0"><div class="detect-title" id="quickTitle">一般連結</div><div class="detect-sub" id="quickHost"></div></div>
+      </div><div>✓</div>
     </div>
+    <button class="secondary" style="margin-top:10px" onclick="openMemoryFromQuick()">下一步</button>
+  </div>
 
-    <div class="form" id="momentForm">
-      <div class="form-title">New Moment</div>
-      <label class="field-label" for="momentName">這是什麼？</label>
-      <input id="momentName" placeholder="例如：下次見面 / 宜蘭旅行">
-      <label class="field-label" for="momentDate">日期</label>
-      <input id="momentDate" type="date">
-      <label class="field-label" for="momentWith">和誰？</label>
-      <select id="momentWith">
-        <option value="❤️ 愛人">❤️ 愛人</option>
-        <option value="🫶 朋友">🫶 朋友</option>
-        <option value="👥 一起">👥 一起</option>
-        <option value="🌱 自己">🌱 自己</option>
-      </select>
-      <label class="field-label" for="momentLocation">
-        地點
-        <span class="optional">選填，但旅行建議填</span>
-      </label>
-      <input id="momentLocation" placeholder="例如：宜蘭 / 台北 / 東京">
-      <div class="form-actions">
-        <button class="secondary" onclick="toggleForm('momentForm',false)">取消</button>
-        <button class="primary" onclick="addMoment()">Create</button>
-      </div>
-    </div>
-
-    <div id="momentsList"></div>
-  </section>
-
-  <!-- MEMORIES -->
-  <section class="section" id="memoriesMode">
-    <div class="hero">
-      <div class="hero-label">YOU SAVED IT FOR A REASON</div>
-      <div class="hero-name">替未來的你記住。</div>
-      <div class="hero-sub">貼網址，Closer 先整理。到了真正要出發的時候，再把它找回來。</div>
-    </div>
-
-    <div class="card dark">
-      <div class="eyebrow">PASTE A LINK</div>
-      <div class="big">看到喜歡的，就先丟進來。</div>
-      <div class="sub">Instagram、Google Maps、餐廳、住宿、Spotify、Netflix、YouTube 都可以。</div>
-      <div class="paste-box">
-        <input id="quickUrl" inputmode="url" placeholder="貼上網址…" oninput="previewQuickLink()" onpaste="setTimeout(previewQuickLink,0)">
-        <div class="paste-icon">↗</div>
-      </div>
-      <div class="detected" id="quickDetected">
-        <div class="detect-main">
-          <div class="detect-icon" id="quickIcon">🔗</div>
-          <div style="min-width:0">
-            <div class="detect-title" id="quickTitle">一般連結</div>
-            <div class="detect-sub" id="quickHost"></div>
-          </div>
-        </div>
-        <div>✓</div>
-      </div>
-      <button class="secondary" style="margin-top:10px" onclick="openMemoryFromQuick()">下一步</button>
+  <div class="form" id="memoryForm">
+    <div class="form-title">🧠 Save to Memories</div>
+    <label class="field-label" for="memoryUrl">網址</label>
+    <input id="memoryUrl" inputmode="url" placeholder="https://…" oninput="detectMemoryLink()">
+    <div class="detected" id="detectedBox">
+      <div class="detect-main">
+        <div class="detect-icon" id="detectedIcon">🔗</div>
+        <div style="min-width:0"><div class="detect-title" id="detectedTitle">一般連結</div><div class="detect-sub" id="detectedHost"></div></div>
+      </div><div>✓</div>
     </div>
 
-    <div class="form" id="memoryForm">
-      <div class="form-title">🧠 Save to Memories</div>
+    <label class="field-label" for="memoryCategory">分類 <span class="optional">自動判斷，可修改</span></label>
+    <select id="memoryCategory" onchange="updateLocationField()">
+      <option value="☕ 咖啡 / 餐廳">☕ 咖啡 / 餐廳</option>
+      <option value="🌿 景點">🌿 景點</option>
+      <option value="🏨 住宿">🏨 住宿</option>
+      <option value="🎨 展覽">🎨 展覽</option>
+      <option value="📚 書籍">📚 書籍</option>
+      <option value="🛍️ 購物">🛍️ 購物</option>
+      <option value="💕 約會">💕 約會</option>
+      <option value="🎙 Podcast">🎙 Podcast</option>
+      <option value="🎵 音樂">🎵 音樂</option>
+      <option value="🎬 電影 / 影集">🎬 電影 / 影集</option>
+      <option value="▶️ 影片">▶️ 影片</option>
+      <option value="📷 貼文 / Reels">📷 貼文 / Reels</option>
+      <option value="📍 地點">📍 地點</option>
+      <option value="🔗 其他連結">🔗 其他連結</option>
+    </select>
 
-      <label class="field-label" for="memoryUrl">網址</label>
-      <input id="memoryUrl" inputmode="url" placeholder="https://…" oninput="detectMemoryLink()">
+    <label class="field-label" for="memoryName">名稱 <span class="optional">能辨識時自動帶入</span></label>
+    <input id="memoryName" placeholder="例如：山小日子咖啡 / 一本想看的書">
 
-      <div class="detected" id="detectedBox">
-        <div class="detect-main">
-          <div class="detect-icon" id="detectedIcon">🔗</div>
-          <div style="min-width:0">
-            <div class="detect-title" id="detectedTitle">一般連結</div>
-            <div class="detect-sub" id="detectedHost"></div>
-          </div>
-        </div>
-        <div>✓</div>
-      </div>
-
-      <label class="field-label" for="memoryCategory">
-        分類
-        <span class="optional">自動判斷，可修改</span>
-      </label>
-      <select id="memoryCategory">
-        <option value="☕ 咖啡 / 餐廳">☕ 咖啡 / 餐廳</option>
-        <option value="🌿 景點">🌿 景點</option>
-        <option value="🏨 住宿">🏨 住宿</option>
-        <option value="🎨 展覽">🎨 展覽</option>
-        <option value="🛍️ 購物">🛍️ 購物</option>
-        <option value="💕 約會">💕 約會</option>
-        <option value="🎙 Podcast">🎙 Podcast</option>
-        <option value="🎵 音樂">🎵 音樂</option>
-        <option value="🎬 電影 / 影集">🎬 電影 / 影集</option>
-        <option value="▶️ 影片">▶️ 影片</option>
-        <option value="📷 貼文 / Reels">📷 貼文 / Reels</option>
-        <option value="📍 地點">📍 地點</option>
-        <option value="🔗 其他連結">🔗 其他連結</option>
-      </select>
-
-      <label class="field-label" for="memoryName">
-        名稱
-        <span class="optional">Google Maps 會盡量帶入</span>
-      </label>
-      <input id="memoryName" placeholder="例如：山小日子咖啡">
-
-      <label class="field-label" for="memoryLocation">
-        地點 / 城市
-        <span class="optional">地點收藏建議填</span>
-      </label>
+    <div id="locationFields">
+      <label class="field-label" for="memoryLocation">地點 / 城市 <span class="optional">能辨識時自動帶入</span></label>
       <input id="memoryLocation" placeholder="例如：宜蘭・冬山 / 台北・大安">
-
-      <label class="field-label" for="memoryWith">想和誰？</label>
-      <select id="memoryWith">
-        <option value="❤️ 愛人">❤️ 愛人</option>
-        <option value="🫶 朋友">🫶 朋友</option>
-        <option value="👥 一起">👥 一起</option>
-        <option value="🌱 自己">🌱 自己</option>
-      </select>
-
-      <label class="field-label" for="memoryReason">
-        為什麼想留下？
-        <span class="optional">完全選填</span>
-      </label>
-      <textarea id="memoryReason" placeholder="不想寫就留白。"></textarea>
-
-      <div class="form-actions">
-        <button class="secondary" onclick="toggleForm('memoryForm',false)">取消</button>
-        <button class="primary" onclick="saveMemory()">記住它</button>
-      </div>
-      <div class="small-note">純 GitHub 版本可以從網址辨識來源與部分類型；IG Reels 的實際店名／地址常無法直接讀取，所以保留手動補地點。</div>
+      <div class="auto-note" id="locationStatus">Closer 會先從網址找城市、地區或 Google Maps 地點名稱。</div>
     </div>
 
-    <div class="remember-banner" id="memorySummary"></div>
-    <div class="chips" id="memoryFilters"></div>
-    <div id="memoriesList"></div>
-  </section>
+    <label class="field-label" for="memoryWith">想和誰？</label>
+    <select id="memoryWith">
+      <option value="❤️ 愛人">❤️ 愛人</option>
+      <option value="🫶 朋友">🫶 朋友</option>
+      <option value="👥 一起">👥 一起</option>
+      <option value="🌱 自己">🌱 自己</option>
+    </select>
 
-  <!-- CALM -->
-  <section class="section" id="calmMode">
-    <div class="calm-hero">
-      <div class="hero-label">A QUIET MOMENT</div>
-      <div class="hero-name">Closer 也陪你自己。</div>
-      <div class="hero-sub">這次不用合成白噪音。選一段真實的自然聲，慢慢呼吸。</div>
+    <label class="field-label" for="memoryReason">為什麼想留下？ <span class="optional">完全選填</span></label>
+    <textarea id="memoryReason" placeholder="不想寫就留白；有一天看到它時，這句話也許會幫你想起當時為什麼喜歡。"></textarea>
+
+    <div class="form-actions">
+      <button class="secondary" onclick="toggleForm('memoryForm',false)">取消</button>
+      <button class="primary" onclick="saveMemory()">記住它</button>
     </div>
+    <div class="small-note">Google Maps 完整連結通常能辨識較多資訊；Instagram Reels 與 Maps 短連結本身常沒有店名／地址，純 GitHub 頁面無法讀取貼文內容，因此這類仍可能需要補一次。</div>
+  </div>
 
-    <div class="card" style="text-align:center">
-      <div class="eyebrow">GUIDED BREATHING</div>
-      <div class="breathe-wrap">
-        <div class="breathe-circle" id="breatheCircle">
-          <div class="breathe-text" id="breatheText">準備好了嗎？</div>
-        </div>
-      </div>
-
-      <div class="timer" id="calmTimer">01:00</div>
-      <div class="sub" id="calmHint">吸氣 4 秒 · 停留 2 秒 · 吐氣 6 秒</div>
-      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-
-      <div class="calm-options">
-        <button class="calm-option active" onclick="chooseCalm(1,this)">1 min</button>
-        <button class="calm-option" onclick="chooseCalm(3,this)">3 min</button>
-        <button class="calm-option" onclick="chooseCalm(5,this)">5 min</button>
-        <button class="calm-option" onclick="chooseCalm(10,this)">10 min</button>
-      </div>
-
-      <div class="sound-options">
-        <button class="sound-option active" data-sound="ocean" onclick="chooseSound('ocean',this)"><span>🌊</span>海浪</button>
-        <button class="sound-option" data-sound="fireplace" onclick="chooseSound('fireplace',this)"><span>🔥</span>壁爐</button>
-        <button class="sound-option" data-sound="rain" onclick="chooseSound('rain',this)"><span>🌧️</span>雨聲</button>
-        <button class="sound-option" data-sound="forest" onclick="chooseSound('forest',this)"><span>🌲</span>森林</button>
-        <button class="sound-option" data-sound="silent" onclick="chooseSound('silent',this)"><span>🔇</span>無聲</button>
-      </div>
-
-      <div class="volume-row">
-        <label for="soundVolume">音量</label>
-        <input id="soundVolume" type="range" min="0" max="100" value="38" oninput="setSoundVolume(this.value)">
-      </div>
-
-      <button class="primary" id="calmButton" style="margin-top:15px" onclick="toggleCalm()">開始</button>
-      <div class="small-note">聲音會淡入、淡出；手機瀏覽器需要按「開始」後才會播放。</div>
-      <div class="credits">自然聲來源：BigSoundBank / Joseph SARDIN，CC0 Public Domain。</div>
-    </div>
-  </section>
+  <div class="remember-banner" id="memorySummary"></div>
+  <div class="search-wrap"><span class="search-icon">⌕</span><input id="memorySearch" placeholder="搜尋名稱、地點、原因…" oninput="renderMemories()"></div>
+  <div class="chips" id="memoryFilters"></div>
+  <div id="memoriesList"></div>
+</section>
 </div>
 
-<audio id="ambientAudio" loop preload="none"></audio>
 <div class="toast" id="toast"></div>
-
 <script>
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
 const safeParse=(v,f)=>{try{return JSON.parse(v)??f}catch{return f}};
 const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 function esc(v=""){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
-function safeUrl(v=""){
-  let x=String(v).trim(); if(!x)return "";
-  if(!/^https?:\/\//i.test(x))x="https://"+x;
-  try{const u=new URL(x);return ["http:","https:"].includes(u.protocol)?u.href:""}catch{return ""}
-}
-function toast(msg){
-  const t=$("toast");t.textContent=msg;t.classList.add("show");
-  clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove("show"),1800)
-}
-function toggleForm(id,force){
-  const el=$(id), open=typeof force==="boolean"?force:!el.classList.contains("open");
-  el.classList.toggle("open",open);
-  if(open)setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"nearest"}),30)
-}
-function dateText(s){
-  if(!s)return "";
-  const d=new Date(s+"T00:00:00");
-  return Number.isNaN(d.getTime())?s:new Intl.DateTimeFormat("zh-TW",{year:"numeric",month:"long",day:"numeric"}).format(d)
-}
-function daysLeft(s){
-  const target=new Date(s+"T00:00:00"), now=new Date(), today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-  return Number.isNaN(target.getTime())?0:Math.ceil((target-today)/86400000)
-}
+function safeUrl(v=""){let x=String(v).trim();if(!x)return "";if(!/^https?:\/\//i.test(x))x="https://"+x;try{const u=new URL(x);return ["http:","https:"].includes(u.protocol)?u.href:""}catch{return ""}}
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove("show"),1800)}
+function toggleForm(id,force){const el=$(id),open=typeof force==="boolean"?force:!el.classList.contains("open");el.classList.toggle("open",open);if(open)setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"nearest"}),30)}
+function dateText(s){if(!s)return "";const d=new Date(s+"T00:00:00");return Number.isNaN(d.getTime())?s:new Intl.DateTimeFormat("zh-TW",{year:"numeric",month:"long",day:"numeric"}).format(d)}
+function daysLeft(s){const target=new Date(s+"T00:00:00"),now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());return Number.isNaN(target.getTime())?0:Math.ceil((target-today)/86400000)}
 $("today").textContent=new Intl.DateTimeFormat("zh-TW",{month:"long",day:"numeric"}).format(new Date());
 
-function switchMode(mode,btn){
-  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-  document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
-  $(mode+"Mode").classList.add("active");btn?.classList.add("active");
-  if(mode==="memories")renderMemories();
-  if(mode!=="calm"&&calmRunning)stopCalm(false);
-  window.scrollTo({top:0,behavior:"smooth"})
-}
+function switchMode(mode,btn){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));$(mode+"Mode").classList.add("active");btn?.classList.add("active");if(mode==="memories")renderMemories();window.scrollTo({top:0,behavior:"smooth"})}
 
-/* Quotes */
-const quotes=[
- ["有些美好正在路上。","Some beautiful things are on their way."],
- ["把想念留成一件值得期待的事。","Give longing somewhere gentle to go."],
- ["喜歡的事，不一定要一個人完成。","Some things feel better together."],
- ["你曾經為它心動過。","You saved it for a reason."],
- ["今天也可以先陪陪自己。","You can stay with yourself today."]
-];
-let quoteIndex=Math.floor(Date.now()/86400000)%quotes.length;
-let favorites=safeParse(localStorage.getItem("closerFavorites"),[]);
-function showQuote(){$("quote").textContent=quotes[quoteIndex][0];$("quoteEn").textContent=quotes[quoteIndex][1]}
-function newQuote(){quoteIndex=(quoteIndex+1)%quotes.length;showQuote()}
+/* 144 supportive notes. Shuffle-bag: no repeat until all have been shown. */
+const quotes=["今天只做到能做到的，也算有在照顧自己。", "如果今天比較慢，那就讓今天慢一點。", "你不必把每一分鐘都變得有用。", "有些休息不是停下來，而是在把自己接回來。", "今天可以不用證明什麼。", "累的時候，把標準放低一點也可以。", "你可以先照顧眼前這一小步。", "不需要一次把所有事情整理好。", "有些日子，平穩地過完就已經足夠。", "你可以把今天留得鬆一點。", "慢下來，不代表你離想去的地方更遠。", "現在的你，不需要趕上任何人的速度。", "有些答案不用現在就找到。", "不知道下一步是什麼，也是一個可以停留的位置。", "你可以一邊不確定，一邊繼續生活。", "事情還沒明朗，不代表你做錯了。", "你不需要為還沒發生的事先準備好所有答案。", "有時候，先知道自己不想要什麼也很有用。", "不確定的時候，先選一個對自己比較溫柔的方向。", "有些決定值得多放一會兒。", "現在還看不清楚，也不需要勉強自己看懂。", "你可以保留改變心意的空間。", "沒有立刻做決定，也是一種決定。", "未完成的想法，可以先被好好放著。", "你已經在做一些讓事情往前走的事。", "小小的進展，也是真正的進展。", "你願意再試一次，本身就很有力量。", "今天完成的這一點，值得被算進去。", "你不需要做到完美，才算有努力。", "有些改變，是很多個很小的選擇累積起來的。", "你正在練習把注意力放回自己能做的地方。", "能重新開始，不代表前面都白費了。", "你不必用辛苦來證明一件事值得。", "願意調整方法，也是一種能力。", "你走過的路，已經讓現在的你多了一些選擇。", "先做得到的，再決定下一步。", "事情沒有照預期發生，不等於你不夠好。", "一次不順，不需要變成對自己的判決。", "你可以對失望誠實，也不用因此否定全部。", "今天不好過，不代表每一天都會一樣。", "有些退後，只是在重新找位置。", "不喜歡現在的狀態，不代表你必須立刻改掉它。", "你可以承認這件事真的很難。", "失望有它的位置，不需要趕著把它變正面。", "做不到原本預計的，也可以重新安排。", "你可以把失敗看成資訊，而不是身份。", "有些事情需要第二次、第三次，甚至更多次。", "你不是每一次都要表現得很堅強。", "如果是你很在乎的人遇到這件事，你大概不會對他那麼苛刻。", "你也值得收到自己比較溫柔的語氣。", "今天可以少責怪自己一點。", "你不需要先變得更好，才值得被好好對待。", "對自己寬一點，不會讓你失去前進的能力。", "你可以不喜歡一件事，同時不攻擊自己。", "把批評換成描述，事情有時會清楚很多。", "你可以先問自己：現在真正需要的是什麼？", "不必每次都把問題變成自己的問題。", "對自己好一點，不需要任何理由。", "你可以讓自己的感受存在，而不是立刻糾正它。", "今天的你也值得被放在自己的考量裡。", "真正重要的關係，不需要每一刻都很精彩。", "有時候，陪伴只是記得對方說過的一件小事。", "想念不一定要立刻被解決。", "靠近一個人，也可以保留自己的空間。", "你可以在乎別人，同時不把自己放到最後。", "好的關係容得下不同的步調。", "有些話晚一點說，仍然可以很真。", "不是每一次沉默都代表距離變遠。", "被理解很重要，理解自己也一樣。", "你可以選擇在關係裡說出真正需要的東西。", "有些靠近，是從好好聽見彼此開始。", "關係不是考試，不需要每題都答對。", "期待不是催促未來，而是替未來留一個位置。", "有些日子值得慢慢靠近。", "你正在等待的事情，也正在一天一天接近。", "把一件事放進期待裡，本身就很美。", "未來不必很盛大，值得期待就夠了。", "你可以為還沒發生的好事留一點空間。", "有些快樂，是從開始期待的那天就已經發生了。", "等待裡也可以有自己的生活。", "你不需要把所有希望都押在某一天。", "快到的日子，不用被安排得完美。", "期待可以很輕，不必變成壓力。", "有一件想見的人或想去的地方，已經讓日子多了一個方向。", "先回到現在，下一分鐘可以晚一點再想。", "今天真正需要處理的，也許沒有想像中那麼多。", "你可以只看眼前這件事。", "有時候把注意力收回來，事情就會安靜一點。", "現在這一刻，不需要同時容納整個未來。", "先把腳放在今天。", "你可以先完成最靠近自己的那件事。", "有些念頭只是經過，不一定需要跟著走。", "現在能做的，已經足以成為下一步。", "先讓今天有一個舒服的位置。", "你可以把還沒發生的事，先還給未來。", "此刻不用很特別，也值得被好好經過。", "你可以說不，也可以晚一點再回答。", "你的時間不是必須隨時提供給別人的東西。", "改變主意並不等於不可靠。", "你可以選擇哪些事情值得你的力氣。", "不是每一個期待都需要由你完成。", "你可以在乎一個人，也保留自己的界線。", "有些邀請可以拒絕，有些事情可以延後。", "你不需要為每個人的情緒負責。", "你的需求也可以出現在一段關係裡。", "先問自己願不願意，再問自己能不能。", "保留空間，有時候反而讓關係更靠近。", "你可以選擇不解釋那麼多。", "別人的進度，不需要變成你的期限。", "你看到的是別人的一段，不是他的全部。", "你的生活不需要長得像別人的才算成立。", "比較出現時，可以把注意力帶回自己的需要。", "你不必靠比別人快，證明自己走得對。", "有些成長很安靜，外面不一定看得見。", "你擁有的價值，不只出現在成果裡。", "今天沒有被看見的努力，仍然存在。", "你可以欣賞別人的生活，而不否定自己的。", "你的節奏可以沒有參考答案。", "值得的生活，不一定是最忙或最耀眼的那一種。", "你不需要一直成為更厲害的人，才能喜歡現在的自己。", "重新開始不需要等到一個完美的日期。", "今天也可以只是把一件事重新撿起來。", "停了一陣子，不代表你失去繼續的資格。", "回來就好，不用先解釋為什麼離開。", "新的做法可以從很小的地方開始。", "你可以保留以前學到的，再換一條路。", "重來不是歸零，你會帶著已經知道的事情一起走。", "沒有照計畫前進，也可以重新畫一條線。", "有些事情適合放下，有些事情適合再試一次。", "你可以從今天的狀態重新設定期待。", "重新整理，比硬撐原本的計畫更有用時，就值得調整。", "回到自己想要的方向，不需要一次走很遠。", "今天如果有一件小事讓你舒服了一點，可以讓它算數。", "一杯喜歡的飲料，也可以是今天的一個好地方。", "平凡的日子，不需要被填滿才有價值。", "生活有時候只是把幾件小事放回適合的位置。", "你可以為一個很小的喜歡停一下。", "好吃的一餐、好看的天空、想見的人，都值得被記住。", "日子不一定要有大事件，才值得期待。", "你可以讓自己喜歡一些沒有用處的東西。", "有時候，舒服比效率更值得選。", "一個普通的晚上，也可以是你喜歡的生活。", "把喜歡的東西留在身邊，本身就是一種選擇。", "今天可以只是過生活，不必一直改善生活。", "你曾經為它心動過，所以把它留了下來。", "收藏的意義，不是擁有更多，而是在需要時找得回來。", "有些喜歡會被忘記，但不代表它當時不重要。", "你不需要現在決定什麼時候去，先記住就好。", "有些地方適合等到對的人、對的日子再出現。", "你留下的每一個小念頭，都可能成為某天的行程。", "不是所有收藏都要完成，留下喜歡本身也可以。", "以前的你替現在的你留了一些線索。", "有些記憶不是用來回頭，而是用來幫未來做選擇。", "當你真的要出發時，再看看以前的自己喜歡過什麼。", "你可以把記得這件事交給 Closer，把生活留給自己。", "那些差點被忘記的喜歡，也值得有地方安放。"];
+let favorites=safeParse(localStorage.getItem("closerFavoritesV5"),[]);
+let quoteBag=safeParse(localStorage.getItem("closerQuoteBagV5"),[]);
+let currentQuote="";
+function shuffledIndexes(){
+  const a=Array.from({length:quotes.length},(_,i)=>i);
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
+  const last=Number(localStorage.getItem("closerLastQuoteIndexV5"));
+  if(a.length>1&&Number.isInteger(last)&&a[a.length-1]===last)[a[a.length-1],a[a.length-2]]=[a[a.length-2],a[a.length-1]];
+  return a
+}
+function newQuote(){
+  if(!Array.isArray(quoteBag)||!quoteBag.length)quoteBag=shuffledIndexes();
+  const idx=quoteBag.pop();save("closerQuoteBagV5",quoteBag);localStorage.setItem("closerLastQuoteIndexV5",String(idx));
+  currentQuote=quotes[idx];$("quote").textContent=currentQuote;$("quoteMeta").textContent=`A LITTLE NOTE · ${quotes.length-quoteBag.length} / ${quotes.length}`
+}
 function favoriteQuote(){
-  const q=quotes[quoteIndex];
-  if(!favorites.some(x=>Array.isArray(x)&&x[0]===q[0])){favorites.push(q);save("closerFavorites",favorites);toast("已收藏 ♡")}
-  else toast("這句已經收藏過了")
+  if(!currentQuote)return;
+  if(!favorites.includes(currentQuote)){favorites.push(currentQuote);save("closerFavoritesV5",favorites);toast("已替你留下這句 ♡")}
+  else toast("這句已經留著了")
 }
-showQuote();
+newQuote();
 
-/* Memories data + migration */
+/* memory migration */
 function normalizeCategory(type=""){
-  const t=String(type);
-  if(/咖啡|餐廳|美食/.test(t))return "☕ 咖啡 / 餐廳";
-  if(/景點/.test(t))return "🌿 景點";
-  if(/住宿|飯店|酒店/.test(t))return "🏨 住宿";
-  if(/展覽/.test(t))return "🎨 展覽";
-  if(/購物/.test(t))return "🛍️ 購物";
-  if(/約會/.test(t))return "💕 約會";
-  if(/Podcast/i.test(t))return "🎙 Podcast";
-  if(/音樂|Music/i.test(t))return "🎵 音樂";
-  if(/電影|影集|Netflix/.test(t))return "🎬 電影 / 影集";
-  if(/影片|YouTube|TikTok/.test(t))return "▶️ 影片";
-  if(/Reels|貼文|Instagram|IG/.test(t))return "📷 貼文 / Reels";
-  if(/地點|地方/.test(t))return "📍 地點";
-  return "🔗 其他連結"
+ const t=String(type);
+ if(/書|book|goodreads|博客來|誠品/i.test(t))return "📚 書籍";
+ if(/咖啡|餐廳|美食/.test(t))return "☕ 咖啡 / 餐廳";
+ if(/景點/.test(t))return "🌿 景點";if(/住宿|飯店|酒店/.test(t))return "🏨 住宿";
+ if(/展覽|event|活動/.test(t))return "🎨 展覽";if(/購物/.test(t))return "🛍️ 購物";if(/約會/.test(t))return "💕 約會";
+ if(/Podcast/i.test(t))return "🎙 Podcast";if(/音樂|Music/i.test(t))return "🎵 音樂";
+ if(/電影|影集|Netflix/.test(t))return "🎬 電影 / 影集";if(/影片|YouTube|TikTok/.test(t))return "▶️ 影片";
+ if(/Reels|貼文|Instagram|IG/.test(t))return "📷 貼文 / Reels";if(/地點|地方/.test(t))return "📍 地點";
+ return "🔗 其他連結"
 }
-let memories=safeParse(localStorage.getItem("closerMemoriesV3"),null);
+let memories=safeParse(localStorage.getItem("closerMemoriesV5"),null);
 if(!Array.isArray(memories)){
-  memories=[];
-  const oldM=safeParse(localStorage.getItem("closerMemories"),[]);
-  const oldT=safeParse(localStorage.getItem("closerTogether"),[]);
-  const oldS=safeParse(localStorage.getItem("closerShares"),[]);
-  [...(Array.isArray(oldM)?oldM:[]),...(Array.isArray(oldT)?oldT:[]),...(Array.isArray(oldS)?oldS:[])].forEach(x=>{
-    memories.push({
-      id:"old_"+(x.id??Date.now()+Math.random()),
-      url:x.url||x.link||"",
-      category:normalizeCategory(x.category||x.type),
-      name:x.name||"",
-      location:x.location||x.city||x.source||"",
-      with:x.with||x.who||"",
-      reason:x.reason||x.note||"",
-      visited:!!x.visited,
-      linkedMomentId:x.linkedMomentId||"",
-      savedAt:x.savedAt||new Date().toLocaleDateString("zh-TW")
-    })
-  });
-  save("closerMemoriesV3",memories)
+ memories=[];
+ const sources=[
+  ...(safeParse(localStorage.getItem("closerMemoriesV3"),[])||[]),
+  ...(safeParse(localStorage.getItem("closerMemories"),[])||[]),
+  ...(safeParse(localStorage.getItem("closerTogether"),[])||[]),
+  ...(safeParse(localStorage.getItem("closerShares"),[])||[])
+ ];
+ const seen=new Set();
+ sources.forEach(x=>{
+  const key=String(x.url||x.link||"")+"|"+String(x.name||"");
+  if(seen.has(key))return;seen.add(key);
+  memories.push({id:x.id??("old_"+Date.now()+Math.random()),url:x.url||x.link||"",category:normalizeCategory(x.category||x.type),name:x.name||"",location:x.location||x.city||"",with:x.with||x.who||"",reason:x.reason||x.note||"",completed:!!(x.completed||x.visited),linkedMomentId:x.linkedMomentId||"",source:x.source||"",createdAt:x.createdAt||"",savedAt:x.savedAt||""})
+ });
+ save("closerMemoriesV5",memories)
 }
 
+const TAIWAN_AREAS=[
+ ["台北","台北"],["臺北","台北"],["taipei","台北"],["新北","新北"],["new taipei","新北"],["newtaipei","新北"],["基隆","基隆"],["keelung","基隆"],
+ ["桃園","桃園"],["taoyuan","桃園"],["新竹","新竹"],["hsinchu","新竹"],["苗栗","苗栗"],["miaoli","苗栗"],["台中","台中"],["臺中","台中"],["taichung","台中"],
+ ["彰化","彰化"],["changhua","彰化"],["南投","南投"],["nantou","南投"],["雲林","雲林"],["yunlin","雲林"],["嘉義","嘉義"],["chiayi","嘉義"],
+ ["台南","台南"],["臺南","台南"],["tainan","台南"],["高雄","高雄"],["kaohsiung","高雄"],["屏東","屏東"],["pingtung","屏東"],["宜蘭","宜蘭"],["yilan","宜蘭"],
+ ["花蓮","花蓮"],["hualien","花蓮"],["台東","台東"],["臺東","台東"],["taitung","台東"],["澎湖","澎湖"],["penghu","澎湖"],["金門","金門"],["kinmen","金門"],["馬祖","馬祖"],["matsu","馬祖"]
+];
+function cleanReadable(v=""){try{v=decodeURIComponent(v)}catch{}return String(v).replace(/[+_]/g," ").replace(/[-]+/g," ").replace(/\s+/g," ").trim()}
+function inferLocationFromText(text=""){const raw=cleanReadable(text),low=raw.toLowerCase();for(const [needle,label] of TAIWAN_AREAS)if(low.includes(String(needle).toLowerCase()))return label;const m=raw.match(/(台北市|臺北市|新北市|桃園市|台中市|臺中市|台南市|臺南市|高雄市|基隆市|新竹市|嘉義市|新竹縣|苗栗縣|彰化縣|南投縣|雲林縣|嘉義縣|屏東縣|宜蘭縣|花蓮縣|台東縣|臺東縣|澎湖縣|金門縣|連江縣)/);return m?m[1].replace("臺","台").replace(/[市縣]$/g,""):""}
+function extractGooglePlace(u){const m=u.pathname.match(/\/place\/([^/]+)/i);if(m)return cleanReadable(m[1]);for(const key of ["q","query","destination"]){const value=u.searchParams.get(key);if(value&&!/^[-+]?\d+(\.\d+)?\s*,\s*[-+]?\d+(\.\d+)?$/.test(value))return cleanReadable(value)}return ""}
+function readableSlugName(u){
+ const parts=u.pathname.split("/").filter(Boolean).reverse();
+ for(const part of parts){const x=cleanReadable(part.replace(/\.html?$/i,""));if(x.length>=4&&!/^\d+$/.test(x)&&!/^[a-f0-9-]{16,}$/i.test(x))return x}
+ return ""
+}
 function detectLink(raw){
-  const url=safeUrl(raw); if(!url)return null;
-  let u;try{u=new URL(url)}catch{return null}
-  const host=u.hostname.replace(/^www\./,"").toLowerCase(), path=u.pathname.toLowerCase();
-  let r={category:"🔗 其他連結",icon:"🔗",label:"一般連結",source:host,url,host,guessedName:""};
-  if(host.includes("instagram.com"))r={...r,category:"📷 貼文 / Reels",icon:"📷",label:path.includes("/reel")?"Instagram Reels":"Instagram 貼文",source:"Instagram"};
-  else if(host.includes("tiktok.com"))r={...r,category:"▶️ 影片",icon:"▶️",label:"TikTok 影片",source:"TikTok"};
-  else if(host.includes("youtube.com")||host==="youtu.be")r={...r,category:"▶️ 影片",icon:"▶️",label:"YouTube 影片",source:"YouTube"};
-  else if(host.includes("spotify.com")){
-    r={...r,category:(path.includes("/episode")||path.includes("/show"))?"🎙 Podcast":"🎵 音樂",icon:(path.includes("/episode")||path.includes("/show"))?"🎙":"🎵",label:(path.includes("/episode")||path.includes("/show"))?"Spotify Podcast":"Spotify 音樂",source:"Spotify"};
-  }
-  else if(host.includes("netflix.com")||host.includes("disneyplus.com")||host.includes("primevideo.com"))r={...r,category:"🎬 電影 / 影集",icon:"🎬",label:"電影 / 影集",source:host.includes("netflix")?"Netflix":host.includes("disney")?"Disney+":"Prime Video"};
-  else if(host.includes("booking.com")||host.includes("agoda.com")||host.includes("airbnb."))r={...r,category:"🏨 住宿",icon:"🏨",label:"住宿",source:host};
-  else if(host.includes("maps.google.")||(host.includes("google.")&&path.includes("/maps"))||host==="maps.app.goo.gl"){
-    r={...r,category:"📍 地點",icon:"📍",label:"Google Maps 地點",source:"Google Maps"};
-    const m=u.pathname.match(/\/place\/([^/]+)/i);
-    if(m){try{r.guessedName=decodeURIComponent(m[1].replace(/\+/g," ")).trim()}catch{}}
-  }
-  else if(/klook|kkday/.test(host))r={...r,category:"🌿 景點",icon:"🌿",label:"行程 / 景點",source:host};
-  return r
+ const url=safeUrl(raw);if(!url)return null;let u;try{u=new URL(url)}catch{return null}
+ const host=u.hostname.replace(/^www\./,"").toLowerCase(),path=u.pathname.toLowerCase(),readable=cleanReadable(`${u.pathname} ${u.search} ${u.hash}`);
+ let r={category:"🔗 其他連結",icon:"🔗",label:"一般連結",source:host,url,host,guessedName:"",guessedLocation:inferLocationFromText(readable)};
+ if(host.includes("instagram.com"))r={...r,category:"📷 貼文 / Reels",icon:"📷",label:path.includes("/reel")?"Instagram Reels":"Instagram 貼文",source:"Instagram"};
+ else if(host.includes("tiktok.com"))r={...r,category:"▶️ 影片",icon:"▶️",label:"TikTok 影片",source:"TikTok"};
+ else if(host.includes("youtube.com")||host==="youtu.be")r={...r,category:"▶️ 影片",icon:"▶️",label:"YouTube 影片",source:"YouTube"};
+ else if(host.includes("spotify.com"))r={...r,category:(path.includes("/episode")||path.includes("/show"))?"🎙 Podcast":"🎵 音樂",icon:(path.includes("/episode")||path.includes("/show"))?"🎙":"🎵",label:(path.includes("/episode")||path.includes("/show"))?"Spotify Podcast":"Spotify 音樂",source:"Spotify"};
+ else if(host.includes("netflix.com")||host.includes("disneyplus.com")||host.includes("primevideo.com"))r={...r,category:"🎬 電影 / 影集",icon:"🎬",label:"電影 / 影集",source:host.includes("netflix")?"Netflix":host.includes("disney")?"Disney+":"Prime Video"};
+ else if(/books\.com\.tw|goodreads\.com|eslite\.com|bookwalker|readmoo|kobo/.test(host)){r={...r,category:"📚 書籍",icon:"📚",label:"書籍",source:host.includes("books.com.tw")?"博客來":host.includes("goodreads")?"Goodreads":host.includes("eslite")?"誠品":host.includes("readmoo")?"Readmoo":host.includes("kobo")?"Kobo":"電子書"};r.guessedName=readableSlugName(u)}
+ else if(/opentix|accupass|kktix/.test(host)){r={...r,category:"🎨 展覽",icon:"🎨",label:"展覽 / 活動",source:host.includes("opentix")?"OPENTIX":host.includes("accupass")?"ACCUPASS":"KKTIX"};r.guessedName=readableSlugName(u)}
+ else if(host.includes("booking.com")||host.includes("agoda.com")||host.includes("airbnb.")){r={...r,category:"🏨 住宿",icon:"🏨",label:"住宿",source:host.includes("booking")?"Booking.com":host.includes("agoda")?"Agoda":"Airbnb"};const h=u.pathname.match(/\/hotel\/[^/]+\/([^/.]+)/i);if(h)r.guessedName=cleanReadable(h[1])}
+ else if(host.includes("maps.google.")||(host.includes("google.")&&path.includes("/maps"))||host==="maps.app.goo.gl"){r={...r,category:"📍 地點",icon:"📍",label:host==="maps.app.goo.gl"?"Google Maps 短連結":"Google Maps 地點",source:"Google Maps"};r.guessedName=extractGooglePlace(u);r.guessedLocation=inferLocationFromText(`${readable} ${r.guessedName}`)||r.guessedLocation}
+ else if(/klook|kkday/.test(host))r={...r,category:"🌿 景點",icon:"🌿",label:"行程 / 景點",source:host.includes("klook")?"Klook":"KKday",guessedName:readableSlugName(u)};
+ if(!r.guessedLocation)r.guessedLocation=inferLocationFromText(`${readable} ${r.guessedName}`);
+ return r
 }
 function showDetected(prefix,r){
-  const quick=prefix==="quick",box=$(quick?"quickDetected":"detectedBox");
-  if(!r){box.classList.remove("show");return}
-  $(quick?"quickIcon":"detectedIcon").textContent=r.icon;
-  $(quick?"quickTitle":"detectedTitle").textContent=r.label;
-  $(quick?"quickHost":"detectedHost").textContent=r.source;
-  box.classList.add("show")
+ const quick=prefix==="quick",box=$(quick?"quickDetected":"detectedBox");
+ if(!r){box.classList.remove("show");return}
+ $(quick?"quickIcon":"detectedIcon").textContent=r.icon;$(quick?"quickTitle":"detectedTitle").textContent=r.label;
+ $(quick?"quickHost":"detectedHost").textContent=[r.source,r.guessedLocation?`📍 ${r.guessedLocation}`:""].filter(Boolean).join(" · ");box.classList.add("show");
+ if(!quick){
+  $("locationStatus").textContent=r.guessedLocation?`✓ 已從網址判斷地點：${r.guessedLocation}`:r.host==="maps.app.goo.gl"?"Google Maps 短連結本身沒有店名／地址；完整 Maps 連結能判斷更多。":r.source==="Instagram"?"Instagram 網址通常只有貼文 ID；純 GitHub 頁面無法讀取貼文內容，因此地點可能需要補一次。":"網址裡沒有足夠地點資訊；如果這不是地點類收藏，可以直接略過。"
+ }
 }
 function previewQuickLink(){showDetected("quick",detectLink($("quickUrl").value))}
-function openMemoryFromQuick(){
-  const r=detectLink($("quickUrl").value);if(!r){toast("先貼上一個網址");return}
-  $("memoryUrl").value=r.url;$("memoryCategory").value=r.category;
-  if(r.guessedName)$("memoryName").value=r.guessedName;
-  showDetected("full",r);toggleForm("memoryForm",true)
-}
-function detectMemoryLink(){
-  const r=detectLink($("memoryUrl").value);showDetected("full",r);
-  if(r){$("memoryCategory").value=r.category;if(!$("memoryName").value.trim()&&r.guessedName)$("memoryName").value=r.guessedName}
-}
+function applyDetectedMemory(r){if(!r)return;$("memoryCategory").value=r.category;if(!$("memoryName").value.trim()&&r.guessedName)$("memoryName").value=r.guessedName;if(!$("memoryLocation").value.trim()&&r.guessedLocation)$("memoryLocation").value=r.guessedLocation;showDetected("full",r);updateLocationField()}
+function openMemoryFromQuick(){const r=detectLink($("quickUrl").value);if(!r){toast("先貼上一個網址");return}$("memoryUrl").value=r.url;applyDetectedMemory(r);toggleForm("memoryForm",true)}
+function detectMemoryLink(){applyDetectedMemory(detectLink($("memoryUrl").value))}
+const placeLike=new Set(["☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","🛍️ 購物","💕 約會","📍 地點"]);
+function updateLocationField(){const isPlace=placeLike.has($("memoryCategory").value);$("locationFields").classList.toggle("hidden",!isPlace)}
 function saveMemory(){
-  const r=detectLink($("memoryUrl").value);if(!r){toast("請貼上一個有效網址");return}
-  const category=$("memoryCategory").value, location=$("memoryLocation").value.trim();
-  const name=$("memoryName").value.trim()||r.guessedName||r.label;
-  memories.unshift({
-    id:Date.now(),url:r.url,category,name,location,with:$("memoryWith").value,
-    reason:$("memoryReason").value.trim(),visited:false,linkedMomentId:"",
-    source:r.source,savedAt:new Date().toLocaleDateString("zh-TW")
-  });
-  save("closerMemoriesV3",memories);
-  ["quickUrl","memoryUrl","memoryName","memoryLocation","memoryReason"].forEach(id=>$(id).value="");
-  $("quickDetected").classList.remove("show");$("detectedBox").classList.remove("show");
-  toggleForm("memoryForm",false);renderMemories();renderMoments();toast("Closer 幫你記住了 🧠")
+ const r=detectLink($("memoryUrl").value);if(!r){toast("請貼上一個有效網址");return}
+ memories.unshift({id:Date.now(),url:r.url,category:$("memoryCategory").value,name:$("memoryName").value.trim()||r.guessedName||r.label,location:$("memoryLocation").value.trim(),with:$("memoryWith").value,reason:$("memoryReason").value.trim(),completed:false,linkedMomentId:"",source:r.source,createdAt:new Date().toISOString(),savedAt:new Date().toLocaleDateString("zh-TW")});
+ save("closerMemoriesV5",memories);["quickUrl","memoryUrl","memoryName","memoryLocation","memoryReason"].forEach(id=>$(id).value="");$("quickDetected").classList.remove("show");$("detectedBox").classList.remove("show");toggleForm("memoryForm",false);renderMemories();renderMoments();toast("Closer 幫你記住了 🧠")
 }
-function deleteMemory(id){
-  memories=memories.filter(x=>String(x.id)!==String(id));save("closerMemoriesV3",memories);renderMemories();renderMoments()
+function deleteMemory(id){memories=memories.filter(x=>String(x.id)!==String(id));save("closerMemoriesV5",memories);renderMemories();renderMoments()}
+function statusLabels(category,done){
+ if(category==="📚 書籍")return done?["已讀","↩ 還沒讀"]:["想讀","✓ 讀完了"];
+ if(category==="🎙 Podcast"||category==="🎵 音樂")return done?["聽過","↩ 還沒聽"]:["想聽","✓ 聽過了"];
+ if(category==="🎬 電影 / 影集"||category==="▶️ 影片")return done?["看過","↩ 還沒看"]:["想看","✓ 看過了"];
+ return done?["✓ 已去過","↩ 還沒去"]:["想去","✓ 去過了"]
 }
-function toggleVisited(id){
-  const x=memories.find(m=>String(m.id)===String(id));if(!x)return;
-  x.visited=!x.visited;if(x.visited)x.linkedMomentId="";
-  save("closerMemoriesV3",memories);renderMemories();renderMoments();
-  toast(x.visited?"記成去過了 ✓":"放回想去清單")
-}
-function openMemory(id){
-  const x=memories.find(m=>String(m.id)===String(id)),u=safeUrl(x?.url||"");if(u)window.open(u,"_blank","noopener,noreferrer")
-}
+function toggleCompleted(id){const x=memories.find(m=>String(m.id)===String(id));if(!x)return;x.completed=!x.completed;if(x.completed)x.linkedMomentId="";save("closerMemoriesV5",memories);renderMemories();renderMoments();toast(x.completed?"已幫你更新 ✓":"放回待完成清單")}
+function openMemory(id){const x=memories.find(m=>String(m.id)===String(id)),u=safeUrl(x?.url||"");if(u)window.open(u,"_blank","noopener,noreferrer")}
 let memoryFilter="全部";
-const memoryCategories=["全部","☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","🛍️ 購物","💕 約會","🎙 Podcast","🎵 音樂","🎬 電影 / 影集","▶️ 影片","📷 貼文 / Reels","📍 地點","🔗 其他連結"];
+const memoryCategories=["全部","☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","📚 書籍","🛍️ 購物","💕 約會","🎙 Podcast","🎵 音樂","🎬 電影 / 影集","▶️ 影片","📷 貼文 / Reels","📍 地點","🔗 其他連結","✓ 已完成"];
 function setMemoryFilter(v){memoryFilter=v;renderMemories()}
 function renderMemories(){
-  const existing=new Set(memories.map(x=>x.category));
-  $("memoryFilters").innerHTML=memoryCategories.filter(x=>x==="全部"||existing.has(x)).map(x=>`<button class="chip ${memoryFilter===x?"active":""}" onclick="setMemoryFilter('${x.replace(/'/g,"\\'")}')">${esc(x)}</button>`).join("");
-  const locations=[...new Set(memories.map(x=>x.location).filter(Boolean))];
-  $("memorySummary").innerHTML=memories.length
-    ? `你目前有 <strong>${memories.filter(x=>!x.visited).length}</strong> 個還沒完成的收藏${locations.length?`，分散在 <strong>${locations.length}</strong> 個地點／區域。`:"。"}<br><span style="color:#8d8981">Closer 不急著提醒，等真正有行程時再把它們找回來。</span>`
-    : `還沒有 Memories。下一次看到讓你心動的地方，先貼網址進來。`;
-  const list=memoryFilter==="全部"?memories:memories.filter(x=>x.category===memoryFilter);
-  $("memoriesList").innerHTML=list.length?list.map(x=>`
-    <div class="memory-card">
-      <div class="memory-head">
-        <div>
-          <div class="memory-type">${esc(x.category)} <span class="status-pill">${x.visited?"✓ 已去過":"想去"}</span></div>
-          <div class="memory-name">${esc(x.name||"收藏連結")}</div>
-          <div class="memory-meta">${esc(x.source||"")}${x.source?" · ":""}${esc(x.with||"")}</div>
-          ${x.location?`<div class="location-pill">📍 ${esc(x.location)}</div>`:""}
-        </div>
-      </div>
-      ${x.reason?`<div class="note">「${esc(x.reason)}」</div>`:""}
-      <div class="actions">
-        ${safeUrl(x.url)?`<button onclick="openMemory('${esc(x.id)}')">↗ 打開</button>`:""}
-        <button onclick="toggleVisited('${esc(x.id)}')">${x.visited?"↩ 還沒去":"✓ 去過了"}</button>
-        <button class="danger" onclick="deleteMemory('${esc(x.id)}')">×</button>
-      </div>
-    </div>`).join(""):`<div class="card"><div class="empty">這個分類還沒有收藏。</div></div>`
+ const existing=new Set(memories.map(x=>x.category));$("memoryFilters").innerHTML=memoryCategories.filter(x=>x==="全部"||x==="✓ 已完成"||existing.has(x)).map(x=>`<button class="chip ${memoryFilter===x?"active":""}" onclick="setMemoryFilter('${x.replace(/'/g,"\\'")}')">${esc(x)}</button>`).join("");
+ const locations=[...new Set(memories.filter(x=>!x.completed).map(x=>x.location).filter(Boolean))],pending=memories.filter(x=>!x.completed).length;
+ $("memorySummary").innerHTML=memories.length?`你有 <strong>${pending}</strong> 個還想完成的 Memories${locations.length?`，其中有 <strong>${locations.length}</strong> 個地點／區域可以在未來行程時重新找回。`:"。"}<br><span style="color:#8d8981">收藏不用立刻完成。Closer 的工作，是讓它在對的時間重新出現。</span>`:`還沒有 Memories。下一次看到讓你心動的東西，先留在這裡。`;
+ const q=($("memorySearch")?.value||"").trim().toLowerCase();
+ let list=memoryFilter==="✓ 已完成"?memories.filter(x=>x.completed):memoryFilter==="全部"?memories:memories.filter(x=>x.category===memoryFilter);
+ if(q)list=list.filter(x=>[x.name,x.location,x.reason,x.category,x.source,x.with].some(v=>String(v||"").toLowerCase().includes(q)));
+ $("memoriesList").innerHTML=list.length?list.map(x=>{
+   const [status,action]=statusLabels(x.category,x.completed);
+   return `<div class="memory-card">
+    <div class="memory-head"><div>
+      <div class="memory-type">${esc(x.category)} <span class="status-pill">${esc(status)}</span></div>
+      <div class="memory-name">${esc(x.name||"收藏連結")}</div>
+      <div class="memory-meta">${esc(x.source||"")}${x.source?" · ":""}${esc(x.with||"")}</div>
+      ${x.location?`<div class="location-pill">📍 ${esc(x.location)}</div>`:""}
+    </div></div>
+    ${x.reason?`<div class="note">當時你寫：「${esc(x.reason)}」</div>`:""}
+    <div class="actions">${safeUrl(x.url)?`<button onclick="openMemory('${esc(x.id)}')">↗ 打開</button>`:""}<button onclick="toggleCompleted('${esc(x.id)}')">${esc(action)}</button><button class="danger" onclick="deleteMemory('${esc(x.id)}')">×</button></div>
+   </div>`}).join(""):`<div class="card"><div class="empty">${q?"沒有找到符合的 Memory。":"這個分類還沒有收藏。"}</div></div>`
 }
 
 /* Moments */
-let moments=safeParse(localStorage.getItem("closerMomentsV2"),null);
-if(!Array.isArray(moments)){
-  const old=safeParse(localStorage.getItem("closerCountdowns"),[]);
-  moments=Array.isArray(old)?old.map(x=>({id:x.id??Date.now()+Math.random(),name:x.name||"",date:x.date||"",with:x.with||x.who||"",location:x.location||""})):[];
-  save("closerMomentsV2",moments)
-}
-function addMoment(){
-  const name=$("momentName").value.trim(),date=$("momentDate").value;
-  if(!name||!date){toast("請輸入名稱和日期");return}
-  moments.push({id:Date.now(),name,date,with:$("momentWith").value,location:$("momentLocation").value.trim()});
-  save("closerMomentsV2",moments);
-  ["momentName","momentDate","momentLocation"].forEach(id=>$(id).value="");
-  toggleForm("momentForm",false);renderMoments();toast("Moment 建立好了 ⏳")
-}
-function deleteMoment(id){
-  moments=moments.filter(x=>String(x.id)!==String(id));
-  memories.forEach(m=>{if(String(m.linkedMomentId)===String(id))m.linkedMomentId=""});
-  save("closerMomentsV2",moments);save("closerMemoriesV3",memories);renderMoments()
-}
-function normalizeText(s=""){return String(s).trim().toLowerCase().replace(/\s+/g,"")}
+let moments=safeParse(localStorage.getItem("closerMomentsV2"),[]);
+if(!Array.isArray(moments))moments=[];
+function addMoment(){const name=$("momentName").value.trim(),date=$("momentDate").value;if(!name||!date){toast("請輸入名稱和日期");return}moments.push({id:Date.now(),name,date,with:$("momentWith").value,location:$("momentLocation").value.trim()});save("closerMomentsV2",moments);["momentName","momentDate","momentLocation"].forEach(id=>$(id).value="");toggleForm("momentForm",false);renderMoments();toast("Moment 建立好了 ⏳")}
+function deleteMoment(id){moments=moments.filter(x=>String(x.id)!==String(id));memories.forEach(m=>{if(String(m.linkedMomentId)===String(id))m.linkedMomentId=""});save("closerMomentsV2",moments);save("closerMemoriesV5",memories);renderMoments()}
+function norm(s=""){return String(s).trim().toLowerCase().replace(/\s+/g,"")}
+const momentFriendly=new Set(["☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","🛍️ 購物","💕 約會","🎬 電影 / 影集","📍 地點"]);
 function suggestionsFor(moment){
-  const loc=normalizeText(moment.location),who=moment.with;
-  let candidates=memories.filter(m=>!m.visited&&!m.linkedMomentId);
-  if(who)candidates=candidates.filter(m=>!m.with||m.with===who||m.with==="👥 一起");
-  if(loc){
-    const local=candidates.filter(m=>normalizeText(m.location).includes(loc)||loc.includes(normalizeText(m.location)));
-    if(local.length)candidates=local
-  }
-  return candidates.slice(0,4)
+ let candidates=memories.filter(m=>!m.completed&&!m.linkedMomentId&&momentFriendly.has(m.category));
+ const who=moment.with,loc=norm(moment.location);
+ if(who)candidates=candidates.filter(m=>!m.with||m.with===who||m.with==="👥 一起");
+ const scored=candidates.map(m=>{let score=0;const ml=norm(m.location);if(loc&&ml)score+=(ml.includes(loc)||loc.includes(ml))?6:-1;if(m.with===who)score+=3;if(m.reason)score+=1;if(m.category==="🎨 展覽")score+=1;return {m,score}});
+ return scored.filter(x=>!loc||x.score>=5).sort((a,b)=>b.score-a.score).slice(0,4).map(x=>x.m)
 }
-function linkToMoment(memoryId,momentId){
-  const m=memories.find(x=>String(x.id)===String(memoryId));if(!m)return;
-  m.linkedMomentId=momentId;save("closerMemoriesV3",memories);renderMoments();renderMemories();toast("加入這次行程了 ♡")
-}
-function unlinkFromMoment(memoryId){
-  const m=memories.find(x=>String(x.id)===String(memoryId));if(!m)return;
-  m.linkedMomentId="";save("closerMemoriesV3",memories);renderMoments();renderMemories()
-}
+function linkToMoment(memoryId,momentId){const m=memories.find(x=>String(x.id)===String(memoryId));if(!m)return;m.linkedMomentId=momentId;save("closerMemoriesV5",memories);renderMoments();renderMemories();toast("加入這次了 ♡")}
+function unlinkFromMoment(memoryId){const m=memories.find(x=>String(x.id)===String(memoryId));if(!m)return;m.linkedMomentId="";save("closerMemoriesV5",memories);renderMoments();renderMemories()}
 function renderSmartRecall(upcoming){
-  const box=$("smartRecall");
-  if(!upcoming){box.innerHTML="";return}
-  const days=Math.max(daysLeft(upcoming.date),0), sug=suggestionsFor(upcoming);
-  const linked=memories.filter(m=>String(m.linkedMomentId)===String(upcoming.id)&&!m.visited);
-  if(!sug.length&&!linked.length){box.innerHTML="";return}
-  const context=upcoming.location?`你以前存過一些和「${esc(upcoming.location)}」有關的地方。`:`你以前存過一些想和 ${esc(upcoming.with||"重要的人")} 一起做的事。`;
-  box.innerHTML=`
-    <div class="smart-card">
-      <div class="eyebrow" style="color:#aaa">CLOSER REMEMBERS</div>
-      <div class="smart-title">${days<=7?"快到了。要不要把一個收藏變成真的？":"先替這次見面留一點靈感。"}</div>
-      <div class="smart-sub">${context}<br>${days} 天後，就是「${esc(upcoming.name)}」。</div>
-      ${sug.map(m=>`
-        <div class="suggestion">
-          <div class="suggestion-name">${esc(m.name||"收藏連結")}</div>
-          <div class="suggestion-meta">${esc(m.category)}${m.location?" · 📍 "+esc(m.location):""}${m.reason?" · 「"+esc(m.reason)+"」":""}</div>
-          <div class="suggestion-actions">
-            <button onclick="linkToMoment('${esc(m.id)}','${esc(upcoming.id)}')">＋ 加入這次</button>
-            <button onclick="openMemory('${esc(m.id)}')">看看</button>
-          </div>
-        </div>`).join("")}
-      ${linked.length?`<div class="linked-label">ALREADY FOR THIS MOMENT</div>${linked.map(m=>`
-        <div class="suggestion">
-          <div class="suggestion-name">✓ ${esc(m.name)}</div>
-          <div class="suggestion-meta">${esc(m.category)}${m.location?" · 📍 "+esc(m.location):""}</div>
-          <div class="suggestion-actions"><button onclick="openMemory('${esc(m.id)}')">打開</button><button onclick="unlinkFromMoment('${esc(m.id)}')">移除</button></div>
-        </div>`).join("")}`:""}
-    </div>`
+ const box=$("smartRecall");if(!upcoming){box.innerHTML="";return}
+ const days=Math.max(daysLeft(upcoming.date),0),sug=suggestionsFor(upcoming),linked=memories.filter(m=>String(m.linkedMomentId)===String(upcoming.id)&&!m.completed);
+ if(!sug.length&&!linked.length){box.innerHTML="";return}
+ const context=upcoming.location?`你以前留過一些和「${esc(upcoming.location)}」有關的地方。`:`你以前留過一些想和 ${esc(upcoming.with||"重要的人")} 一起做的事。`;
+ box.innerHTML=`<div class="smart-card">
+   <div class="eyebrow" style="color:#aaa">CLOSER REMEMBERS</div>
+   <div class="smart-title">${days<=7?"快到了。如果你正在想這次可以做什麼，這些也許剛好。":"不用現在決定，先把以前喜歡過的東西放在手邊。"}</div>
+   <div class="smart-sub">${context}<br>${days} 天後，就是「${esc(upcoming.name)}」。</div>
+   ${sug.map(m=>`<div class="suggestion"><div class="suggestion-name">${esc(m.name||"收藏連結")}</div><div class="suggestion-meta">${esc(m.category)}${m.location?" · 📍 "+esc(m.location):""}${m.reason?" · 「"+esc(m.reason)+"」":""}</div><div class="suggestion-actions"><button onclick="linkToMoment('${esc(m.id)}','${esc(upcoming.id)}')">＋ 加入這次</button><button onclick="openMemory('${esc(m.id)}')">看看</button></div></div>`).join("")}
+   ${linked.length?`<div class="linked-label">FOR THIS MOMENT</div>${linked.map(m=>`<div class="suggestion"><div class="suggestion-name">✓ ${esc(m.name)}</div><div class="suggestion-meta">${esc(m.category)}${m.location?" · 📍 "+esc(m.location):""}</div><div class="suggestion-actions"><button onclick="openMemory('${esc(m.id)}')">打開</button><button onclick="unlinkFromMoment('${esc(m.id)}')">移除</button></div></div>`).join("")}`:""}
+ </div>`
 }
 function renderMoments(){
-  const future=moments.filter(x=>x.date&&daysLeft(x.date)>=0).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
-  const hero=future[0]||moments.filter(x=>x.date).slice().sort((a,b)=>new Date(a.date)-new Date(b.date))[0];
-  if(hero){
-    $("heroNumber").textContent=Math.max(daysLeft(hero.date),0);
-    $("heroName").textContent=hero.name;
-    $("heroDate").textContent=[hero.with,hero.location?`📍 ${hero.location}`:"",dateText(hero.date)].filter(Boolean).join(" · ")
-  }else{
-    $("heroNumber").textContent="—";$("heroName").textContent="Something Beautiful";$("heroDate").textContent="把值得期待的事，放在這裡。"
-  }
-  renderSmartRecall(future[0]);
-  if(!moments.length){$("momentsList").innerHTML='<div class="card"><div class="empty">還沒有 Moment。<br>建立一個見面或旅行，Closer 才知道什麼時候該把回憶叫醒。</div></div>';return}
-  $("momentsList").innerHTML=moments.slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).map(x=>`
-    <div class="moment-card">
-      <div class="item-row">
-        <div class="item-main">
-          <div class="item-name">${esc(x.name)}</div>
-          <div class="item-meta">${esc(x.with||"")}${x.location?" · 📍 "+esc(x.location):""}<br>${esc(dateText(x.date))}</div>
-        </div>
-        <div class="item-days">${Math.max(daysLeft(x.date),0)}</div>
-      </div>
-      <div class="actions"><button class="danger" onclick="deleteMoment('${esc(x.id)}')">刪除</button></div>
-    </div>`).join("")
+ const future=moments.filter(x=>x.date&&daysLeft(x.date)>=0).slice().sort((a,b)=>new Date(a.date)-new Date(b.date)),hero=future[0];
+ if(hero){const d=daysLeft(hero.date);$("heroNumber").textContent=d;$("heroName").textContent=hero.name;$("heroDate").textContent=[hero.with,hero.location?`📍 ${hero.location}`:"",dateText(hero.date)].filter(Boolean).join(" · ")}
+ else{$("heroNumber").textContent="—";$("heroName").textContent="Something Beautiful";$("heroDate").textContent="把值得期待的事，放在這裡。"}
+ renderSmartRecall(hero);
+ if(!moments.length){$("momentsList").innerHTML='<div class="card"><div class="empty">還沒有 Moment。<br>建立下一次見面或旅行，Closer 才知道什麼時候該把 Memories 找回來。</div></div>';return}
+ $("momentsList").innerHTML=moments.slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).map(x=>`<div class="moment-card"><div class="item-row"><div class="item-main"><div class="item-name">${esc(x.name)}</div><div class="item-meta">${esc(x.with||"")}${x.location?" · 📍 "+esc(x.location):""}<br>${esc(dateText(x.date))}</div></div><div class="item-days">${Math.max(daysLeft(x.date),0)}</div></div><div class="actions"><button class="danger" onclick="deleteMoment('${esc(x.id)}')">刪除</button></div></div>`).join("")
 }
-renderMemories();renderMoments();
-
-/* Calm - real recordings */
-const soundSources={
-  ocean:"https://bigsoundbank.com/UPLOAD/mp3/0266.mp3",
-  fireplace:"https://bigsoundbank.com/UPLOAD/mp3/0031.mp3",
-  rain:"https://bigsoundbank.com/UPLOAD/mp3/2679.mp3",
-  forest:"https://bigsoundbank.com/UPLOAD/mp3/0100.mp3"
-};
-let calmMinutes=1,calmRunning=false,calmRemaining=60,calmTotal=60,calmTimerId=null,breathTimerId=null,breathIndex=0;
-let selectedSound=localStorage.getItem("closerCalmSoundReal")||"ocean";
-let soundVolume=Number(localStorage.getItem("closerCalmVolume")||38)/100;
-let fadeTimer=null;
-const phases=[{key:"inhale",label:"吸氣",seconds:4},{key:"hold",label:"停留",seconds:2},{key:"exhale",label:"吐氣",seconds:6}];
-const audio=$("ambientAudio");
-function fadeTo(target,duration=1800,after){
-  clearInterval(fadeTimer);
-  const start=audio.volume,steps=30,delta=(target-start)/steps;let i=0;
-  fadeTimer=setInterval(()=>{i++;audio.volume=Math.max(0,Math.min(1,start+delta*i));if(i>=steps){clearInterval(fadeTimer);after?.()}},duration/steps)
-}
-function startAmbient(){
-  if(selectedSound==="silent")return;
-  const src=soundSources[selectedSound];if(!src)return;
-  if(audio.src!==src)audio.src=src;
-  audio.volume=0;
-  audio.play().then(()=>fadeTo(soundVolume,1800)).catch(()=>toast("請再按一次開始播放聲音"))
-}
-function stopAmbient(){if(audio.paused)return;fadeTo(0,1200,()=>{audio.pause()})}
-function chooseSound(kind,btn){
-  selectedSound=kind;localStorage.setItem("closerCalmSoundReal",kind);
-  document.querySelectorAll(".sound-option").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
-  if(calmRunning){stopAmbient();setTimeout(startAmbient,1250)}
-}
-function setSoundVolume(v){
-  soundVolume=Number(v)/100;localStorage.setItem("closerCalmVolume",String(v));
-  if(calmRunning&&!audio.paused)fadeTo(soundVolume,300)
-}
-function chooseCalm(min,btn){
-  if(calmRunning)return;calmMinutes=min;calmRemaining=min*60;calmTotal=calmRemaining;
-  document.querySelectorAll(".calm-option").forEach(b=>b.classList.remove("active"));btn.classList.add("active");updateCalm()
-}
-function timerText(s){return `${Math.floor(s/60).toString().padStart(2,"0")}:${(s%60).toString().padStart(2,"0")}`}
-function updateCalm(){
-  $("calmTimer").textContent=timerText(calmRemaining);
-  $("progressBar").style.width=`${calmTotal?((calmTotal-calmRemaining)/calmTotal)*100:0}%`
-}
-function setBreath(){
-  const p=phases[breathIndex],c=$("breatheCircle");
-  c.classList.remove("inhale","hold","exhale");c.classList.add("running",p.key);$("breatheText").textContent=p.label;
-  $("calmHint").textContent=p.key==="inhale"?"慢慢吸進來。":p.key==="hold"?"停一下就好。":"慢慢吐出去。";
-  clearTimeout(breathTimerId);breathTimerId=setTimeout(()=>{if(calmRunning){breathIndex=(breathIndex+1)%phases.length;setBreath()}},p.seconds*1000)
-}
-function startCalm(){
-  calmRunning=true;calmRemaining=calmMinutes*60;calmTotal=calmRemaining;$("calmButton").textContent="暫停";breathIndex=0;setBreath();startAmbient();updateCalm();
-  calmTimerId=setInterval(()=>{calmRemaining--;updateCalm();if(calmRemaining<=0)stopCalm(true)},1000)
-}
-function stopCalm(done=false){
-  calmRunning=false;clearInterval(calmTimerId);clearTimeout(breathTimerId);stopAmbient();
-  const c=$("breatheCircle");c.classList.remove("running","inhale","hold","exhale");$("calmButton").textContent="開始";
-  if(done){calmRemaining=0;updateCalm();$("breatheText").textContent="完成";$("calmHint").textContent="這一段時間，是留給你的。";toast("Quiet moment completed 🌱")}
-  else{$("breatheText").textContent="準備好了嗎？";$("calmHint").textContent="吸氣 4 秒 · 停留 2 秒 · 吐氣 6 秒"}
-}
-function toggleCalm(){calmRunning?stopCalm(false):startCalm()}
-$("soundVolume").value=Math.round(soundVolume*100);
-document.querySelectorAll(".sound-option").forEach(b=>b.classList.toggle("active",b.dataset.sound===selectedSound));
+updateLocationField();renderMemories();renderMoments();
 </script>
+<style>
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);width:min(calc(100% - 36px),520px);background:var(--dark);color:#fff;padding:13px 16px;border-radius:14px;font-size:13px;text-align:center;opacity:0;pointer-events:none;transition:.2s ease;z-index:50}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
 </body>
 </html>
