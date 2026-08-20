@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f7f5ef">
 <title>Closer</title>
 <style>
-:root{--bg:#f7f5ef;--card:#fff;--ink:#242424;--muted:#918d85;--soft:#ebe8df;--line:#ddd9cf;--dark:#242424;--radius:24px}
+:root{--bg:#f8f5ef;--card:#fff;--ink:#2d2a28;--muted:#8f8981;--soft:#eee9e1;--line:#dfd8cf;--dark:#2d2a28;--warm:#b98278;--warm-soft:#f3e8e3;--sage:#e9eee6;--radius:24px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang TC","Noto Sans TC",Arial,sans-serif}
@@ -58,7 +58,7 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
 .item-days{font-size:27px;font-weight:660;flex:none}
 .actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
 .actions button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;font-size:12px}
-.actions button.danger{color:#aaa;margin-left:auto}
+.actions button.manage{color:#777;background:#faf9f6;margin-left:auto}.actions button.manage:hover{background:var(--soft)}
 .note{background:var(--bg);border-radius:13px;padding:12px 13px;margin-top:12px;font-size:13px;line-height:1.65}
 .location-pill{display:inline-flex;align-items:center;gap:5px;background:var(--soft);border-radius:999px;padding:6px 10px;font-size:11px;margin-top:10px;color:#5f5c56}
 .status-pill{display:inline-flex;border-radius:999px;padding:5px 9px;font-size:10px;margin-left:5px;background:#f2f0e9;color:#77736c}
@@ -80,6 +80,46 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
 .auto-note{font-size:11px;line-height:1.55;color:#5f5c56;background:var(--soft);padding:10px 12px;border-radius:12px;margin-top:8px}
 .hidden{display:none!important}
 @media(max-width:390px){.app{padding-left:14px;padding-right:14px}.card,.form,.memory-card,.moment-card{padding:19px}.big{font-size:23px}}
+
+.companion-card{
+  background:linear-gradient(145deg,#f3e8e3,#f8f2ec);
+  border:1px solid #ead9d2;border-radius:28px;padding:23px;margin-bottom:13px
+}
+.companion-kicker{font-size:10px;letter-spacing:2px;color:#a17a70;margin-bottom:10px}
+.companion-title{font-size:21px;font-weight:650;line-height:1.4}
+.companion-sub{font-size:12px;color:#817971;line-height:1.7;margin-top:7px}
+.smart-card{
+  background:linear-gradient(145deg,#f1e4df,#f7efe9)!important;
+  color:var(--ink)!important;border:1px solid #ead7d0!important
+}
+.smart-card .eyebrow{color:#9c746c!important}
+.smart-card .smart-sub{color:#786f68!important}
+.smart-card .suggestion{box-shadow:0 1px 0 rgba(45,42,40,.03)}
+.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.location-preview{
+  display:flex;align-items:center;gap:8px;background:var(--sage);color:#566052;
+  border-radius:13px;padding:11px 12px;margin-top:8px;font-size:11px;line-height:1.5
+}
+.manage-modal{
+  position:fixed;inset:0;background:rgba(35,32,30,.28);display:none;align-items:flex-end;
+  justify-content:center;z-index:100;padding:18px
+}
+.manage-modal.show{display:flex}
+.manage-sheet{
+  width:min(100%,520px);background:#fff;border-radius:26px;padding:22px;
+  box-shadow:0 20px 70px rgba(35,32,30,.18)
+}
+.manage-sheet h3{margin:0;font-size:19px}.manage-sheet p{font-size:12px;color:var(--muted);line-height:1.65;margin:8px 0 18px}
+.manage-sheet-actions{display:grid;gap:8px}
+.danger-confirm{background:#8f4f48!important;color:white!important;border:0!important}
+.location-section-title{font-size:10px;letter-spacing:1.6px;color:var(--muted);margin:18px 1px 9px}
+.city-summary{display:flex;gap:7px;overflow:auto;padding-bottom:10px;scrollbar-width:none}
+.city-summary::-webkit-scrollbar{display:none}
+.city-chip{
+  border:0;background:var(--warm-soft);color:#765f59;border-radius:999px;padding:8px 11px;
+  font-size:11px;white-space:nowrap
+}
+
 </style>
 </head>
 <body>
@@ -104,6 +144,12 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
   </div>
 
   <div id="smartRecall"></div>
+
+  <div class="companion-card">
+    <div class="companion-kicker">A LITTLE CLOSER</div>
+    <div class="companion-title">有些期待不用一直想著，Closer 會替你留著。</div>
+    <div class="companion-sub">你只要繼續過生活。等到真的要見面、要出發，曾經喜歡過的地方會再回來。</div>
+  </div>
 
   <div class="card quote">
     <div class="quote-main" id="quote"></div>
@@ -134,9 +180,20 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
       <option value="👥 一起">👥 一起</option>
       <option value="🌱 自己">🌱 自己</option>
     </select>
-    <label class="field-label" for="momentLocation">地點 <span class="optional">選填</span></label>
-    <input id="momentLocation" placeholder="例如：宜蘭 / 台北 / 東京">
-    <div class="small-note">有填地點時，Closer 才能優先找出同區域的舊收藏。</div>
+    <label class="field-label">這次要去哪裡？ <span class="optional">選填</span></label>
+    <div class="location-grid">
+      <select id="momentCity" onchange="updateMomentLocationPreview()">
+        <option value="">還沒決定</option>
+        <option>台北</option><option>新北</option><option>基隆</option><option>桃園</option>
+        <option>新竹</option><option>苗栗</option><option>台中</option><option>彰化</option>
+        <option>南投</option><option>雲林</option><option>嘉義</option><option>台南</option>
+        <option>高雄</option><option>屏東</option><option>宜蘭</option><option>花蓮</option>
+        <option>台東</option><option>澎湖</option><option>金門</option><option>馬祖</option>
+        <option value="其他">海外 / 其他</option>
+      </select>
+      <input id="momentArea" placeholder="區域 / 城市，例如：冬山、東京" oninput="updateMomentLocationPreview()">
+    </div>
+    <div class="location-preview" id="momentLocationPreview">📍 有選目的地時，Closer 會優先推薦同區域的 Memories。</div>
     <div class="form-actions">
       <button class="secondary" onclick="toggleForm('momentForm',false)">取消</button>
       <button class="primary" onclick="addMoment()">建立</button>
@@ -202,9 +259,21 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
     <input id="memoryName" placeholder="例如：山小日子咖啡 / 一本想看的書">
 
     <div id="locationFields">
-      <label class="field-label" for="memoryLocation">地點 / 城市 <span class="optional">能辨識時自動帶入</span></label>
-      <input id="memoryLocation" placeholder="例如：宜蘭・冬山 / 台北・大安">
-      <div class="auto-note" id="locationStatus">Closer 會先從網址找城市、地區或 Google Maps 地點名稱。</div>
+      <label class="field-label">在哪裡？ <span class="optional">網址能辨識時會先選好</span></label>
+      <div class="location-grid">
+        <select id="memoryCity" onchange="updateMemoryLocationPreview()">
+          <option value="">選城市</option>
+          <option>台北</option><option>新北</option><option>基隆</option><option>桃園</option>
+          <option>新竹</option><option>苗栗</option><option>台中</option><option>彰化</option>
+          <option>南投</option><option>雲林</option><option>嘉義</option><option>台南</option>
+          <option>高雄</option><option>屏東</option><option>宜蘭</option><option>花蓮</option>
+          <option>台東</option><option>澎湖</option><option>金門</option><option>馬祖</option>
+          <option value="其他">海外 / 其他</option>
+        </select>
+        <input id="memoryArea" placeholder="區域 / 地址 / 海外城市" oninput="updateMemoryLocationPreview()">
+      </div>
+      <div class="location-preview" id="memoryLocationPreview">📍 選好地點後，未來有同區域的 Moment，Closer 就能把它找回來。</div>
+      <div class="auto-note" id="locationStatus">Closer 會先從網址找城市、區域或 Google Maps 地點名稱。</div>
     </div>
 
     <label class="field-label" for="memoryWith">想和誰？</label>
@@ -226,12 +295,24 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
   </div>
 
   <div class="remember-banner" id="memorySummary"></div>
+  <div class="location-section-title">PLACES YOU'VE SAVED</div>
+  <div class="city-summary" id="citySummary"></div>
   <div class="search-wrap"><span class="search-icon">⌕</span><input id="memorySearch" placeholder="搜尋名稱、地點、原因…" oninput="renderMemories()"></div>
   <div class="chips" id="memoryFilters"></div>
   <div id="memoriesList"></div>
 </section>
 </div>
 
+<div class="manage-modal" id="manageModal" onclick="closeManageModal(event)">
+  <div class="manage-sheet" onclick="event.stopPropagation()">
+    <h3 id="manageTitle">管理這個項目</h3>
+    <p id="manageText">刪除後無法復原，所以 Closer 不會把刪除放在容易誤觸的位置。</p>
+    <div class="manage-sheet-actions">
+      <button class="secondary" onclick="closeManageModal()">先保留</button>
+      <button class="primary danger-confirm" id="confirmDeleteButton" onclick="confirmManagedDelete()">確定刪除</button>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 <script>
 const $=id=>document.getElementById(id);
@@ -296,7 +377,8 @@ if(!Array.isArray(memories)){
  sources.forEach(x=>{
   const key=String(x.url||x.link||"")+"|"+String(x.name||"");
   if(seen.has(key))return;seen.add(key);
-  memories.push({id:x.id??("old_"+Date.now()+Math.random()),url:x.url||x.link||"",category:normalizeCategory(x.category||x.type),name:x.name||"",location:x.location||x.city||"",with:x.with||x.who||"",reason:x.reason||x.note||"",completed:!!(x.completed||x.visited),linkedMomentId:x.linkedMomentId||"",source:x.source||"",createdAt:x.createdAt||"",savedAt:x.savedAt||""})
+  const legacyLoc=x.location||x.city||"";const lp=locationPartsFromLegacy(legacyLoc);
+  memories.push({id:x.id??("old_"+Date.now()+Math.random()),url:x.url||x.link||"",category:normalizeCategory(x.category||x.type),name:x.name||"",city:x.cityNormalized||lp.city,area:x.area||lp.area,location:makeLocation(x.cityNormalized||lp.city,x.area||lp.area),with:x.with||x.who||"",reason:x.reason||x.note||"",completed:!!(x.completed||x.visited),linkedMomentId:x.linkedMomentId||"",source:x.source||"",createdAt:x.createdAt||"",savedAt:x.savedAt||""})
  });
  save("closerMemoriesV5",memories)
 }
@@ -309,6 +391,38 @@ const TAIWAN_AREAS=[
  ["花蓮","花蓮"],["hualien","花蓮"],["台東","台東"],["臺東","台東"],["taitung","台東"],["澎湖","澎湖"],["penghu","澎湖"],["金門","金門"],["kinmen","金門"],["馬祖","馬祖"],["matsu","馬祖"]
 ];
 function cleanReadable(v=""){try{v=decodeURIComponent(v)}catch{}return String(v).replace(/[+_]/g," ").replace(/[-]+/g," ").replace(/\s+/g," ").trim()}
+
+const TAIWAN_CITY_VALUES=["台北","新北","基隆","桃園","新竹","苗栗","台中","彰化","南投","雲林","嘉義","台南","高雄","屏東","宜蘭","花蓮","台東","澎湖","金門","馬祖"];
+function makeLocation(city="",area=""){
+  const c=String(city||"").trim(),a=String(area||"").trim();
+  if(c==="其他") return a;
+  return [c,a].filter(Boolean).join("・");
+}
+function locationPartsFromLegacy(location=""){
+  const loc=String(location||"").trim();
+  if(!loc)return {city:"",area:""};
+  const inferred=inferLocationFromText(loc);
+  if(inferred){
+    const area=loc.replace(inferred,"").replace(/^[・·,\s-]+|[・·,\s-]+$/g,"");
+    return {city:inferred,area};
+  }
+  return {city:"其他",area:loc};
+}
+function setCitySelect(id,value){
+  const el=$(id); if(!el)return;
+  const v=String(value||"").trim();
+  if(!v){el.value="";return}
+  el.value=TAIWAN_CITY_VALUES.includes(v)?v:"其他";
+}
+function updateMemoryLocationPreview(){
+  const loc=makeLocation($("memoryCity")?.value,$("memoryArea")?.value);
+  if($("memoryLocationPreview")) $("memoryLocationPreview").textContent=loc?`📍 會記在：${loc}`:"📍 選好地點後，未來有同區域的 Moment，Closer 就能把它找回來。";
+}
+function updateMomentLocationPreview(){
+  const loc=makeLocation($("momentCity")?.value,$("momentArea")?.value);
+  if($("momentLocationPreview")) $("momentLocationPreview").textContent=loc?`📍 這次會優先找：${loc} 的 Memories`:"📍 有選目的地時，Closer 會優先推薦同區域的 Memories。";
+}
+
 function inferLocationFromText(text=""){const raw=cleanReadable(text),low=raw.toLowerCase();for(const [needle,label] of TAIWAN_AREAS)if(low.includes(String(needle).toLowerCase()))return label;const m=raw.match(/(台北市|臺北市|新北市|桃園市|台中市|臺中市|台南市|臺南市|高雄市|基隆市|新竹市|嘉義市|新竹縣|苗栗縣|彰化縣|南投縣|雲林縣|嘉義縣|屏東縣|宜蘭縣|花蓮縣|台東縣|臺東縣|澎湖縣|金門縣|連江縣)/);return m?m[1].replace("臺","台").replace(/[市縣]$/g,""):""}
 function extractGooglePlace(u){const m=u.pathname.match(/\/place\/([^/]+)/i);if(m)return cleanReadable(m[1]);for(const key of ["q","query","destination"]){const value=u.searchParams.get(key);if(value&&!/^[-+]?\d+(\.\d+)?\s*,\s*[-+]?\d+(\.\d+)?$/.test(value))return cleanReadable(value)}return ""}
 function readableSlugName(u){
@@ -316,6 +430,14 @@ function readableSlugName(u){
  for(const part of parts){const x=cleanReadable(part.replace(/\.html?$/i,""));if(x.length>=4&&!/^\d+$/.test(x)&&!/^[a-f0-9-]{16,}$/i.test(x))return x}
  return ""
 }
+
+memories=memories.map(x=>{
+  if(x.city!==undefined||x.area!==undefined){x.location=makeLocation(x.city||"",x.area||"")||x.location||"";return x}
+  const lp=locationPartsFromLegacy(x.location||"");
+  return {...x,city:lp.city,area:lp.area,location:makeLocation(lp.city,lp.area)}
+});
+save("closerMemoriesV5",memories);
+
 function detectLink(raw){
  const url=safeUrl(raw);if(!url)return null;let u;try{u=new URL(url)}catch{return null}
  const host=u.hostname.replace(/^www\./,"").toLowerCase(),path=u.pathname.toLowerCase(),readable=cleanReadable(`${u.pathname} ${u.search} ${u.hash}`);
@@ -343,17 +465,33 @@ function showDetected(prefix,r){
  }
 }
 function previewQuickLink(){showDetected("quick",detectLink($("quickUrl").value))}
-function applyDetectedMemory(r){if(!r)return;$("memoryCategory").value=r.category;if(!$("memoryName").value.trim()&&r.guessedName)$("memoryName").value=r.guessedName;if(!$("memoryLocation").value.trim()&&r.guessedLocation)$("memoryLocation").value=r.guessedLocation;showDetected("full",r);updateLocationField()}
+function applyDetectedMemory(r){if(!r)return;$("memoryCategory").value=r.category;if(!$("memoryName").value.trim()&&r.guessedName)$("memoryName").value=r.guessedName;if(r.guessedLocation){setCitySelect("memoryCity",r.guessedLocation);if($("memoryCity").value==="其他"&&!$("memoryArea").value.trim())$("memoryArea").value=r.guessedLocation}showDetected("full",r);updateLocationField();updateMemoryLocationPreview()}
 function openMemoryFromQuick(){const r=detectLink($("quickUrl").value);if(!r){toast("先貼上一個網址");return}$("memoryUrl").value=r.url;applyDetectedMemory(r);toggleForm("memoryForm",true)}
 function detectMemoryLink(){applyDetectedMemory(detectLink($("memoryUrl").value))}
 const placeLike=new Set(["☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","🛍️ 購物","💕 約會","📍 地點"]);
-function updateLocationField(){const isPlace=placeLike.has($("memoryCategory").value);$("locationFields").classList.toggle("hidden",!isPlace)}
+function updateLocationField(){const isPlace=placeLike.has($("memoryCategory").value);$("locationFields").classList.toggle("hidden",!isPlace);if(isPlace)updateMemoryLocationPreview()}
 function saveMemory(){
  const r=detectLink($("memoryUrl").value);if(!r){toast("請貼上一個有效網址");return}
- memories.unshift({id:Date.now(),url:r.url,category:$("memoryCategory").value,name:$("memoryName").value.trim()||r.guessedName||r.label,location:$("memoryLocation").value.trim(),with:$("memoryWith").value,reason:$("memoryReason").value.trim(),completed:false,linkedMomentId:"",source:r.source,createdAt:new Date().toISOString(),savedAt:new Date().toLocaleDateString("zh-TW")});
- save("closerMemoriesV5",memories);["quickUrl","memoryUrl","memoryName","memoryLocation","memoryReason"].forEach(id=>$(id).value="");$("quickDetected").classList.remove("show");$("detectedBox").classList.remove("show");toggleForm("memoryForm",false);renderMemories();renderMoments();toast("Closer 幫你記住了 🧠")
+ const city=$("memoryCity").value,area=$("memoryArea").value.trim(),location=makeLocation(city,area);
+ memories.unshift({id:Date.now(),url:r.url,category:$("memoryCategory").value,name:$("memoryName").value.trim()||r.guessedName||r.label,city,area,location,with:$("memoryWith").value,reason:$("memoryReason").value.trim(),completed:false,linkedMomentId:"",source:r.source,createdAt:new Date().toISOString(),savedAt:new Date().toLocaleDateString("zh-TW")});
+ save("closerMemoriesV5",memories);["quickUrl","memoryUrl","memoryName","memoryArea","memoryReason"].forEach(id=>$(id).value="");$("memoryCity").value="";updateMemoryLocationPreview();$("quickDetected").classList.remove("show");$("detectedBox").classList.remove("show");toggleForm("memoryForm",false);renderMemories();renderMoments();toast("Closer 幫你記住了 🧠")
 }
-function deleteMemory(id){memories=memories.filter(x=>String(x.id)!==String(id));save("closerMemoriesV5",memories);renderMemories();renderMoments()}
+let managedDelete={type:"",id:""};
+function openManageDelete(type,id,name){
+  managedDelete={type,id};$("manageTitle").textContent=`刪除「${name||"這個項目"}」？`;
+  $("manageModal").classList.add("show");
+}
+function closeManageModal(event){
+  if(event&&event.target!==$("manageModal"))return;
+  $("manageModal").classList.remove("show");managedDelete={type:"",id:""};
+}
+function confirmManagedDelete(){
+  const {type,id}=managedDelete;if(!id)return;
+  if(type==="memory"){memories=memories.filter(x=>String(x.id)!==String(id));save("closerMemoriesV5",memories);renderMemories();renderMoments()}
+  if(type==="moment"){moments=moments.filter(x=>String(x.id)!==String(id));memories.forEach(m=>{if(String(m.linkedMomentId)===String(id))m.linkedMomentId=""});save("closerMomentsV2",moments);save("closerMemoriesV5",memories);renderMoments()}
+  closeManageModal();toast("已刪除")
+}
+function deleteMemory(id){const x=memories.find(m=>String(m.id)===String(id));openManageDelete("memory",id,x?.name||"Memory")}
 function statusLabels(category,done){
  if(category==="📚 書籍")return done?["已讀","↩ 還沒讀"]:["想讀","✓ 讀完了"];
  if(category==="🎙 Podcast"||category==="🎵 音樂")return done?["聽過","↩ 還沒聽"]:["想聽","✓ 聽過了"];
@@ -365,10 +503,13 @@ function openMemory(id){const x=memories.find(m=>String(m.id)===String(id)),u=sa
 let memoryFilter="全部";
 const memoryCategories=["全部","☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","📚 書籍","🛍️ 購物","💕 約會","🎙 Podcast","🎵 音樂","🎬 電影 / 影集","▶️ 影片","📷 貼文 / Reels","📍 地點","🔗 其他連結","✓ 已完成"];
 function setMemoryFilter(v){memoryFilter=v;renderMemories()}
+function searchCity(city){$("memorySearch").value=city;memoryFilter="全部";renderMemories();$("memorySearch").scrollIntoView({behavior:"smooth",block:"center"})}
 function renderMemories(){
  const existing=new Set(memories.map(x=>x.category));$("memoryFilters").innerHTML=memoryCategories.filter(x=>x==="全部"||x==="✓ 已完成"||existing.has(x)).map(x=>`<button class="chip ${memoryFilter===x?"active":""}" onclick="setMemoryFilter('${x.replace(/'/g,"\\'")}')">${esc(x)}</button>`).join("");
  const locations=[...new Set(memories.filter(x=>!x.completed).map(x=>x.location).filter(Boolean))],pending=memories.filter(x=>!x.completed).length;
- $("memorySummary").innerHTML=memories.length?`你有 <strong>${pending}</strong> 個還想完成的 Memories${locations.length?`，其中有 <strong>${locations.length}</strong> 個地點／區域可以在未來行程時重新找回。`:"。"}<br><span style="color:#8d8981">收藏不用立刻完成。Closer 的工作，是讓它在對的時間重新出現。</span>`:`還沒有 Memories。下一次看到讓你心動的東西，先留在這裡。`;
+ $("memorySummary").innerHTML=memories.length?`你留了 <strong>${pending}</strong> 個「以後想做」的念頭${locations.length?`，其中 <strong>${locations.length}</strong> 個地方已經有位置。`:"。"}<br><span style="color:#8d8981">不用現在安排。等真的要去那裡時，Closer 會把以前的你喜歡過的東西找回來。</span>`:`還沒有 Memories。下一次看到讓你心動的東西，先留在這裡。`;
+ const cityCounts={};memories.filter(x=>!x.completed&&x.location).forEach(x=>{const k=x.city&&x.city!=="其他"?x.city:(x.area||x.location);if(k)cityCounts[k]=(cityCounts[k]||0)+1});
+ $("citySummary").innerHTML=Object.entries(cityCounts).sort((a,b)=>b[1]-a[1]).map(([city,count])=>`<button class="city-chip" onclick="searchCity('${city.replace(/'/g,"\\'")}')">📍 ${esc(city)} · ${count}</button>`).join("")||`<span class="small-note">有地點的收藏會在這裡慢慢累積。</span>`;
  const q=($("memorySearch")?.value||"").trim().toLowerCase();
  let list=memoryFilter==="✓ 已完成"?memories.filter(x=>x.completed):memoryFilter==="全部"?memories:memories.filter(x=>x.category===memoryFilter);
  if(q)list=list.filter(x=>[x.name,x.location,x.reason,x.category,x.source,x.with].some(v=>String(v||"").toLowerCase().includes(q)));
@@ -382,23 +523,31 @@ function renderMemories(){
       ${x.location?`<div class="location-pill">📍 ${esc(x.location)}</div>`:""}
     </div></div>
     ${x.reason?`<div class="note">當時你寫：「${esc(x.reason)}」</div>`:""}
-    <div class="actions">${safeUrl(x.url)?`<button onclick="openMemory('${esc(x.id)}')">↗ 打開</button>`:""}<button onclick="toggleCompleted('${esc(x.id)}')">${esc(action)}</button><button class="danger" onclick="deleteMemory('${esc(x.id)}')">×</button></div>
+    <div class="actions">${safeUrl(x.url)?`<button onclick="openMemory('${esc(x.id)}')">↗ 打開</button>`:""}<button onclick="toggleCompleted('${esc(x.id)}')">${esc(action)}</button><button class="manage" onclick="deleteMemory('${esc(x.id)}')">••• 管理</button></div>
    </div>`}).join(""):`<div class="card"><div class="empty">${q?"沒有找到符合的 Memory。":"這個分類還沒有收藏。"}</div></div>`
 }
 
 /* Moments */
 let moments=safeParse(localStorage.getItem("closerMomentsV2"),[]);
 if(!Array.isArray(moments))moments=[];
-function addMoment(){const name=$("momentName").value.trim(),date=$("momentDate").value;if(!name||!date){toast("請輸入名稱和日期");return}moments.push({id:Date.now(),name,date,with:$("momentWith").value,location:$("momentLocation").value.trim()});save("closerMomentsV2",moments);["momentName","momentDate","momentLocation"].forEach(id=>$(id).value="");toggleForm("momentForm",false);renderMoments();toast("Moment 建立好了 ⏳")}
-function deleteMoment(id){moments=moments.filter(x=>String(x.id)!==String(id));memories.forEach(m=>{if(String(m.linkedMomentId)===String(id))m.linkedMomentId=""});save("closerMomentsV2",moments);save("closerMemoriesV5",memories);renderMoments()}
+moments=moments.map(x=>{if(x.city!==undefined||x.area!==undefined){x.location=makeLocation(x.city||"",x.area||"")||x.location||"";return x}const lp=locationPartsFromLegacy(x.location||"");return {...x,city:lp.city,area:lp.area,location:makeLocation(lp.city,lp.area)}});save("closerMomentsV2",moments);
+function addMoment(){const name=$("momentName").value.trim(),date=$("momentDate").value;if(!name||!date){toast("請輸入名稱和日期");return}const city=$("momentCity").value,area=$("momentArea").value.trim(),location=makeLocation(city,area);
+ moments.push({id:Date.now(),name,date,with:$("momentWith").value,city,area,location});save("closerMomentsV2",moments);["momentName","momentDate","momentArea"].forEach(id=>$(id).value="");$("momentCity").value="";updateMomentLocationPreview();toggleForm("momentForm",false);renderMoments();toast("Moment 建立好了 ⏳")}
+function deleteMoment(id){const x=moments.find(m=>String(m.id)===String(id));openManageDelete("moment",id,x?.name||"Moment")}
 function norm(s=""){return String(s).trim().toLowerCase().replace(/\s+/g,"")}
 const momentFriendly=new Set(["☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","🛍️ 購物","💕 約會","🎬 電影 / 影集","📍 地點"]);
 function suggestionsFor(moment){
  let candidates=memories.filter(m=>!m.completed&&!m.linkedMomentId&&momentFriendly.has(m.category));
- const who=moment.with,loc=norm(moment.location);
+ const who=moment.with,mCity=moment.city||locationPartsFromLegacy(moment.location||"").city,mArea=norm(moment.area||"");
  if(who)candidates=candidates.filter(m=>!m.with||m.with===who||m.with==="👥 一起");
- const scored=candidates.map(m=>{let score=0;const ml=norm(m.location);if(loc&&ml)score+=(ml.includes(loc)||loc.includes(ml))?6:-1;if(m.with===who)score+=3;if(m.reason)score+=1;if(m.category==="🎨 展覽")score+=1;return {m,score}});
- return scored.filter(x=>!loc||x.score>=5).sort((a,b)=>b.score-a.score).slice(0,4).map(x=>x.m)
+ const scored=candidates.map(m=>{
+   let score=0;const c=m.city||locationPartsFromLegacy(m.location||"").city,a=norm(m.area||"");
+   if(mCity){if(c===mCity)score+=10;else score-=20}
+   if(mArea&&a&&(a.includes(mArea)||mArea.includes(a)))score+=4;
+   if(m.with===who)score+=2;if(m.reason)score+=1;
+   return {m,score}
+ });
+ return scored.filter(x=>!mCity||x.score>=8).sort((a,b)=>b.score-a.score).slice(0,5).map(x=>x.m)
 }
 function linkToMoment(memoryId,momentId){const m=memories.find(x=>String(x.id)===String(memoryId));if(!m)return;m.linkedMomentId=momentId;save("closerMemoriesV5",memories);renderMoments();renderMemories();toast("加入這次了 ♡")}
 function unlinkFromMoment(memoryId){const m=memories.find(x=>String(x.id)===String(memoryId));if(!m)return;m.linkedMomentId="";save("closerMemoriesV5",memories);renderMoments();renderMemories()}
@@ -406,10 +555,10 @@ function renderSmartRecall(upcoming){
  const box=$("smartRecall");if(!upcoming){box.innerHTML="";return}
  const days=Math.max(daysLeft(upcoming.date),0),sug=suggestionsFor(upcoming),linked=memories.filter(m=>String(m.linkedMomentId)===String(upcoming.id)&&!m.completed);
  if(!sug.length&&!linked.length){box.innerHTML="";return}
- const context=upcoming.location?`你以前留過一些和「${esc(upcoming.location)}」有關的地方。`:`你以前留過一些想和 ${esc(upcoming.with||"重要的人")} 一起做的事。`;
+ const context=upcoming.location?`你要去「${esc(upcoming.location)}」了。Closer 記得，你以前在這裡留過一些想去的地方。`:`這個 Moment 快到了。Closer 從你以前留下的 Memories 裡找了一些可能適合的選擇。`;
  box.innerHTML=`<div class="smart-card">
-   <div class="eyebrow" style="color:#aaa">CLOSER REMEMBERS</div>
-   <div class="smart-title">${days<=7?"快到了。如果你正在想這次可以做什麼，這些也許剛好。":"不用現在決定，先把以前喜歡過的東西放在手邊。"}</div>
+   <div class="eyebrow">CLOSER REMEMBERS</div>
+   <div class="smart-title">${days<=7?"以前的你，已經替這次留過一些靈感。":"先不用安排。只是把那些差點忘記的喜歡，放回你眼前。"}</div>
    <div class="smart-sub">${context}<br>${days} 天後，就是「${esc(upcoming.name)}」。</div>
    ${sug.map(m=>`<div class="suggestion"><div class="suggestion-name">${esc(m.name||"收藏連結")}</div><div class="suggestion-meta">${esc(m.category)}${m.location?" · 📍 "+esc(m.location):""}${m.reason?" · 「"+esc(m.reason)+"」":""}</div><div class="suggestion-actions"><button onclick="linkToMoment('${esc(m.id)}','${esc(upcoming.id)}')">＋ 加入這次</button><button onclick="openMemory('${esc(m.id)}')">看看</button></div></div>`).join("")}
    ${linked.length?`<div class="linked-label">FOR THIS MOMENT</div>${linked.map(m=>`<div class="suggestion"><div class="suggestion-name">✓ ${esc(m.name)}</div><div class="suggestion-meta">${esc(m.category)}${m.location?" · 📍 "+esc(m.location):""}</div><div class="suggestion-actions"><button onclick="openMemory('${esc(m.id)}')">打開</button><button onclick="unlinkFromMoment('${esc(m.id)}')">移除</button></div></div>`).join("")}`:""}
@@ -421,9 +570,9 @@ function renderMoments(){
  else{$("heroNumber").textContent="—";$("heroName").textContent="Something Beautiful";$("heroDate").textContent="把值得期待的事，放在這裡。"}
  renderSmartRecall(hero);
  if(!moments.length){$("momentsList").innerHTML='<div class="card"><div class="empty">還沒有 Moment。<br>建立下一次見面或旅行，Closer 才知道什麼時候該把 Memories 找回來。</div></div>';return}
- $("momentsList").innerHTML=moments.slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).map(x=>`<div class="moment-card"><div class="item-row"><div class="item-main"><div class="item-name">${esc(x.name)}</div><div class="item-meta">${esc(x.with||"")}${x.location?" · 📍 "+esc(x.location):""}<br>${esc(dateText(x.date))}</div></div><div class="item-days">${Math.max(daysLeft(x.date),0)}</div></div><div class="actions"><button class="danger" onclick="deleteMoment('${esc(x.id)}')">刪除</button></div></div>`).join("")
+ $("momentsList").innerHTML=moments.slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).map(x=>`<div class="moment-card"><div class="item-row"><div class="item-main"><div class="item-name">${esc(x.name)}</div><div class="item-meta">${esc(x.with||"")}${x.location?" · 📍 "+esc(x.location):""}<br>${esc(dateText(x.date))}</div></div><div class="item-days">${Math.max(daysLeft(x.date),0)}</div></div><div class="actions"><button class="manage" onclick="deleteMoment('${esc(x.id)}')">••• 管理</button></div></div>`).join("")
 }
-updateLocationField();renderMemories();renderMoments();
+updateLocationField();updateMemoryLocationPreview();updateMomentLocationPreview();renderMemories();renderMoments();
 </script>
 <style>
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);width:min(calc(100% - 36px),520px);background:var(--dark);color:#fff;padding:13px 16px;border-radius:14px;font-size:13px;text-align:center;opacity:0;pointer-events:none;transition:.2s ease;z-index:50}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
