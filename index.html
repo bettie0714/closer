@@ -7,404 +7,174 @@
 <title>Closer</title>
 <style>
 :root{
-  --bg:#f7f5ef;
-  --card:#fff;
-  --ink:#242424;
-  --muted:#949087;
-  --soft:#ebe8df;
-  --line:#dedbd2;
-  --dark:#242424;
-  --radius:24px;
+  --bg:#f7f5ef; --card:#ffffff; --ink:#242424; --muted:#959189;
+  --soft:#ebe8df; --line:#ddd9cf; --dark:#242424; --radius:24px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
+  margin:0;background:var(--bg);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang TC","Noto Sans TC",Arial,sans-serif;
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
-  outline:2px solid #242424;
-  outline-offset:2px;
+  outline:2px solid var(--ink);outline-offset:2px
 }
 .app{
-  width:min(100%,540px);
-  min-height:100vh;
-  margin:0 auto;
-  padding:24px 18px calc(76px + env(safe-area-inset-bottom));
+  width:min(100%,560px);min-height:100vh;margin:0 auto;
+  padding:24px 18px calc(78px + env(safe-area-inset-bottom));
 }
-.header{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:16px;
-  margin-bottom:21px;
+.header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:20px}
+.logo{font-size:18px;letter-spacing:4px;font-weight:750}
+.tagline{color:var(--muted);font-size:11px;margin-top:5px}
+.today{color:var(--muted);font-size:12px;padding-top:2px}
+.nav{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:7px;
+  position:sticky;top:0;z-index:20;padding:7px 0 14px;margin-bottom:5px;
+  background:linear-gradient(var(--bg) 74%,rgba(247,245,239,0))
 }
-.logo{
-  font-size:18px;
-  letter-spacing:4px;
-  font-weight:700;
+.nav button{
+  border:0;background:var(--soft);color:#77736c;border-radius:999px;
+  padding:11px 6px;font-size:12px;white-space:nowrap
 }
-.tagline{
-  margin-top:5px;
-  color:var(--muted);
-  font-size:11px;
+.nav button.active{background:var(--dark);color:white}
+.section{display:none}.section.active{display:block}
+.hero{text-align:center;padding:30px 8px 32px}
+.hero-label{font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:15px}
+.hero-number{font-size:clamp(76px,23vw,110px);font-weight:660;line-height:.88;letter-spacing:-6px}
+.hero-unit{font-size:10px;letter-spacing:4px;margin-top:16px}
+.hero-name{font-size:24px;font-weight:630;line-height:1.3;margin-top:22px}
+.hero-sub{font-size:12px;line-height:1.7;color:var(--muted);margin-top:8px}
+.card,.form,.memory-card,.moment-card{
+  background:var(--card);border-radius:var(--radius);padding:22px;margin-bottom:13px;
+  box-shadow:0 1px 0 rgba(0,0,0,.02)
 }
-.today{
-  color:var(--muted);
-  font-size:12px;
-  padding-top:2px;
-  white-space:nowrap;
-}
-.modes{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:7px;
-  position:sticky;
-  top:0;
-  z-index:20;
-  padding:7px 0 14px;
-  margin-bottom:5px;
-  background:linear-gradient(var(--bg) 73%,rgba(247,245,239,0));
-}
-.mode{
-  min-width:0;
-  border:0;
-  border-radius:999px;
-  padding:11px 6px;
-  background:var(--soft);
-  color:#77736c;
-  font-size:12px;
-  white-space:nowrap;
-  transition:.18s ease;
-}
-.mode.active{background:var(--dark);color:#fff}
-.section{display:none}
-.section.active{display:block}
-.hero{
-  text-align:center;
-  padding:30px 8px 32px;
-}
-.hero-label{
-  color:var(--muted);
-  font-size:10px;
-  letter-spacing:3px;
-  margin-bottom:15px;
-}
-.hero-number{
-  font-size:clamp(76px,23vw,108px);
-  line-height:.9;
-  font-weight:650;
-  letter-spacing:-6px;
-}
-.hero-unit{
-  font-size:10px;
-  letter-spacing:4px;
-  margin-top:15px;
-}
-.hero-name{
-  margin-top:22px;
-  font-size:24px;
-  line-height:1.28;
-  font-weight:620;
-}
-.hero-sub{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.7;
-  margin-top:8px;
-}
-.card,.item-card,.together-card,.form{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:22px;
-  margin-bottom:13px;
-  box-shadow:0 1px 0 rgba(0,0,0,.02);
-}
-.card.dark{background:var(--dark);color:#fff}
-.eyebrow{
-  color:var(--muted);
-  font-size:10px;
-  letter-spacing:2px;
-  margin-bottom:14px;
-}
+.card.dark{background:var(--dark);color:white}
+.eyebrow{font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:13px}
 .dark .eyebrow{color:#aaa}
-.big{
-  font-size:25px;
-  line-height:1.3;
-  font-weight:620;
-}
-.sub{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.7;
-  margin-top:8px;
-}
+.big{font-size:25px;font-weight:630;line-height:1.3}
+.sub{font-size:13px;line-height:1.7;color:var(--muted);margin-top:8px}
 .dark .sub{color:#c8c8c8}
 .primary,.secondary,.ghost{
-  width:100%;
-  border-radius:15px;
-  padding:14px 16px;
-  border:0;
-  font-size:14px;
+  width:100%;border:0;border-radius:15px;padding:14px 16px;font-size:14px
 }
-.primary{background:var(--dark);color:#fff}
-.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.primary{background:var(--dark);color:white}
+.secondary{background:white;color:var(--ink);border:1px solid var(--line)}
 .ghost{background:var(--soft);color:var(--ink)}
-.form{display:none}
-.form.open{display:block}
-.form-title{font-size:20px;font-weight:620;margin-bottom:13px}
+.form{display:none}.form.open{display:block}
+.form-title{font-size:20px;font-weight:630;margin-bottom:13px}
 .field-label{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  color:#77736c;
-  font-size:11px;
-  margin:13px 2px 5px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  color:#77736c;font-size:11px;margin:13px 2px 5px
 }
 .optional{color:#aaa}
 input,select,textarea{
-  width:100%;
-  border:1px solid var(--line);
-  background:#fbfaf7;
-  color:var(--ink);
-  border-radius:13px;
-  padding:13px 14px;
+  width:100%;border:1px solid var(--line);background:#fbfaf7;color:var(--ink);
+  border-radius:13px;padding:13px 14px
 }
 textarea{min-height:84px;resize:vertical;line-height:1.55}
-.form-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:14px;
-}
-.form-actions button{margin:0}
-.quote{text-align:center;padding:27px 20px}
-.quote-main{font-size:18px;line-height:1.7}
-.quote-en{color:var(--muted);font-size:11px;margin-top:8px}
-.quote-actions{display:flex;justify-content:center;gap:18px;margin-top:12px}
-.icon-btn{border:0;background:transparent;color:inherit;font-size:18px;padding:6px 10px}
-.item-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-}
-.item-main{min-width:0}
-.item-name{
-  font-size:16px;
-  font-weight:570;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.item-meta{
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.55;
-  margin-top:5px;
-}
-.item-right{display:flex;align-items:center;gap:10px;flex:none}
-.item-days{font-size:26px;font-weight:650}
-.delete-btn{
-  border:0;
-  background:transparent;
-  color:#aaa;
-  font-size:22px;
-  padding:4px;
-}
-.paste-box{
-  position:relative;
-  margin-top:17px;
-}
-.paste-box input{
-  padding:16px 47px 16px 15px;
-  background:#fff;
-}
-.paste-icon{
-  position:absolute;
-  right:14px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:18px;
-  pointer-events:none;
-}
+.form-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.paste-box{position:relative;margin-top:17px}
+.paste-box input{padding:16px 48px 16px 15px;background:white}
+.paste-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:18px}
 .detected{
-  display:none;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  background:var(--bg);
-  border-radius:15px;
-  padding:12px 13px;
-  margin-top:9px;
+  display:none;align-items:center;justify-content:space-between;gap:10px;
+  background:var(--bg);border-radius:15px;padding:12px 13px;margin-top:9px
 }
 .detected.show{display:flex}
-.detect-main{display:flex;align-items:center;gap:10px;min-width:0}
-.detect-icon{font-size:22px}
-.detect-title{font-size:13px;font-weight:600}
-.detect-sub{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:3px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  max-width:270px;
-}
-.detect-check{font-size:16px}
-.inline-help{
-  color:var(--muted);
-  font-size:10px;
-  line-height:1.55;
-  margin-top:7px;
-}
-.chips{
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  padding:1px 0 13px;
-  scrollbar-width:none;
-}
-.chips::-webkit-scrollbar{display:none}
-.chip{
-  border:0;
-  border-radius:999px;
-  padding:8px 12px;
-  background:var(--soft);
-  color:#77736c;
-  font-size:12px;
-  white-space:nowrap;
-}
-.chip.active{background:var(--dark);color:#fff}
-.list-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin:22px 1px 11px;
-}
+.detect-main{display:flex;gap:10px;align-items:center;min-width:0}
+.detect-icon{font-size:22px}.detect-title{font-size:13px;font-weight:620}
+.detect-sub{color:var(--muted);font-size:10px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 1px 11px}
 .list-title{font-size:10px;letter-spacing:2px;color:var(--muted)}
-.together-top{display:flex;justify-content:space-between;gap:12px}
-.together-type{color:var(--muted);font-size:10px;letter-spacing:1px}
-.together-name{font-size:19px;font-weight:620;line-height:1.35;margin-top:5px}
-.together-meta{color:var(--muted);font-size:11px;line-height:1.55;margin-top:6px}
-.note{
-  background:var(--bg);
-  border-radius:13px;
-  padding:12px 13px;
-  margin-top:13px;
-  font-size:13px;
-  line-height:1.6;
-}
-.actions{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  margin-top:13px;
-}
+.item-row{display:flex;justify-content:space-between;gap:14px;align-items:center}
+.item-main{min-width:0}.item-name{font-size:17px;font-weight:600;line-height:1.35}
+.item-meta{color:var(--muted);font-size:11px;line-height:1.55;margin-top:5px}
+.item-days{font-size:27px;font-weight:660;flex:none}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
 .actions button{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:12px;
-  padding:9px 11px;
-  font-size:12px;
+  border:1px solid var(--line);background:white;border-radius:12px;padding:9px 11px;font-size:12px
 }
 .actions button.danger{color:#aaa;margin-left:auto}
-.empty{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.8;
-  text-align:center;
-  padding:25px 10px;
+.note{background:var(--bg);border-radius:13px;padding:12px 13px;margin-top:12px;font-size:13px;line-height:1.6}
+.location-pill{
+  display:inline-flex;align-items:center;gap:5px;background:var(--soft);border-radius:999px;
+  padding:6px 10px;font-size:11px;margin-top:10px;color:#5f5c56
+}
+.status-pill{
+  display:inline-flex;border-radius:999px;padding:5px 9px;font-size:10px;margin-left:5px;
+  background:#f2f0e9;color:#77736c
+}
+.chips{display:flex;gap:7px;overflow:auto;padding:1px 0 13px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{border:0;border-radius:999px;padding:8px 12px;background:var(--soft);color:#77736c;font-size:12px;white-space:nowrap}
+.chip.active{background:var(--dark);color:white}
+.smart-card{
+  background:linear-gradient(145deg,#2c2c2c,#1f1f1f);color:white;border-radius:28px;
+  padding:23px;margin-bottom:13px;overflow:hidden
+}
+.smart-title{font-size:21px;font-weight:650;line-height:1.35}
+.smart-sub{color:#c9c9c9;font-size:12px;line-height:1.65;margin-top:7px}
+.suggestion{background:#fff;color:var(--ink);border-radius:17px;padding:14px;margin-top:9px}
+.suggestion-name{font-weight:620;font-size:15px}
+.suggestion-meta{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.5}
+.suggestion-actions{display:flex;gap:7px;margin-top:10px}
+.suggestion-actions button{border:0;border-radius:11px;padding:8px 10px;font-size:11px;background:var(--soft)}
+.suggestion-actions button:first-child{background:var(--dark);color:white}
+.linked-label{font-size:10px;letter-spacing:1.5px;color:#aaa;margin-top:16px}
+.empty{color:var(--muted);font-size:13px;line-height:1.8;text-align:center;padding:25px 10px}
+.quote{text-align:center;padding:27px 20px}
+.quote-main{font-size:18px;line-height:1.7}.quote-en{color:var(--muted);font-size:11px;margin-top:8px}
+.quote-actions{display:flex;justify-content:center;gap:18px;margin-top:12px}
+.icon-btn{border:0;background:transparent;font-size:18px;padding:6px 10px}
+.memory-head{display:flex;justify-content:space-between;gap:12px}
+.memory-type{font-size:10px;letter-spacing:1px;color:var(--muted)}
+.memory-name{font-size:19px;font-weight:630;line-height:1.35;margin-top:5px}
+.memory-meta{font-size:11px;line-height:1.55;color:var(--muted);margin-top:6px}
+.remember-banner{
+  background:var(--soft);border-radius:18px;padding:15px 16px;margin-bottom:13px;
+  font-size:12px;line-height:1.7;color:#5f5c56
 }
 .calm-hero{text-align:center;padding:28px 0 20px}
 .breathe-wrap{height:240px;display:grid;place-items:center}
 .breathe-circle{
-  width:130px;
-  height:130px;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:0 18px 50px rgba(37,37,37,.07);
-  display:grid;
-  place-items:center;
-  transition:transform 4s ease-in-out;
+  width:130px;height:130px;border-radius:50%;background:white;
+  box-shadow:0 18px 50px rgba(37,37,37,.07);display:grid;place-items:center;
+  transition:transform 4s ease-in-out
 }
-.breathe-circle.running.inhale{transform:scale(1.5)}
-.breathe-circle.running.hold{transform:scale(1.5)}
+.breathe-circle.running.inhale,.breathe-circle.running.hold{transform:scale(1.5)}
 .breathe-circle.running.exhale{transform:scale(1)}
 .breathe-text{font-size:14px}
-.timer{
-  font-size:44px;
-  font-weight:630;
-  letter-spacing:-2px;
-  margin-top:4px;
-}
-.progress{
-  height:5px;
-  background:var(--soft);
-  border-radius:999px;
-  overflow:hidden;
-  margin-top:18px;
-}
-.progress-bar{width:0;height:100%;background:var(--dark);transition:width .3s linear}
-.calm-options,.sound-options{
-  display:grid;
-  gap:7px;
-  margin-top:15px;
-}
-.calm-options{grid-template-columns:repeat(4,1fr)}
-.sound-options{grid-template-columns:repeat(5,1fr)}
+.timer{font-size:44px;font-weight:640;letter-spacing:-2px;margin-top:4px}
+.progress{height:5px;background:var(--soft);border-radius:999px;overflow:hidden;margin-top:18px}
+.progress-bar{height:100%;width:0;background:var(--dark);transition:width .3s linear}
+.calm-options{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:15px}
+.sound-options{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:15px}
 .calm-option,.sound-option{
-  border:0;
-  border-radius:14px;
-  background:var(--soft);
-  padding:11px 4px;
-  font-size:12px;
+  border:0;border-radius:14px;background:var(--soft);padding:11px 4px;font-size:12px
 }
-.calm-option.active,.sound-option.active{background:var(--dark);color:#fff}
-.sound-option span{display:block;font-size:18px;margin-bottom:4px}
-.volume-row{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  align-items:center;
-  gap:10px;
-  margin-top:14px;
-}
+.calm-option.active,.sound-option.active{background:var(--dark);color:white}
+.sound-option span{display:block;font-size:19px;margin-bottom:4px}
+.volume-row{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;margin-top:14px}
 .volume-row label{font-size:11px;color:var(--muted)}
 input[type="range"]{padding:0;border:0;background:transparent}
-.small-note{color:var(--muted);font-size:10px;line-height:1.6;margin-top:12px}
+.small-note{font-size:10px;line-height:1.6;color:var(--muted);margin-top:11px}
+.credits{font-size:9px;color:#aaa;line-height:1.55;margin-top:8px}
 .toast{
-  position:fixed;
-  left:50%;
-  bottom:calc(24px + env(safe-area-inset-bottom));
-  transform:translateX(-50%) translateY(20px);
-  width:min(calc(100% - 36px),500px);
-  background:#242424;
-  color:#fff;
-  border-radius:14px;
-  padding:13px 16px;
-  font-size:13px;
-  text-align:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.2s ease;
-  z-index:60;
+  position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(20px);width:min(calc(100% - 36px),520px);
+  background:var(--dark);color:white;padding:13px 16px;border-radius:14px;font-size:13px;
+  text-align:center;opacity:0;pointer-events:none;transition:.2s ease;z-index:50
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:390px){
   .app{padding-left:14px;padding-right:14px}
-  .mode{font-size:11px}
-  .card,.item-card,.together-card,.form{padding:19px}
-  .big{font-size:23px}
-  .sound-option{font-size:10px}
+  .card,.form,.memory-card,.moment-card{padding:19px}
+  .big{font-size:23px}.sound-option{font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){
-  *{scroll-behavior:auto!important}
-  .breathe-circle,.toast{transition:none!important}
+  *{scroll-behavior:auto!important}.breathe-circle,.toast{transition:none!important}
 }
 </style>
 </head>
@@ -413,15 +183,15 @@ input[type="range"]{padding:0;border:0;background:transparent}
   <header class="header">
     <div>
       <div class="logo">CLOSER</div>
-      <div class="tagline">讓喜歡的事，有人一起。</div>
+      <div class="tagline">你曾經為它心動過。剩下的，交給 Closer 記得。</div>
     </div>
     <div class="today" id="today"></div>
   </header>
 
-  <nav class="modes" aria-label="Closer sections">
-    <button class="mode active" onclick="switchMode('moments',this)">⏳ Moments</button>
-    <button class="mode" onclick="switchMode('together',this)">🫶 Together</button>
-    <button class="mode" onclick="switchMode('calm',this)">🧘 Calm</button>
+  <nav class="nav">
+    <button class="active" onclick="switchMode('moments',this)">⏳ Moments</button>
+    <button onclick="switchMode('memories',this)">🧠 Memories</button>
+    <button onclick="switchMode('calm',this)">🧘 Calm</button>
   </nav>
 
   <!-- MOMENTS -->
@@ -434,63 +204,67 @@ input[type="range"]{padding:0;border:0;background:transparent}
       <div class="hero-sub" id="heroDate">把值得期待的事，放在這裡。</div>
     </div>
 
+    <div id="smartRecall"></div>
+
     <div class="card quote">
       <div class="quote-main" id="quote"></div>
       <div class="quote-en" id="quoteEn"></div>
       <div class="quote-actions">
-        <button class="icon-btn" onclick="favoriteQuote()" aria-label="收藏">♡</button>
-        <button class="icon-btn" onclick="newQuote()" aria-label="換一句">↻</button>
+        <button class="icon-btn" onclick="favoriteQuote()">♡</button>
+        <button class="icon-btn" onclick="newQuote()">↻</button>
       </div>
     </div>
 
     <div class="card">
       <div class="eyebrow">MY MOMENTS</div>
-      <div class="big">我正在等待的事</div>
-      <div class="sub">見面、旅行、生日，或任何讓你想往前走的日子。</div>
-      <button class="primary" style="margin-top:17px" onclick="toggleForm('countdownForm')">＋ Add a countdown</button>
+      <div class="big">什麼事情快發生了？</div>
+      <div class="sub">見面、旅行、生日。Closer 會用這些時間，找回你以前存下來的地方。</div>
+      <button class="primary" style="margin-top:17px" onclick="toggleForm('momentForm')">＋ Add a moment</button>
     </div>
 
-    <div class="form" id="countdownForm">
-      <div class="form-title">New Countdown</div>
-      <label class="field-label" for="eventName">你正在等待什麼？</label>
-      <input id="eventName" placeholder="例如：下一次見面">
-      <label class="field-label" for="eventDate">日期</label>
-      <input id="eventDate" type="date">
-      <label class="field-label" for="eventWith">想和誰一起？</label>
-      <select id="eventWith">
+    <div class="form" id="momentForm">
+      <div class="form-title">New Moment</div>
+      <label class="field-label" for="momentName">這是什麼？</label>
+      <input id="momentName" placeholder="例如：下次見面 / 宜蘭旅行">
+      <label class="field-label" for="momentDate">日期</label>
+      <input id="momentDate" type="date">
+      <label class="field-label" for="momentWith">和誰？</label>
+      <select id="momentWith">
         <option value="❤️ 愛人">❤️ 愛人</option>
         <option value="🫶 朋友">🫶 朋友</option>
         <option value="👥 一起">👥 一起</option>
         <option value="🌱 自己">🌱 自己</option>
       </select>
+      <label class="field-label" for="momentLocation">
+        地點
+        <span class="optional">選填，但旅行建議填</span>
+      </label>
+      <input id="momentLocation" placeholder="例如：宜蘭 / 台北 / 東京">
       <div class="form-actions">
-        <button class="secondary" onclick="toggleForm('countdownForm',false)">取消</button>
-        <button class="primary" onclick="addCountdown()">Create</button>
+        <button class="secondary" onclick="toggleForm('momentForm',false)">取消</button>
+        <button class="primary" onclick="addMoment()">Create</button>
       </div>
     </div>
 
-    <div id="countdowns"></div>
+    <div id="momentsList"></div>
   </section>
 
-  <!-- TOGETHER -->
-  <section class="section" id="togetherMode">
+  <!-- MEMORIES -->
+  <section class="section" id="memoriesMode">
     <div class="hero">
-      <div class="hero-label">SAVE IT FOR US</div>
-      <div class="hero-name">貼上網址，Closer 幫你整理。</div>
-      <div class="hero-sub">不用先想分類。看到喜歡的地方、音樂、Podcast、影片或影集，貼進來就好。</div>
+      <div class="hero-label">YOU SAVED IT FOR A REASON</div>
+      <div class="hero-name">替未來的你記住。</div>
+      <div class="hero-sub">貼網址，Closer 先整理。到了真正要出發的時候，再把它找回來。</div>
     </div>
 
     <div class="card dark">
       <div class="eyebrow">PASTE A LINK</div>
-      <div class="big">這個，我想跟你一起。</div>
-      <div class="sub">Closer 會依網址先判斷來源與類型；你只要選想和誰，原因想寫再寫。</div>
-
+      <div class="big">看到喜歡的，就先丟進來。</div>
+      <div class="sub">Instagram、Google Maps、餐廳、住宿、Spotify、Netflix、YouTube 都可以。</div>
       <div class="paste-box">
-        <input id="quickUrl" inputmode="url" placeholder="貼上 Instagram / Spotify / Netflix / Maps…"
-               oninput="previewQuickLink()" onpaste="setTimeout(previewQuickLink,0)">
+        <input id="quickUrl" inputmode="url" placeholder="貼上網址…" oninput="previewQuickLink()" onpaste="setTimeout(previewQuickLink,0)">
         <div class="paste-icon">↗</div>
       </div>
-
       <div class="detected" id="quickDetected">
         <div class="detect-main">
           <div class="detect-icon" id="quickIcon">🔗</div>
@@ -499,17 +273,16 @@ input[type="range"]{padding:0;border:0;background:transparent}
             <div class="detect-sub" id="quickHost"></div>
           </div>
         </div>
-        <div class="detect-check">✓</div>
+        <div>✓</div>
       </div>
-
-      <button class="secondary" style="margin-top:10px" onclick="openTogetherFromQuick()">下一步</button>
+      <button class="secondary" style="margin-top:10px" onclick="openMemoryFromQuick()">下一步</button>
     </div>
 
-    <div class="form" id="togetherForm">
-      <div class="form-title">🫶 Save to Closer</div>
+    <div class="form" id="memoryForm">
+      <div class="form-title">🧠 Save to Memories</div>
 
-      <label class="field-label" for="togetherUrl">網址</label>
-      <input id="togetherUrl" inputmode="url" placeholder="https://…" oninput="detectTogetherLink()">
+      <label class="field-label" for="memoryUrl">網址</label>
+      <input id="memoryUrl" inputmode="url" placeholder="https://…" oninput="detectMemoryLink()">
 
       <div class="detected" id="detectedBox">
         <div class="detect-main">
@@ -519,54 +292,65 @@ input[type="range"]{padding:0;border:0;background:transparent}
             <div class="detect-sub" id="detectedHost"></div>
           </div>
         </div>
-        <div class="detect-check">✓</div>
+        <div>✓</div>
       </div>
 
-      <label class="field-label" for="togetherCategory">
+      <label class="field-label" for="memoryCategory">
         分類
         <span class="optional">自動判斷，可修改</span>
       </label>
-      <select id="togetherCategory">
-        <option value="📍 地點">📍 地點</option>
+      <select id="memoryCategory">
         <option value="☕ 咖啡 / 餐廳">☕ 咖啡 / 餐廳</option>
+        <option value="🌿 景點">🌿 景點</option>
         <option value="🏨 住宿">🏨 住宿</option>
+        <option value="🎨 展覽">🎨 展覽</option>
+        <option value="🛍️ 購物">🛍️ 購物</option>
+        <option value="💕 約會">💕 約會</option>
         <option value="🎙 Podcast">🎙 Podcast</option>
         <option value="🎵 音樂">🎵 音樂</option>
         <option value="🎬 電影 / 影集">🎬 電影 / 影集</option>
         <option value="▶️ 影片">▶️ 影片</option>
         <option value="📷 貼文 / Reels">📷 貼文 / Reels</option>
+        <option value="📍 地點">📍 地點</option>
         <option value="🔗 其他連結">🔗 其他連結</option>
       </select>
 
-      <label class="field-label" for="togetherName">
+      <label class="field-label" for="memoryName">
         名稱
-        <span class="optional">可稍後補</span>
+        <span class="optional">Google Maps 會盡量帶入</span>
       </label>
-      <input id="togetherName" placeholder="例如：山小日子 / The Daily">
+      <input id="memoryName" placeholder="例如：山小日子咖啡">
 
-      <label class="field-label" for="togetherWith">想和誰？</label>
-      <select id="togetherWith">
+      <label class="field-label" for="memoryLocation">
+        地點 / 城市
+        <span class="optional">地點收藏建議填</span>
+      </label>
+      <input id="memoryLocation" placeholder="例如：宜蘭・冬山 / 台北・大安">
+
+      <label class="field-label" for="memoryWith">想和誰？</label>
+      <select id="memoryWith">
         <option value="❤️ 愛人">❤️ 愛人</option>
         <option value="🫶 朋友">🫶 朋友</option>
         <option value="👥 一起">👥 一起</option>
         <option value="🌱 自己">🌱 自己</option>
       </select>
 
-      <label class="field-label" for="togetherReason">
+      <label class="field-label" for="memoryReason">
         為什麼想留下？
-        <span class="optional">選填</span>
+        <span class="optional">完全選填</span>
       </label>
-      <textarea id="togetherReason" placeholder="可以不寫。想寫的話，例如：窗邊看起來很舒服，想一起去。"></textarea>
+      <textarea id="memoryReason" placeholder="不想寫就留白。"></textarea>
 
       <div class="form-actions">
-        <button class="secondary" onclick="toggleForm('togetherForm',false)">取消</button>
-        <button class="primary" onclick="saveTogether()">存進 Closer</button>
+        <button class="secondary" onclick="toggleForm('memoryForm',false)">取消</button>
+        <button class="primary" onclick="saveMemory()">記住它</button>
       </div>
-      <div class="inline-help">自動分類只看網址來源與網址格式；如果判斷不對，直接改分類即可。</div>
+      <div class="small-note">純 GitHub 版本可以從網址辨識來源與部分類型；IG Reels 的實際店名／地址常無法直接讀取，所以保留手動補地點。</div>
     </div>
 
-    <div class="chips" id="togetherFilters"></div>
-    <div id="togetherList"></div>
+    <div class="remember-banner" id="memorySummary"></div>
+    <div class="chips" id="memoryFilters"></div>
+    <div id="memoriesList"></div>
   </section>
 
   <!-- CALM -->
@@ -574,12 +358,11 @@ input[type="range"]{padding:0;border:0;background:transparent}
     <div class="calm-hero">
       <div class="hero-label">A QUIET MOMENT</div>
       <div class="hero-name">Closer 也陪你自己。</div>
-      <div class="hero-sub">選一個聲音，讓呼吸慢下來。</div>
+      <div class="hero-sub">這次不用合成白噪音。選一段真實的自然聲，慢慢呼吸。</div>
     </div>
 
     <div class="card" style="text-align:center">
       <div class="eyebrow">GUIDED BREATHING</div>
-
       <div class="breathe-wrap">
         <div class="breathe-circle" id="breatheCircle">
           <div class="breathe-text" id="breatheText">準備好了嗎？</div>
@@ -598,11 +381,11 @@ input[type="range"]{padding:0;border:0;background:transparent}
       </div>
 
       <div class="sound-options">
-        <button class="sound-option active" onclick="chooseSound('ocean',this)"><span>🌊</span>海浪</button>
-        <button class="sound-option" onclick="chooseSound('fire',this)"><span>🔥</span>營火</button>
-        <button class="sound-option" onclick="chooseSound('rain',this)"><span>🌧️</span>雨聲</button>
-        <button class="sound-option" onclick="chooseSound('forest',this)"><span>🌲</span>森林</button>
-        <button class="sound-option" onclick="chooseSound('silent',this)"><span>🔇</span>無聲</button>
+        <button class="sound-option active" data-sound="ocean" onclick="chooseSound('ocean',this)"><span>🌊</span>海浪</button>
+        <button class="sound-option" data-sound="fireplace" onclick="chooseSound('fireplace',this)"><span>🔥</span>壁爐</button>
+        <button class="sound-option" data-sound="rain" onclick="chooseSound('rain',this)"><span>🌧️</span>雨聲</button>
+        <button class="sound-option" data-sound="forest" onclick="chooseSound('forest',this)"><span>🌲</span>森林</button>
+        <button class="sound-option" data-sound="silent" onclick="chooseSound('silent',this)"><span>🔇</span>無聲</button>
       </div>
 
       <div class="volume-row">
@@ -611,589 +394,366 @@ input[type="range"]{padding:0;border:0;background:transparent}
       </div>
 
       <button class="primary" id="calmButton" style="margin-top:15px" onclick="toggleCalm()">開始</button>
-      <div class="small-note">環境音由瀏覽器即時產生，不需要另外載入外部音檔。</div>
+      <div class="small-note">聲音會淡入、淡出；手機瀏覽器需要按「開始」後才會播放。</div>
+      <div class="credits">自然聲來源：BigSoundBank / Joseph SARDIN，CC0 Public Domain。</div>
     </div>
   </section>
 </div>
 
+<audio id="ambientAudio" loop preload="none"></audio>
 <div class="toast" id="toast"></div>
 
 <script>
 const $ = id => document.getElementById(id);
-
-function safeParse(value,fallback){
-  try{return JSON.parse(value) ?? fallback}catch{return fallback}
+const safeParse=(v,f)=>{try{return JSON.parse(v)??f}catch{return f}};
+const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+function esc(v=""){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+function safeUrl(v=""){
+  let x=String(v).trim(); if(!x)return "";
+  if(!/^https?:\/\//i.test(x))x="https://"+x;
+  try{const u=new URL(x);return ["http:","https:"].includes(u.protocol)?u.href:""}catch{return ""}
 }
-function save(key,value){localStorage.setItem(key,JSON.stringify(value))}
-function escapeHTML(value=""){
-  return String(value)
-    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
-function safeUrl(value=""){
-  const raw=String(value).trim();
-  if(!raw)return "";
-  let candidate=raw;
-  if(!/^https?:\/\//i.test(candidate)) candidate="https://"+candidate;
-  try{
-    const u=new URL(candidate);
-    return ["http:","https:"].includes(u.protocol) ? u.href : "";
-  }catch{return ""}
-}
-function showToast(message){
-  const box=$("toast");
-  box.textContent=message;
-  box.classList.add("show");
-  clearTimeout(showToast.timer);
-  showToast.timer=setTimeout(()=>box.classList.remove("show"),1800);
+function toast(msg){
+  const t=$("toast");t.textContent=msg;t.classList.add("show");
+  clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove("show"),1800)
 }
 function toggleForm(id,force){
-  const el=$(id);
-  const open=typeof force==="boolean" ? force : !el.classList.contains("open");
+  const el=$(id), open=typeof force==="boolean"?force:!el.classList.contains("open");
   el.classList.toggle("open",open);
-  if(open)setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"nearest"}),30);
+  if(open)setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"nearest"}),30)
 }
-function formatDate(dateString){
-  if(!dateString)return "";
-  const d=new Date(dateString+"T00:00:00");
-  if(Number.isNaN(d.getTime()))return dateString;
-  return new Intl.DateTimeFormat("zh-TW",{year:"numeric",month:"long",day:"numeric"}).format(d);
+function dateText(s){
+  if(!s)return "";
+  const d=new Date(s+"T00:00:00");
+  return Number.isNaN(d.getTime())?s:new Intl.DateTimeFormat("zh-TW",{year:"numeric",month:"long",day:"numeric"}).format(d)
 }
-function daysLeft(dateString){
-  const target=new Date(dateString+"T00:00:00");
-  const now=new Date();
-  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-  if(Number.isNaN(target.getTime()))return 0;
-  return Math.ceil((target-today)/86400000);
+function daysLeft(s){
+  const target=new Date(s+"T00:00:00"), now=new Date(), today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  return Number.isNaN(target.getTime())?0:Math.ceil((target-today)/86400000)
 }
 $("today").textContent=new Intl.DateTimeFormat("zh-TW",{month:"long",day:"numeric"}).format(new Date());
 
-/* Navigation */
-function switchMode(mode,button){
-  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-  document.querySelectorAll(".mode").forEach(b=>b.classList.remove("active"));
-  $(mode+"Mode").classList.add("active");
-  button?.classList.add("active");
-  if(mode==="together") renderTogether();
-  if(mode!=="calm" && calmRunning) stopCalm(false);
-  window.scrollTo({top:0,behavior:"smooth"});
+function switchMode(mode,btn){
+  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+  $(mode+"Mode").classList.add("active");btn?.classList.add("active");
+  if(mode==="memories")renderMemories();
+  if(mode!=="calm"&&calmRunning)stopCalm(false);
+  window.scrollTo({top:0,behavior:"smooth"})
 }
 
 /* Quotes */
 const quotes=[
-  ["今天也慢慢來就好。","You don't have to rush."],
-  ["你正在慢慢靠近想要的生活。","You are getting closer."],
-  ["每一步都算數。","Every step counts."],
-  ["有些美好正在路上。","Some beautiful things are on their way."],
-  ["把想念留成一件值得期待的事。","Give longing somewhere gentle to go."],
-  ["喜歡的事，不一定要一個人完成。","Some things feel better together."],
-  ["今天也可以先陪陪自己。","You can stay with yourself today."]
+ ["有些美好正在路上。","Some beautiful things are on their way."],
+ ["把想念留成一件值得期待的事。","Give longing somewhere gentle to go."],
+ ["喜歡的事，不一定要一個人完成。","Some things feel better together."],
+ ["你曾經為它心動過。","You saved it for a reason."],
+ ["今天也可以先陪陪自己。","You can stay with yourself today."]
 ];
 let quoteIndex=Math.floor(Date.now()/86400000)%quotes.length;
 let favorites=safeParse(localStorage.getItem("closerFavorites"),[]);
-function showQuote(){
-  $("quote").textContent=quotes[quoteIndex][0];
-  $("quoteEn").textContent=quotes[quoteIndex][1];
-}
+function showQuote(){$("quote").textContent=quotes[quoteIndex][0];$("quoteEn").textContent=quotes[quoteIndex][1]}
 function newQuote(){quoteIndex=(quoteIndex+1)%quotes.length;showQuote()}
 function favoriteQuote(){
   const q=quotes[quoteIndex];
-  if(!favorites.some(x=>Array.isArray(x)&&x[0]===q[0])){
-    favorites.push(q);save("closerFavorites",favorites);showToast("已收藏 ♡");
-  }else showToast("這句已經收藏過了");
+  if(!favorites.some(x=>Array.isArray(x)&&x[0]===q[0])){favorites.push(q);save("closerFavorites",favorites);toast("已收藏 ♡")}
+  else toast("這句已經收藏過了")
 }
 showQuote();
 
+/* Memories data + migration */
+function normalizeCategory(type=""){
+  const t=String(type);
+  if(/咖啡|餐廳|美食/.test(t))return "☕ 咖啡 / 餐廳";
+  if(/景點/.test(t))return "🌿 景點";
+  if(/住宿|飯店|酒店/.test(t))return "🏨 住宿";
+  if(/展覽/.test(t))return "🎨 展覽";
+  if(/購物/.test(t))return "🛍️ 購物";
+  if(/約會/.test(t))return "💕 約會";
+  if(/Podcast/i.test(t))return "🎙 Podcast";
+  if(/音樂|Music/i.test(t))return "🎵 音樂";
+  if(/電影|影集|Netflix/.test(t))return "🎬 電影 / 影集";
+  if(/影片|YouTube|TikTok/.test(t))return "▶️ 影片";
+  if(/Reels|貼文|Instagram|IG/.test(t))return "📷 貼文 / Reels";
+  if(/地點|地方/.test(t))return "📍 地點";
+  return "🔗 其他連結"
+}
+let memories=safeParse(localStorage.getItem("closerMemoriesV3"),null);
+if(!Array.isArray(memories)){
+  memories=[];
+  const oldM=safeParse(localStorage.getItem("closerMemories"),[]);
+  const oldT=safeParse(localStorage.getItem("closerTogether"),[]);
+  const oldS=safeParse(localStorage.getItem("closerShares"),[]);
+  [...(Array.isArray(oldM)?oldM:[]),...(Array.isArray(oldT)?oldT:[]),...(Array.isArray(oldS)?oldS:[])].forEach(x=>{
+    memories.push({
+      id:"old_"+(x.id??Date.now()+Math.random()),
+      url:x.url||x.link||"",
+      category:normalizeCategory(x.category||x.type),
+      name:x.name||"",
+      location:x.location||x.city||x.source||"",
+      with:x.with||x.who||"",
+      reason:x.reason||x.note||"",
+      visited:!!x.visited,
+      linkedMomentId:x.linkedMomentId||"",
+      savedAt:x.savedAt||new Date().toLocaleDateString("zh-TW")
+    })
+  });
+  save("closerMemoriesV3",memories)
+}
+
+function detectLink(raw){
+  const url=safeUrl(raw); if(!url)return null;
+  let u;try{u=new URL(url)}catch{return null}
+  const host=u.hostname.replace(/^www\./,"").toLowerCase(), path=u.pathname.toLowerCase();
+  let r={category:"🔗 其他連結",icon:"🔗",label:"一般連結",source:host,url,host,guessedName:""};
+  if(host.includes("instagram.com"))r={...r,category:"📷 貼文 / Reels",icon:"📷",label:path.includes("/reel")?"Instagram Reels":"Instagram 貼文",source:"Instagram"};
+  else if(host.includes("tiktok.com"))r={...r,category:"▶️ 影片",icon:"▶️",label:"TikTok 影片",source:"TikTok"};
+  else if(host.includes("youtube.com")||host==="youtu.be")r={...r,category:"▶️ 影片",icon:"▶️",label:"YouTube 影片",source:"YouTube"};
+  else if(host.includes("spotify.com")){
+    r={...r,category:(path.includes("/episode")||path.includes("/show"))?"🎙 Podcast":"🎵 音樂",icon:(path.includes("/episode")||path.includes("/show"))?"🎙":"🎵",label:(path.includes("/episode")||path.includes("/show"))?"Spotify Podcast":"Spotify 音樂",source:"Spotify"};
+  }
+  else if(host.includes("netflix.com")||host.includes("disneyplus.com")||host.includes("primevideo.com"))r={...r,category:"🎬 電影 / 影集",icon:"🎬",label:"電影 / 影集",source:host.includes("netflix")?"Netflix":host.includes("disney")?"Disney+":"Prime Video"};
+  else if(host.includes("booking.com")||host.includes("agoda.com")||host.includes("airbnb."))r={...r,category:"🏨 住宿",icon:"🏨",label:"住宿",source:host};
+  else if(host.includes("maps.google.")||(host.includes("google.")&&path.includes("/maps"))||host==="maps.app.goo.gl"){
+    r={...r,category:"📍 地點",icon:"📍",label:"Google Maps 地點",source:"Google Maps"};
+    const m=u.pathname.match(/\/place\/([^/]+)/i);
+    if(m){try{r.guessedName=decodeURIComponent(m[1].replace(/\+/g," ")).trim()}catch{}}
+  }
+  else if(/klook|kkday/.test(host))r={...r,category:"🌿 景點",icon:"🌿",label:"行程 / 景點",source:host};
+  return r
+}
+function showDetected(prefix,r){
+  const quick=prefix==="quick",box=$(quick?"quickDetected":"detectedBox");
+  if(!r){box.classList.remove("show");return}
+  $(quick?"quickIcon":"detectedIcon").textContent=r.icon;
+  $(quick?"quickTitle":"detectedTitle").textContent=r.label;
+  $(quick?"quickHost":"detectedHost").textContent=r.source;
+  box.classList.add("show")
+}
+function previewQuickLink(){showDetected("quick",detectLink($("quickUrl").value))}
+function openMemoryFromQuick(){
+  const r=detectLink($("quickUrl").value);if(!r){toast("先貼上一個網址");return}
+  $("memoryUrl").value=r.url;$("memoryCategory").value=r.category;
+  if(r.guessedName)$("memoryName").value=r.guessedName;
+  showDetected("full",r);toggleForm("memoryForm",true)
+}
+function detectMemoryLink(){
+  const r=detectLink($("memoryUrl").value);showDetected("full",r);
+  if(r){$("memoryCategory").value=r.category;if(!$("memoryName").value.trim()&&r.guessedName)$("memoryName").value=r.guessedName}
+}
+function saveMemory(){
+  const r=detectLink($("memoryUrl").value);if(!r){toast("請貼上一個有效網址");return}
+  const category=$("memoryCategory").value, location=$("memoryLocation").value.trim();
+  const name=$("memoryName").value.trim()||r.guessedName||r.label;
+  memories.unshift({
+    id:Date.now(),url:r.url,category,name,location,with:$("memoryWith").value,
+    reason:$("memoryReason").value.trim(),visited:false,linkedMomentId:"",
+    source:r.source,savedAt:new Date().toLocaleDateString("zh-TW")
+  });
+  save("closerMemoriesV3",memories);
+  ["quickUrl","memoryUrl","memoryName","memoryLocation","memoryReason"].forEach(id=>$(id).value="");
+  $("quickDetected").classList.remove("show");$("detectedBox").classList.remove("show");
+  toggleForm("memoryForm",false);renderMemories();renderMoments();toast("Closer 幫你記住了 🧠")
+}
+function deleteMemory(id){
+  memories=memories.filter(x=>String(x.id)!==String(id));save("closerMemoriesV3",memories);renderMemories();renderMoments()
+}
+function toggleVisited(id){
+  const x=memories.find(m=>String(m.id)===String(id));if(!x)return;
+  x.visited=!x.visited;if(x.visited)x.linkedMomentId="";
+  save("closerMemoriesV3",memories);renderMemories();renderMoments();
+  toast(x.visited?"記成去過了 ✓":"放回想去清單")
+}
+function openMemory(id){
+  const x=memories.find(m=>String(m.id)===String(id)),u=safeUrl(x?.url||"");if(u)window.open(u,"_blank","noopener,noreferrer")
+}
+let memoryFilter="全部";
+const memoryCategories=["全部","☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","🛍️ 購物","💕 約會","🎙 Podcast","🎵 音樂","🎬 電影 / 影集","▶️ 影片","📷 貼文 / Reels","📍 地點","🔗 其他連結"];
+function setMemoryFilter(v){memoryFilter=v;renderMemories()}
+function renderMemories(){
+  const existing=new Set(memories.map(x=>x.category));
+  $("memoryFilters").innerHTML=memoryCategories.filter(x=>x==="全部"||existing.has(x)).map(x=>`<button class="chip ${memoryFilter===x?"active":""}" onclick="setMemoryFilter('${x.replace(/'/g,"\\'")}')">${esc(x)}</button>`).join("");
+  const locations=[...new Set(memories.map(x=>x.location).filter(Boolean))];
+  $("memorySummary").innerHTML=memories.length
+    ? `你目前有 <strong>${memories.filter(x=>!x.visited).length}</strong> 個還沒完成的收藏${locations.length?`，分散在 <strong>${locations.length}</strong> 個地點／區域。`:"。"}<br><span style="color:#8d8981">Closer 不急著提醒，等真正有行程時再把它們找回來。</span>`
+    : `還沒有 Memories。下一次看到讓你心動的地方，先貼網址進來。`;
+  const list=memoryFilter==="全部"?memories:memories.filter(x=>x.category===memoryFilter);
+  $("memoriesList").innerHTML=list.length?list.map(x=>`
+    <div class="memory-card">
+      <div class="memory-head">
+        <div>
+          <div class="memory-type">${esc(x.category)} <span class="status-pill">${x.visited?"✓ 已去過":"想去"}</span></div>
+          <div class="memory-name">${esc(x.name||"收藏連結")}</div>
+          <div class="memory-meta">${esc(x.source||"")}${x.source?" · ":""}${esc(x.with||"")}</div>
+          ${x.location?`<div class="location-pill">📍 ${esc(x.location)}</div>`:""}
+        </div>
+      </div>
+      ${x.reason?`<div class="note">「${esc(x.reason)}」</div>`:""}
+      <div class="actions">
+        ${safeUrl(x.url)?`<button onclick="openMemory('${esc(x.id)}')">↗ 打開</button>`:""}
+        <button onclick="toggleVisited('${esc(x.id)}')">${x.visited?"↩ 還沒去":"✓ 去過了"}</button>
+        <button class="danger" onclick="deleteMemory('${esc(x.id)}')">×</button>
+      </div>
+    </div>`).join(""):`<div class="card"><div class="empty">這個分類還沒有收藏。</div></div>`
+}
+
 /* Moments */
-let countdowns=safeParse(localStorage.getItem("closerCountdowns"),[]);
-countdowns=Array.isArray(countdowns)?countdowns.map(item=>({
-  id:item.id??Date.now()+Math.random(),
-  name:item.name||"Something Beautiful",
-  date:item.date||"",
-  with:item.with||item.who||""
-})):[];
-function addCountdown(){
-  const name=$("eventName").value.trim();
-  const date=$("eventDate").value;
-  if(!name||!date){showToast("請輸入名稱和日期");return}
-  countdowns.push({id:Date.now(),name,date,with:$("eventWith").value});
-  save("closerCountdowns",countdowns);
-  $("eventName").value="";$("eventDate").value="";
-  toggleForm("countdownForm",false);
-  renderCountdowns();
-  showToast("值得期待的日子，記住了");
+let moments=safeParse(localStorage.getItem("closerMomentsV2"),null);
+if(!Array.isArray(moments)){
+  const old=safeParse(localStorage.getItem("closerCountdowns"),[]);
+  moments=Array.isArray(old)?old.map(x=>({id:x.id??Date.now()+Math.random(),name:x.name||"",date:x.date||"",with:x.with||x.who||"",location:x.location||""})):[];
+  save("closerMomentsV2",moments)
 }
-function deleteCountdown(id){
-  countdowns=countdowns.filter(x=>String(x.id)!==String(id));
-  save("closerCountdowns",countdowns);
-  renderCountdowns();
+function addMoment(){
+  const name=$("momentName").value.trim(),date=$("momentDate").value;
+  if(!name||!date){toast("請輸入名稱和日期");return}
+  moments.push({id:Date.now(),name,date,with:$("momentWith").value,location:$("momentLocation").value.trim()});
+  save("closerMomentsV2",moments);
+  ["momentName","momentDate","momentLocation"].forEach(id=>$(id).value="");
+  toggleForm("momentForm",false);renderMoments();toast("Moment 建立好了 ⏳")
 }
-function renderCountdowns(){
-  const future=countdowns.filter(i=>i.date).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
-  const hero=future.find(i=>daysLeft(i.date)>=0)||future[0];
+function deleteMoment(id){
+  moments=moments.filter(x=>String(x.id)!==String(id));
+  memories.forEach(m=>{if(String(m.linkedMomentId)===String(id))m.linkedMomentId=""});
+  save("closerMomentsV2",moments);save("closerMemoriesV3",memories);renderMoments()
+}
+function normalizeText(s=""){return String(s).trim().toLowerCase().replace(/\s+/g,"")}
+function suggestionsFor(moment){
+  const loc=normalizeText(moment.location),who=moment.with;
+  let candidates=memories.filter(m=>!m.visited&&!m.linkedMomentId);
+  if(who)candidates=candidates.filter(m=>!m.with||m.with===who||m.with==="👥 一起");
+  if(loc){
+    const local=candidates.filter(m=>normalizeText(m.location).includes(loc)||loc.includes(normalizeText(m.location)));
+    if(local.length)candidates=local
+  }
+  return candidates.slice(0,4)
+}
+function linkToMoment(memoryId,momentId){
+  const m=memories.find(x=>String(x.id)===String(memoryId));if(!m)return;
+  m.linkedMomentId=momentId;save("closerMemoriesV3",memories);renderMoments();renderMemories();toast("加入這次行程了 ♡")
+}
+function unlinkFromMoment(memoryId){
+  const m=memories.find(x=>String(x.id)===String(memoryId));if(!m)return;
+  m.linkedMomentId="";save("closerMemoriesV3",memories);renderMoments();renderMemories()
+}
+function renderSmartRecall(upcoming){
+  const box=$("smartRecall");
+  if(!upcoming){box.innerHTML="";return}
+  const days=Math.max(daysLeft(upcoming.date),0), sug=suggestionsFor(upcoming);
+  const linked=memories.filter(m=>String(m.linkedMomentId)===String(upcoming.id)&&!m.visited);
+  if(!sug.length&&!linked.length){box.innerHTML="";return}
+  const context=upcoming.location?`你以前存過一些和「${esc(upcoming.location)}」有關的地方。`:`你以前存過一些想和 ${esc(upcoming.with||"重要的人")} 一起做的事。`;
+  box.innerHTML=`
+    <div class="smart-card">
+      <div class="eyebrow" style="color:#aaa">CLOSER REMEMBERS</div>
+      <div class="smart-title">${days<=7?"快到了。要不要把一個收藏變成真的？":"先替這次見面留一點靈感。"}</div>
+      <div class="smart-sub">${context}<br>${days} 天後，就是「${esc(upcoming.name)}」。</div>
+      ${sug.map(m=>`
+        <div class="suggestion">
+          <div class="suggestion-name">${esc(m.name||"收藏連結")}</div>
+          <div class="suggestion-meta">${esc(m.category)}${m.location?" · 📍 "+esc(m.location):""}${m.reason?" · 「"+esc(m.reason)+"」":""}</div>
+          <div class="suggestion-actions">
+            <button onclick="linkToMoment('${esc(m.id)}','${esc(upcoming.id)}')">＋ 加入這次</button>
+            <button onclick="openMemory('${esc(m.id)}')">看看</button>
+          </div>
+        </div>`).join("")}
+      ${linked.length?`<div class="linked-label">ALREADY FOR THIS MOMENT</div>${linked.map(m=>`
+        <div class="suggestion">
+          <div class="suggestion-name">✓ ${esc(m.name)}</div>
+          <div class="suggestion-meta">${esc(m.category)}${m.location?" · 📍 "+esc(m.location):""}</div>
+          <div class="suggestion-actions"><button onclick="openMemory('${esc(m.id)}')">打開</button><button onclick="unlinkFromMoment('${esc(m.id)}')">移除</button></div>
+        </div>`).join("")}`:""}
+    </div>`
+}
+function renderMoments(){
+  const future=moments.filter(x=>x.date&&daysLeft(x.date)>=0).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const hero=future[0]||moments.filter(x=>x.date).slice().sort((a,b)=>new Date(a.date)-new Date(b.date))[0];
   if(hero){
     $("heroNumber").textContent=Math.max(daysLeft(hero.date),0);
     $("heroName").textContent=hero.name;
-    $("heroDate").textContent=[hero.with,formatDate(hero.date)].filter(Boolean).join(" · ");
+    $("heroDate").textContent=[hero.with,hero.location?`📍 ${hero.location}`:"",dateText(hero.date)].filter(Boolean).join(" · ")
   }else{
-    $("heroNumber").textContent="—";
-    $("heroName").textContent="Something Beautiful";
-    $("heroDate").textContent="把值得期待的事，放在這裡。";
+    $("heroNumber").textContent="—";$("heroName").textContent="Something Beautiful";$("heroDate").textContent="把值得期待的事，放在這裡。"
   }
-  const box=$("countdowns");
-  if(!countdowns.length){
-    box.innerHTML='<div class="card"><div class="empty">還沒有倒數。<br>先放進一件你真的期待的事。</div></div>';
-    return;
-  }
-  box.innerHTML=countdowns.slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).map(item=>`
-    <div class="item-card">
+  renderSmartRecall(future[0]);
+  if(!moments.length){$("momentsList").innerHTML='<div class="card"><div class="empty">還沒有 Moment。<br>建立一個見面或旅行，Closer 才知道什麼時候該把回憶叫醒。</div></div>';return}
+  $("momentsList").innerHTML=moments.slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).map(x=>`
+    <div class="moment-card">
       <div class="item-row">
         <div class="item-main">
-          <div class="item-name">${escapeHTML(item.name)}</div>
-          <div class="item-meta">${escapeHTML(item.with||"屬於你的時刻")} · ${escapeHTML(formatDate(item.date))}</div>
+          <div class="item-name">${esc(x.name)}</div>
+          <div class="item-meta">${esc(x.with||"")}${x.location?" · 📍 "+esc(x.location):""}<br>${esc(dateText(x.date))}</div>
         </div>
-        <div class="item-right">
-          <div class="item-days">${Math.max(daysLeft(item.date),0)}</div>
-          <button class="delete-btn" onclick="deleteCountdown('${escapeHTML(item.id)}')" aria-label="刪除">×</button>
-        </div>
+        <div class="item-days">${Math.max(daysLeft(x.date),0)}</div>
       </div>
-    </div>`).join("");
+      <div class="actions"><button class="danger" onclick="deleteMoment('${esc(x.id)}')">刪除</button></div>
+    </div>`).join("")
 }
-renderCountdowns();
+renderMemories();renderMoments();
 
-/* Together migration */
-function categoryFromOldType(type=""){
-  const t=String(type);
-  if(/咖啡|餐廳|美食/.test(t)) return "☕ 咖啡 / 餐廳";
-  if(/住宿|飯店|酒店/.test(t)) return "🏨 住宿";
-  if(/Podcast/i.test(t)) return "🎙 Podcast";
-  if(/音樂|Music/i.test(t)) return "🎵 音樂";
-  if(/電影|影集|Netflix/.test(t)) return "🎬 電影 / 影集";
-  if(/景點|地方|地點/.test(t)) return "📍 地點";
-  if(/Reels|貼文|Instagram|IG/.test(t)) return "📷 貼文 / Reels";
-  return "🔗 其他連結";
-}
-let together=safeParse(localStorage.getItem("closerTogether"),null);
-if(!Array.isArray(together)){
-  const oldMem=safeParse(localStorage.getItem("closerMemories"),[]);
-  const oldShares=safeParse(localStorage.getItem("closerShares"),[]);
-  together=[];
-  if(Array.isArray(oldMem)){
-    oldMem.forEach(x=>together.push({
-      id:"m_"+(x.id??Date.now()+Math.random()),
-      url:x.link||"",
-      category:categoryFromOldType(x.type),
-      name:x.name||"",
-      with:x.with||x.who||"",
-      reason:x.note||"",
-      source:x.city||x.source||"",
-      savedAt:x.savedAt||new Date().toLocaleDateString("zh-TW")
-    }));
-  }
-  if(Array.isArray(oldShares)){
-    oldShares.forEach(x=>together.push({
-      id:"s_"+(x.id??Date.now()+Math.random()),
-      url:x.link||"",
-      category:categoryFromOldType(x.type),
-      name:x.name||"",
-      with:x.with||x.who||"",
-      reason:x.note||"",
-      source:"",
-      savedAt:x.savedAt||new Date().toLocaleDateString("zh-TW")
-    }));
-  }
-  save("closerTogether",together);
-}
-let currentTogetherFilter="全部";
-const categories=[
-  "全部","📍 地點","☕ 咖啡 / 餐廳","🏨 住宿","🎙 Podcast","🎵 音樂",
-  "🎬 電影 / 影集","▶️ 影片","📷 貼文 / Reels","🔗 其他連結"
-];
-
-function detectLink(raw){
-  const normalized=safeUrl(raw);
-  if(!normalized) return null;
-  let u;
-  try{u=new URL(normalized)}catch{return null}
-  const host=u.hostname.replace(/^www\./,"").toLowerCase();
-  const path=u.pathname.toLowerCase();
-
-  let result={category:"🔗 其他連結",icon:"🔗",label:"一般連結",source:host};
-
-  if(host.includes("instagram.com")){
-    result={category:"📷 貼文 / Reels",icon:"📷",label:path.includes("/reel")?"Instagram Reels":"Instagram 貼文",source:"Instagram"};
-  }else if(host.includes("tiktok.com")){
-    result={category:"▶️ 影片",icon:"▶️",label:"TikTok 影片",source:"TikTok"};
-  }else if(host.includes("youtube.com")||host==="youtu.be"){
-    result={category:"▶️ 影片",icon:"▶️",label:"YouTube 影片",source:"YouTube"};
-  }else if(host.includes("spotify.com")){
-    if(path.includes("/episode")||path.includes("/show")){
-      result={category:"🎙 Podcast",icon:"🎙",label:"Spotify Podcast",source:"Spotify"};
-    }else{
-      result={category:"🎵 音樂",icon:"🎵",label:"Spotify 音樂",source:"Spotify"};
-    }
-  }else if(host.includes("podcasts.apple.com")){
-    result={category:"🎙 Podcast",icon:"🎙",label:"Apple Podcasts",source:"Apple Podcasts"};
-  }else if(host.includes("music.apple.com")){
-    result={category:"🎵 音樂",icon:"🎵",label:"Apple Music",source:"Apple Music"};
-  }else if(host.includes("netflix.com")){
-    result={category:"🎬 電影 / 影集",icon:"🎬",label:"Netflix",source:"Netflix"};
-  }else if(host.includes("disneyplus.com")||host.includes("disney.com")){
-    result={category:"🎬 電影 / 影集",icon:"🎬",label:"Disney+",source:"Disney+"};
-  }else if(host.includes("primevideo.com")){
-    result={category:"🎬 電影 / 影集",icon:"🎬",label:"Prime Video",source:"Prime Video"};
-  }else if(host.includes("letterboxd.com")||host.includes("imdb.com")){
-    result={category:"🎬 電影 / 影集",icon:"🎬",label:"電影 / 影集",source:host.includes("letterboxd")?"Letterboxd":"IMDb"};
-  }else if(host.includes("maps.google.")||host.includes("google.com")&&path.includes("/maps")||host==="maps.app.goo.gl"){
-    result={category:"📍 地點",icon:"📍",label:"Google Maps 地點",source:"Google Maps"};
-  }else if(host.includes("booking.com")||host.includes("agoda.com")||host.includes("airbnb.")){
-    result={category:"🏨 住宿",icon:"🏨",label:"住宿",source:host.replace(/^m\./,"")};
-  }else if(host.includes("ubereats.com")||host.includes("foodpanda.")){
-    result={category:"☕ 咖啡 / 餐廳",icon:"☕",label:"餐廳 / 美食",source:host};
-  }else if(host.includes("threads.net")){
-    result={category:"📷 貼文 / Reels",icon:"💬",label:"Threads 貼文",source:"Threads"};
-  }
-
-  /* Try to extract a readable Google Maps place name */
-  let guessedName="";
-  try{
-    const match=u.pathname.match(/\/place\/([^/]+)/i);
-    if(match){
-      guessedName=decodeURIComponent(match[1].replace(/\+/g," ")).trim();
-    }
-  }catch{}
-
-  return {...result,url:normalized,host,guessedName};
-}
-
-function showDetected(prefix,result){
-  const box=$(prefix==="quick"?"quickDetected":"detectedBox");
-  if(!result){box.classList.remove("show");return}
-  $(prefix==="quick"?"quickIcon":"detectedIcon").textContent=result.icon;
-  $(prefix==="quick"?"quickTitle":"detectedTitle").textContent=result.label;
-  $(prefix==="quick"?"quickHost":"detectedHost").textContent=result.source;
-  box.classList.add("show");
-}
-function previewQuickLink(){
-  showDetected("quick",detectLink($("quickUrl").value));
-}
-function openTogetherFromQuick(){
-  const result=detectLink($("quickUrl").value);
-  if(!result){showToast("先貼上一個網址");return}
-  $("togetherUrl").value=result.url;
-  $("togetherCategory").value=result.category;
-  if(result.guessedName) $("togetherName").value=result.guessedName;
-  showDetected("full",result);
-  toggleForm("togetherForm",true);
-}
-function detectTogetherLink(){
-  const result=detectLink($("togetherUrl").value);
-  showDetected("full",result);
-  if(result){
-    $("togetherCategory").value=result.category;
-    if(!$("togetherName").value.trim() && result.guessedName) $("togetherName").value=result.guessedName;
-  }
-}
-function saveTogether(){
-  const result=detectLink($("togetherUrl").value);
-  if(!result){showToast("請貼上一個有效網址");return}
-  const category=$("togetherCategory").value;
-  const name=$("togetherName").value.trim() || result.label;
-  together.unshift({
-    id:Date.now(),
-    url:result.url,
-    category,
-    name,
-    with:$("togetherWith").value,
-    reason:$("togetherReason").value.trim(),
-    source:result.source,
-    savedAt:new Date().toLocaleDateString("zh-TW")
-  });
-  save("closerTogether",together);
-
-  $("quickUrl").value="";
-  $("togetherUrl").value="";
-  $("togetherName").value="";
-  $("togetherReason").value="";
-  $("quickDetected").classList.remove("show");
-  $("detectedBox").classList.remove("show");
-  toggleForm("togetherForm",false);
-  renderTogether();
-  showToast("Closer 幫你收好了 🫶");
-}
-function deleteTogether(id){
-  together=together.filter(x=>String(x.id)!==String(id));
-  save("closerTogether",together);
-  renderTogether();
-}
-function openTogether(id){
-  const item=together.find(x=>String(x.id)===String(id));
-  const url=safeUrl(item?.url||"");
-  if(url)window.open(url,"_blank","noopener,noreferrer");
-}
-function setTogetherFilter(cat){
-  currentTogetherFilter=cat;
-  renderTogether();
-}
-function renderTogether(){
-  const filterBox=$("togetherFilters");
-  const existing=new Set(together.map(x=>x.category));
-  const visible=categories.filter(c=>c==="全部"||existing.has(c));
-  filterBox.innerHTML=visible.map(cat=>`
-    <button class="chip ${currentTogetherFilter===cat?"active":""}"
-      onclick="setTogetherFilter('${cat.replace(/'/g,"\\'")}')">${escapeHTML(cat)}</button>`).join("");
-
-  const list=currentTogetherFilter==="全部"?together:together.filter(x=>x.category===currentTogetherFilter);
-  const box=$("togetherList");
-  if(!list.length){
-    box.innerHTML='<div class="card"><div class="empty">還沒有收藏。<br>下一次看到想一起做的事，貼網址進來就好。</div></div>';
-    return;
-  }
-  box.innerHTML=list.map(item=>`
-    <div class="together-card">
-      <div class="together-top">
-        <div>
-          <div class="together-type">${escapeHTML(item.category||"🔗 其他連結")}</div>
-          <div class="together-name">${escapeHTML(item.name||"收藏連結")}</div>
-          <div class="together-meta">${escapeHTML(item.source||"")} ${item.source?"· ":""}${escapeHTML(item.with||"")}</div>
-        </div>
-      </div>
-      ${item.reason?`<div class="note">「${escapeHTML(item.reason)}」</div>`:""}
-      <div class="actions">
-        ${safeUrl(item.url)?`<button onclick="openTogether('${escapeHTML(item.id)}')">↗ 打開</button>`:""}
-        <button class="danger" onclick="deleteTogether('${escapeHTML(item.id)}')">×</button>
-      </div>
-    </div>`).join("");
-}
-renderTogether();
-
-/* Calm + procedural ambient sound */
-let calmMinutes=1;
-let calmRunning=false;
-let calmRemaining=60;
-let calmTotal=60;
-let calmTimerId=null;
-let breathTimerId=null;
-let breathPhaseIndex=0;
-let selectedSound=localStorage.getItem("closerCalmSound")||"ocean";
+/* Calm - real recordings */
+const soundSources={
+  ocean:"https://bigsoundbank.com/UPLOAD/mp3/0266.mp3",
+  fireplace:"https://bigsoundbank.com/UPLOAD/mp3/0031.mp3",
+  rain:"https://bigsoundbank.com/UPLOAD/mp3/2679.mp3",
+  forest:"https://bigsoundbank.com/UPLOAD/mp3/0100.mp3"
+};
+let calmMinutes=1,calmRunning=false,calmRemaining=60,calmTotal=60,calmTimerId=null,breathTimerId=null,breathIndex=0;
+let selectedSound=localStorage.getItem("closerCalmSoundReal")||"ocean";
 let soundVolume=Number(localStorage.getItem("closerCalmVolume")||38)/100;
-
-const breathPhases=[
-  {key:"inhale",label:"吸氣",seconds:4},
-  {key:"hold",label:"停留",seconds:2},
-  {key:"exhale",label:"吐氣",seconds:6}
-];
-
-let audioCtx=null;
-let masterGain=null;
-let soundNodes=[];
-let soundIntervals=[];
-
-function ensureAudio(){
-  if(!audioCtx){
-    const AC=window.AudioContext||window.webkitAudioContext;
-    if(!AC) return false;
-    audioCtx=new AC();
-    masterGain=audioCtx.createGain();
-    masterGain.gain.value=soundVolume;
-    masterGain.connect(audioCtx.destination);
-  }
-  if(audioCtx.state==="suspended") audioCtx.resume();
-  return true;
+let fadeTimer=null;
+const phases=[{key:"inhale",label:"吸氣",seconds:4},{key:"hold",label:"停留",seconds:2},{key:"exhale",label:"吐氣",seconds:6}];
+const audio=$("ambientAudio");
+function fadeTo(target,duration=1800,after){
+  clearInterval(fadeTimer);
+  const start=audio.volume,steps=30,delta=(target-start)/steps;let i=0;
+  fadeTimer=setInterval(()=>{i++;audio.volume=Math.max(0,Math.min(1,start+delta*i));if(i>=steps){clearInterval(fadeTimer);after?.()}},duration/steps)
 }
-function createNoiseBuffer(seconds=4){
-  const length=Math.max(1,Math.floor(audioCtx.sampleRate*seconds));
-  const buffer=audioCtx.createBuffer(1,length,audioCtx.sampleRate);
-  const data=buffer.getChannelData(0);
-  for(let i=0;i<length;i++) data[i]=Math.random()*2-1;
-  return buffer;
+function startAmbient(){
+  if(selectedSound==="silent")return;
+  const src=soundSources[selectedSound];if(!src)return;
+  if(audio.src!==src)audio.src=src;
+  audio.volume=0;
+  audio.play().then(()=>fadeTo(soundVolume,1800)).catch(()=>toast("請再按一次開始播放聲音"))
 }
-function connectTracked(node){
-  soundNodes.push(node);
-  return node;
-}
-function stopAmbient(){
-  soundIntervals.forEach(clearInterval);
-  soundIntervals=[];
-  soundNodes.forEach(node=>{
-    try{node.stop?.()}catch{}
-    try{node.disconnect?.()}catch{}
-  });
-  soundNodes=[];
-}
-function startNoise(filterType,frequency,gainValue){
-  const src=connectTracked(audioCtx.createBufferSource());
-  src.buffer=createNoiseBuffer(5);
-  src.loop=true;
-  const filter=connectTracked(audioCtx.createBiquadFilter());
-  filter.type=filterType;
-  filter.frequency.value=frequency;
-  const gain=connectTracked(audioCtx.createGain());
-  gain.gain.value=gainValue;
-  src.connect(filter).connect(gain).connect(masterGain);
-  src.start();
-  return {src,filter,gain};
-}
-function startAmbient(kind){
-  stopAmbient();
-  if(kind==="silent"||!ensureAudio())return;
-
-  if(kind==="ocean"){
-    const n=startNoise("lowpass",1100,.36);
-    const lfo=connectTracked(audioCtx.createOscillator());
-    const depth=connectTracked(audioCtx.createGain());
-    lfo.frequency.value=.09;
-    depth.gain.value=.18;
-    lfo.connect(depth).connect(n.gain.gain);
-    lfo.start();
-  }
-
-  if(kind==="rain"){
-    startNoise("highpass",1800,.20);
-    const soft=startNoise("bandpass",4200,.12);
-    soft.filter.Q.value=.55;
-  }
-
-  if(kind==="fire"){
-    const base=startNoise("lowpass",900,.18);
-    base.filter.Q.value=.5;
-    const crackle=()=>{
-      if(!audioCtx||!calmRunning||selectedSound!=="fire")return;
-      const osc=connectTracked(audioCtx.createOscillator());
-      const g=connectTracked(audioCtx.createGain());
-      osc.type="triangle";
-      osc.frequency.value=70+Math.random()*120;
-      const now=audioCtx.currentTime;
-      g.gain.setValueAtTime(.0001,now);
-      g.gain.exponentialRampToValueAtTime(.08+Math.random()*.08,now+.01);
-      g.gain.exponentialRampToValueAtTime(.0001,now+.05+Math.random()*.08);
-      osc.connect(g).connect(masterGain);
-      osc.start(now);
-      osc.stop(now+.18);
-    };
-    soundIntervals.push(setInterval(crackle,180+Math.random()*220));
-  }
-
-  if(kind==="forest"){
-    startNoise("lowpass",1600,.08);
-    const chirp=()=>{
-      if(!audioCtx||!calmRunning||selectedSound!=="forest")return;
-      const osc=connectTracked(audioCtx.createOscillator());
-      const g=connectTracked(audioCtx.createGain());
-      osc.type="sine";
-      const now=audioCtx.currentTime;
-      const start=1200+Math.random()*1100;
-      osc.frequency.setValueAtTime(start,now);
-      osc.frequency.exponentialRampToValueAtTime(start*1.35,now+.12);
-      g.gain.setValueAtTime(.0001,now);
-      g.gain.exponentialRampToValueAtTime(.045,now+.02);
-      g.gain.exponentialRampToValueAtTime(.0001,now+.20);
-      osc.connect(g).connect(masterGain);
-      osc.start(now);
-      osc.stop(now+.24);
-    };
-    soundIntervals.push(setInterval(chirp,1700+Math.random()*1300));
-  }
-}
+function stopAmbient(){if(audio.paused)return;fadeTo(0,1200,()=>{audio.pause()})}
 function chooseSound(kind,btn){
-  selectedSound=kind;
-  localStorage.setItem("closerCalmSound",kind);
-  document.querySelectorAll(".sound-option").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  if(calmRunning)startAmbient(selectedSound);
+  selectedSound=kind;localStorage.setItem("closerCalmSoundReal",kind);
+  document.querySelectorAll(".sound-option").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+  if(calmRunning){stopAmbient();setTimeout(startAmbient,1250)}
 }
-function setSoundVolume(value){
-  soundVolume=Number(value)/100;
-  localStorage.setItem("closerCalmVolume",String(value));
-  if(masterGain&&audioCtx){
-    masterGain.gain.setTargetAtTime(soundVolume,audioCtx.currentTime,.06);
-  }
+function setSoundVolume(v){
+  soundVolume=Number(v)/100;localStorage.setItem("closerCalmVolume",String(v));
+  if(calmRunning&&!audio.paused)fadeTo(soundVolume,300)
 }
 function chooseCalm(min,btn){
-  if(calmRunning)return;
-  calmMinutes=min;
-  calmRemaining=min*60;
-  calmTotal=calmRemaining;
-  document.querySelectorAll(".calm-option").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  updateCalmTimer();
-  $("progressBar").style.width="0%";
+  if(calmRunning)return;calmMinutes=min;calmRemaining=min*60;calmTotal=calmRemaining;
+  document.querySelectorAll(".calm-option").forEach(b=>b.classList.remove("active"));btn.classList.add("active");updateCalm()
 }
-function formatTimer(sec){
-  const m=Math.floor(sec/60).toString().padStart(2,"0");
-  const s=Math.floor(sec%60).toString().padStart(2,"0");
-  return `${m}:${s}`;
+function timerText(s){return `${Math.floor(s/60).toString().padStart(2,"0")}:${(s%60).toString().padStart(2,"0")}`}
+function updateCalm(){
+  $("calmTimer").textContent=timerText(calmRemaining);
+  $("progressBar").style.width=`${calmTotal?((calmTotal-calmRemaining)/calmTotal)*100:0}%`
 }
-function updateCalmTimer(){
-  $("calmTimer").textContent=formatTimer(calmRemaining);
-  const done=calmTotal?((calmTotal-calmRemaining)/calmTotal)*100:0;
-  $("progressBar").style.width=`${Math.min(100,Math.max(0,done))}%`;
-}
-function setBreathPhase(){
-  const phase=breathPhases[breathPhaseIndex];
-  const circle=$("breatheCircle");
-  circle.classList.remove("inhale","hold","exhale");
-  circle.classList.add("running",phase.key);
-  $("breatheText").textContent=phase.label;
-  $("calmHint").textContent=
-    phase.key==="inhale"?"慢慢吸進來。":
-    phase.key==="hold"?"不用用力，只停一下。":"慢慢吐出去。";
-  clearTimeout(breathTimerId);
-  breathTimerId=setTimeout(()=>{
-    if(!calmRunning)return;
-    breathPhaseIndex=(breathPhaseIndex+1)%breathPhases.length;
-    setBreathPhase();
-  },phase.seconds*1000);
+function setBreath(){
+  const p=phases[breathIndex],c=$("breatheCircle");
+  c.classList.remove("inhale","hold","exhale");c.classList.add("running",p.key);$("breatheText").textContent=p.label;
+  $("calmHint").textContent=p.key==="inhale"?"慢慢吸進來。":p.key==="hold"?"停一下就好。":"慢慢吐出去。";
+  clearTimeout(breathTimerId);breathTimerId=setTimeout(()=>{if(calmRunning){breathIndex=(breathIndex+1)%phases.length;setBreath()}},p.seconds*1000)
 }
 function startCalm(){
-  calmRunning=true;
-  calmRemaining=calmMinutes*60;
-  calmTotal=calmRemaining;
-  $("calmButton").textContent="暫停";
-  breathPhaseIndex=0;
-  setBreathPhase();
-  startAmbient(selectedSound);
-  updateCalmTimer();
-  calmTimerId=setInterval(()=>{
-    calmRemaining-=1;
-    updateCalmTimer();
-    if(calmRemaining<=0)stopCalm(true);
-  },1000);
+  calmRunning=true;calmRemaining=calmMinutes*60;calmTotal=calmRemaining;$("calmButton").textContent="暫停";breathIndex=0;setBreath();startAmbient();updateCalm();
+  calmTimerId=setInterval(()=>{calmRemaining--;updateCalm();if(calmRemaining<=0)stopCalm(true)},1000)
 }
-function stopCalm(completed=false){
-  calmRunning=false;
-  clearInterval(calmTimerId);
-  clearTimeout(breathTimerId);
-  calmTimerId=null;breathTimerId=null;
-  stopAmbient();
-  const circle=$("breatheCircle");
-  circle.classList.remove("running","inhale","hold","exhale");
-  $("calmButton").textContent="開始";
-  if(completed){
-    calmRemaining=0;updateCalmTimer();
-    $("breatheText").textContent="完成";
-    $("calmHint").textContent="這一段時間，是留給你的。";
-    showToast("Quiet moment completed 🌱");
-  }else{
-    $("breatheText").textContent="準備好了嗎？";
-    $("calmHint").textContent="吸氣 4 秒 · 停留 2 秒 · 吐氣 6 秒";
-  }
+function stopCalm(done=false){
+  calmRunning=false;clearInterval(calmTimerId);clearTimeout(breathTimerId);stopAmbient();
+  const c=$("breatheCircle");c.classList.remove("running","inhale","hold","exhale");$("calmButton").textContent="開始";
+  if(done){calmRemaining=0;updateCalm();$("breatheText").textContent="完成";$("calmHint").textContent="這一段時間，是留給你的。";toast("Quiet moment completed 🌱")}
+  else{$("breatheText").textContent="準備好了嗎？";$("calmHint").textContent="吸氣 4 秒 · 停留 2 秒 · 吐氣 6 秒"}
 }
 function toggleCalm(){calmRunning?stopCalm(false):startCalm()}
-
-/* Restore Calm UI */
 $("soundVolume").value=Math.round(soundVolume*100);
-document.querySelectorAll(".sound-option").forEach(btn=>{
-  const text=btn.textContent;
-  btn.classList.remove("active");
-  if(
-    (selectedSound==="ocean"&&text.includes("海浪"))||
-    (selectedSound==="fire"&&text.includes("營火"))||
-    (selectedSound==="rain"&&text.includes("雨聲"))||
-    (selectedSound==="forest"&&text.includes("森林"))||
-    (selectedSound==="silent"&&text.includes("無聲"))
-  ) btn.classList.add("active");
-});
+document.querySelectorAll(".sound-option").forEach(b=>b.classList.toggle("active",b.dataset.sound===selectedSound));
 </script>
 </body>
 </html>
