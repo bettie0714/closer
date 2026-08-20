@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f7f5ef">
+<title>Closer</title>
+<style>
+:root{
+  --bg:#f7f5ef;
+  --card:#ffffff;
+  --ink:#252525;
+  --muted:#96928a;
+  --soft:#e9e6dd;
+  --line:#dedbd3;
+  --dark:#252525;
+  --radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang TC","Noto Sans TC",Arial,sans-serif;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid #252525;
+  outline-offset:2px;
+}
+.app{
+  width:min(100%,540px);
+  min-height:100vh;
+  margin:0 auto;
+  padding:24px 18px calc(76px + env(safe-area-inset-bottom));
+}
+.header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:22px;
+}
+.logo{
+  font-size:18px;
+  letter-spacing:4px;
+  font-weight:700;
+}
+.tagline{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:.2px;
+}
+.today{
+  color:var(--muted);
+  font-size:12px;
+  padding-top:2px;
+  white-space:nowrap;
+}
+.modes{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:7px 0 14px;
+  background:linear-gradient(var(--bg) 74%,rgba(247,245,239,0));
+  margin-bottom:7px;
+}
+.mode{
+  border:0;
+  background:var(--soft);
+  color:#77736c;
+  min-width:0;
+  padding:10px 5px;
+  border-radius:999px;
+  font-size:12px;
+  white-space:nowrap;
+  transition:.18s ease;
+}
+.mode.active{
+  background:var(--dark);
+  color:#fff;
+}
+.section{display:none}
+.section.active{display:block}
+.hero{
+  text-align:center;
+  padding:30px 8px 34px;
+}
+.hero-label{
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:3px;
+  margin-bottom:15px;
+}
+.hero-number{
+  font-size:clamp(76px,23vw,108px);
+  line-height:.9;
+  font-weight:650;
+  letter-spacing:-6px;
+}
+.hero-unit{
+  font-size:10px;
+  letter-spacing:4px;
+  margin-top:15px;
+}
+.hero-name{
+  margin-top:23px;
+  font-size:24px;
+  font-weight:580;
+}
+.hero-sub{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:8px;
+  line-height:1.6;
+}
+.card,.item-card,.memory-card,.share-card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:22px;
+  margin-bottom:13px;
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+}
+.card.dark{
+  background:var(--dark);
+  color:#fff;
+}
+.eyebrow{
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:2px;
+  margin-bottom:14px;
+}
+.dark .eyebrow{color:#aaa}
+.big{
+  font-size:25px;
+  line-height:1.25;
+  font-weight:620;
+}
+.sub{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+  margin-top:8px;
+}
+.dark .sub{color:#c8c8c8}
+.quote{
+  text-align:center;
+  padding:27px 20px;
+}
+.quote-main{
+  font-size:18px;
+  line-height:1.7;
+}
+.quote-en{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:9px;
+}
+.quote-actions{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-top:13px;
+}
+.icon-btn{
+  border:0;
+  background:transparent;
+  color:inherit;
+  font-size:18px;
+  padding:6px 10px;
+}
+.primary,.secondary,.ghost{
+  width:100%;
+  border-radius:15px;
+  padding:14px 16px;
+  border:0;
+  font-size:14px;
+}
+.primary{
+  background:var(--dark);
+  color:#fff;
+}
+.secondary{
+  background:#fff;
+  color:var(--ink);
+  border:1px solid var(--line);
+}
+.ghost{
+  background:var(--soft);
+  color:var(--ink);
+}
+.primary + .secondary,.primary + .ghost,.secondary + .primary{margin-top:8px}
+.form{
+  display:none;
+  background:var(--card);
+  padding:22px;
+  border-radius:var(--radius);
+  margin-bottom:13px;
+}
+.form.open{display:block}
+.form-title{
+  font-size:20px;
+  font-weight:620;
+  margin-bottom:14px;
+}
+.field-label{
+  display:block;
+  color:#77736c;
+  font-size:11px;
+  margin:12px 2px 4px;
+}
+input,select,textarea{
+  width:100%;
+  border:1px solid var(--line);
+  background:#fbfaf7;
+  border-radius:13px;
+  padding:13px 14px;
+  color:var(--ink);
+}
+textarea{
+  min-height:86px;
+  resize:vertical;
+  line-height:1.55;
+}
+.form-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:14px;
+}
+.form-actions button{margin:0}
+.list-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:22px 1px 11px;
+}
+.list-title{
+  font-size:10px;
+  letter-spacing:2px;
+  color:var(--muted);
+}
+.countdown-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.item-main{min-width:0}
+.item-name{
+  font-size:16px;
+  font-weight:560;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.item-meta{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+  line-height:1.5;
+}
+.item-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex:none;
+}
+.item-days{
+  font-size:26px;
+  font-weight:650;
+}
+.delete-btn{
+  border:0;
+  background:transparent;
+  color:#aaa;
+  font-size:22px;
+  padding:4px;
+}
+.chips{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  padding:1px 0 13px;
+  scrollbar-width:none;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  border:0;
+  background:var(--soft);
+  color:#77736c;
+  padding:8px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+  font-size:12px;
+}
+.chip.active{
+  background:var(--dark);
+  color:#fff;
+}
+.memory-top,.share-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+.memory-type,.share-type{
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:1px;
+}
+.memory-name,.share-name{
+  font-size:19px;
+  font-weight:620;
+  margin-top:5px;
+  line-height:1.35;
+}
+.memory-meta,.share-meta{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:6px;
+  line-height:1.6;
+}
+.note{
+  background:var(--bg);
+  border-radius:13px;
+  padding:12px 13px;
+  margin-top:13px;
+  font-size:13px;
+  line-height:1.6;
+}
+.actions{
+  display:flex;
+  gap:7px;
+  margin-top:13px;
+  flex-wrap:wrap;
+}
+.actions button{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:12px;
+  padding:9px 11px;
+  font-size:12px;
+}
+.actions button.danger{
+  color:#aaa;
+  margin-left:auto;
+}
+.empty{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+  text-align:center;
+  padding:26px 10px;
+}
+.together-intro{
+  padding-top:28px;
+  padding-bottom:24px;
+}
+.mini-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:16px;
+}
+.mini{
+  background:var(--bg);
+  border-radius:17px;
+  padding:15px;
+}
+.mini-icon{font-size:21px}
+.mini-title{
+  margin-top:8px;
+  font-size:14px;
+  font-weight:600;
+}
+.mini-sub{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+  margin-top:4px;
+}
+.calm-hero{
+  text-align:center;
+  padding:30px 0 20px;
+}
+.breathe-wrap{
+  height:245px;
+  display:grid;
+  place-items:center;
+}
+.breathe-circle{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 18px 50px rgba(37,37,37,.07);
+  display:grid;
+  place-items:center;
+  transition:transform 4s ease-in-out, background 1s ease;
+}
+.breathe-circle.running.inhale{transform:scale(1.5)}
+.breathe-circle.running.hold{transform:scale(1.5)}
+.breathe-circle.running.exhale{transform:scale(1)}
+.breathe-text{
+  font-size:14px;
+  letter-spacing:.4px;
+}
+.timer{
+  font-size:44px;
+  font-weight:630;
+  letter-spacing:-2px;
+  margin-top:5px;
+}
+.calm-options{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  margin-top:15px;
+}
+.calm-option{
+  border:0;
+  border-radius:14px;
+  background:var(--soft);
+  padding:11px 5px;
+  font-size:12px;
+}
+.calm-option.active{
+  background:var(--dark);
+  color:#fff;
+}
+.progress{
+  height:5px;
+  background:var(--soft);
+  border-radius:999px;
+  overflow:hidden;
+  margin-top:18px;
+}
+.progress-bar{
+  width:0%;
+  height:100%;
+  background:var(--dark);
+  transition:width .3s linear;
+}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:calc(24px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(20px);
+  width:min(calc(100% - 36px),500px);
+  background:#252525;
+  color:#fff;
+  padding:13px 16px;
+  border-radius:14px;
+  font-size:13px;
+  text-align:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s ease;
+  z-index:50;
+}
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+.small-note{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+  margin-top:12px;
+}
+@media(max-width:390px){
+  .app{padding-left:14px;padding-right:14px}
+  .mode{font-size:11px}
+  .card,.item-card,.memory-card,.share-card,.form{padding:19px}
+  .big{font-size:23px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+  .breathe-circle,.toast{transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div>
+      <div class="logo">CLOSER</div>
+      <div class="tagline">讓喜歡的事，有人一起。</div>
+    </div>
+    <div class="today" id="today"></div>
+  </header>
+
+  <nav class="modes" aria-label="Closer sections">
+    <button class="mode active" data-mode="moments" onclick="switchMode('moments', this)">⏳ Moments</button>
+    <button class="mode" data-mode="memories" onclick="switchMode('memories', this)">🧠 Memories</button>
+    <button class="mode" data-mode="together" onclick="switchMode('together', this)">🫶 Together</button>
+    <button class="mode" data-mode="calm" onclick="switchMode('calm', this)">🧘 Calm</button>
+  </nav>
+
+  <!-- MOMENTS -->
+  <section class="section active" id="momentsMode">
+    <div class="hero">
+      <div class="hero-label">COUNTING DOWN TO</div>
+      <div class="hero-number" id="heroNumber">—</div>
+      <div class="hero-unit">DAYS</div>
+      <div class="hero-name" id="heroName">Something Beautiful</div>
+      <div class="hero-sub" id="heroDate">把值得期待的事，放在這裡。</div>
+    </div>
+
+    <div class="card quote">
+      <div class="quote-main" id="quote"></div>
+      <div class="quote-en" id="quoteEn"></div>
+      <div class="quote-actions">
+        <button class="icon-btn" onclick="favoriteQuote()" aria-label="收藏這句話">♡</button>
+        <button class="icon-btn" onclick="newQuote()" aria-label="換一句">↻</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="eyebrow">MY MOMENTS</div>
+      <div class="big">我正在等待的事</div>
+      <div class="sub">見面、旅行、生日，或任何讓你想往前走的日子。</div>
+      <button class="primary" style="margin-top:17px" onclick="toggleForm('countdownForm')">＋ Add a countdown</button>
+    </div>
+
+    <div class="form" id="countdownForm">
+      <div class="form-title">New Countdown</div>
+      <label class="field-label" for="eventName">你正在等待什麼？</label>
+      <input id="eventName" placeholder="例如：下一次見面">
+      <label class="field-label" for="eventDate">日期</label>
+      <input id="eventDate" type="date">
+      <label class="field-label" for="eventWith">想和誰一起？</label>
+      <select id="eventWith">
+        <option value="❤️ 愛人">❤️ 愛人</option>
+        <option value="🫶 朋友">🫶 朋友</option>
+        <option value="👨‍👩‍👧 家人">👨‍👩‍👧 家人</option>
+        <option value="🌱 自己">🌱 自己</option>
+        <option value="👥 其他">👥 其他</option>
+      </select>
+      <div class="form-actions">
+        <button class="secondary" onclick="toggleForm('countdownForm', false)">取消</button>
+        <button class="primary" onclick="addCountdown()">Create</button>
+      </div>
+    </div>
+
+    <div id="countdowns"></div>
+
+    <div class="card">
+      <div class="eyebrow">SAVED WORDS</div>
+      <div id="favorites"></div>
+    </div>
+  </section>
+
+  <!-- MEMORIES -->
+  <section class="section" id="memoriesMode">
+    <div class="hero">
+      <div class="hero-label">MEMORIES FOR LATER</div>
+      <div class="hero-name">替未來的你記住</div>
+      <div class="hero-sub">看到喜歡的地方、內容或靈感，不必現在決定什麼時候完成。</div>
+    </div>
+
+    <div class="card dark">
+      <div class="eyebrow">SAVE FOR LATER</div>
+      <div class="big">記住那些讓你心動的東西。</div>
+      <div class="sub">咖啡廳、餐廳、景點、展覽、住宿、電影、音樂、Podcast、影集都可以。</div>
+      <button class="secondary" style="margin-top:17px;background:#fff" onclick="toggleForm('memoryForm')">＋ Save a memory</button>
+    </div>
+
+    <div class="form" id="memoryForm">
+      <div class="form-title">🧠 Save for later</div>
+      <label class="field-label" for="memoryName">名稱</label>
+      <input id="memoryName" placeholder="例如：山小日子咖啡 / The Daily">
+      <label class="field-label" for="memoryType">類型</label>
+      <select id="memoryType">
+        <option value="☕ 咖啡廳">☕ 咖啡廳</option>
+        <option value="🍜 餐廳">🍜 餐廳</option>
+        <option value="🌿 景點">🌿 景點</option>
+        <option value="🎨 展覽">🎨 展覽</option>
+        <option value="🏨 住宿">🏨 住宿</option>
+        <option value="🎬 電影">🎬 電影</option>
+        <option value="🎵 音樂">🎵 音樂</option>
+        <option value="🎙 Podcast">🎙 Podcast</option>
+        <option value="📺 影集">📺 影集</option>
+        <option value="✨ 其他">✨ 其他</option>
+      </select>
+      <label class="field-label" for="memoryCity">地點 / 來源</label>
+      <input id="memoryCity" placeholder="例如：宜蘭 / Spotify / Netflix">
+      <label class="field-label" for="memoryWith">想和誰？</label>
+      <select id="memoryWith">
+        <option value="❤️ 愛人">❤️ 愛人</option>
+        <option value="🫶 朋友">🫶 朋友</option>
+        <option value="👨‍👩‍👧 家人">👨‍👩‍👧 家人</option>
+        <option value="🌱 自己">🌱 自己</option>
+        <option value="👥 其他">👥 其他</option>
+      </select>
+      <label class="field-label" for="memoryLink">連結</label>
+      <input id="memoryLink" inputmode="url" placeholder="IG / Google Maps / Spotify / Netflix 連結（可不填）">
+      <label class="field-label" for="memoryNote">為什麼想留下？</label>
+      <textarea id="memoryNote" placeholder="例如：看到 Reels 覺得窗邊很好看，想和他一起去。"></textarea>
+      <div class="form-actions">
+        <button class="secondary" onclick="toggleForm('memoryForm', false)">取消</button>
+        <button class="primary" onclick="addMemory()">記住它</button>
+      </div>
+    </div>
+
+    <div class="chips" id="memoryFilters"></div>
+    <div id="memoriesList"></div>
+  </section>
+
+  <!-- TOGETHER -->
+  <section class="section" id="togetherMode">
+    <div class="hero together-intro">
+      <div class="hero-label">EXPERIENCE IT TOGETHER</div>
+      <div class="hero-name">有些東西，想到某個人時才完整。</div>
+      <div class="hero-sub">先把想一起聽、一起看、一起去的東西放進 Closer。</div>
+    </div>
+
+    <div class="card">
+      <div class="eyebrow">SHARE TO CLOSER</div>
+      <div class="big">這個，我想跟你一起。</div>
+      <div class="sub">目前 GitHub Pages 版本先用「貼上連結」完成分享收藏；之後接帳號與 API，再升級成真正的雙向分享。</div>
+      <div class="mini-grid">
+        <div class="mini">
+          <div class="mini-icon">🎧</div>
+          <div class="mini-title">Listen together</div>
+          <div class="mini-sub">音樂 / Podcast</div>
+        </div>
+        <div class="mini">
+          <div class="mini-icon">📺</div>
+          <div class="mini-title">Watch together</div>
+          <div class="mini-sub">電影 / 影集</div>
+        </div>
+      </div>
+      <button class="primary" style="margin-top:16px" onclick="toggleForm('shareForm')">＋ Share to Closer</button>
+    </div>
+
+    <div class="form" id="shareForm">
+      <div class="form-title">🫶 Share to Closer</div>
+      <label class="field-label" for="shareName">你想分享什麼？</label>
+      <input id="shareName" placeholder="例如：The Daily / Stranger Things">
+      <label class="field-label" for="shareType">類型</label>
+      <select id="shareType">
+        <option value="🎙 Podcast">🎙 Podcast</option>
+        <option value="🎵 音樂">🎵 音樂</option>
+        <option value="🎬 電影">🎬 電影</option>
+        <option value="📺 影集">📺 影集</option>
+        <option value="📍 地方">📍 地方</option>
+        <option value="🔗 連結">🔗 連結</option>
+      </select>
+      <label class="field-label" for="shareWith">想跟誰一起？</label>
+      <select id="shareWith">
+        <option value="❤️ 愛人">❤️ 愛人</option>
+        <option value="🫶 朋友">🫶 朋友</option>
+        <option value="👨‍👩‍👧 家人">👨‍👩‍👧 家人</option>
+        <option value="🌱 自己">🌱 自己</option>
+        <option value="👥 其他">👥 其他</option>
+      </select>
+      <label class="field-label" for="shareLink">連結</label>
+      <input id="shareLink" inputmode="url" placeholder="貼上 Spotify / Netflix / IG / 網頁連結">
+      <label class="field-label" for="shareNote">想說一句什麼？</label>
+      <textarea id="shareNote" placeholder="例如：我覺得你會喜歡這集。"></textarea>
+      <div class="form-actions">
+        <button class="secondary" onclick="toggleForm('shareForm', false)">取消</button>
+        <button class="primary" onclick="addShare()">留下來</button>
+      </div>
+    </div>
+
+    <div class="list-head">
+      <div class="list-title">FOR US</div>
+    </div>
+    <div id="shareList"></div>
+  </section>
+
+  <!-- CALM -->
+  <section class="section" id="calmMode">
+    <div class="calm-hero">
+      <div class="hero-label">A QUIET MOMENT</div>
+      <div class="hero-name">Closer 也陪你自己。</div>
+      <div class="hero-sub">不用完成什麼。只留一點時間，回到自己的呼吸。</div>
+    </div>
+
+    <div class="card" style="text-align:center">
+      <div class="eyebrow">GUIDED BREATHING</div>
+      <div class="breathe-wrap">
+        <div class="breathe-circle" id="breatheCircle">
+          <div class="breathe-text" id="breatheText">準備好了嗎？</div>
+        </div>
+      </div>
+      <div class="timer" id="calmTimer">01:00</div>
+      <div class="sub" id="calmHint">選一段時間，讓呼吸慢下來。</div>
+      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="calm-options">
+        <button class="calm-option active" data-min="1" onclick="chooseCalm(1,this)">1 min</button>
+        <button class="calm-option" data-min="3" onclick="chooseCalm(3,this)">3 min</button>
+        <button class="calm-option" data-min="5" onclick="chooseCalm(5,this)">5 min</button>
+        <button class="calm-option" data-min="10" onclick="chooseCalm(10,this)">10 min</button>
+      </div>
+      <button class="primary" id="calmButton" style="margin-top:14px" onclick="toggleCalm()">開始</button>
+      <div class="small-note">呼吸節奏：吸氣 4 秒 → 停留 2 秒 → 吐氣 6 秒。</div>
+    </div>
+
+    <div class="card">
+      <div class="eyebrow">A LITTLE REMINDER</div>
+      <div class="big">你不需要一直往前。</div>
+      <div class="sub">有時候，陪伴自己的方式只是安靜坐一分鐘。</div>
+    </div>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- Helpers ---------- */
+const $ = (id) => document.getElementById(id);
+
+function safeParse(value, fallback){
+  try{
+    const parsed = JSON.parse(value);
+    return parsed ?? fallback;
+  }catch{
+    return fallback;
+  }
+}
+function save(key, value){
+  localStorage.setItem(key, JSON.stringify(value));
+}
+function escapeHTML(value=""){
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+function safeUrl(value=""){
+  const raw = String(value).trim();
+  if(!raw) return "";
+  try{
+    const url = new URL(raw);
+    if(["http:","https:"].includes(url.protocol)) return url.href;
+  }catch{}
+  return "";
+}
+function showToast(message){
+  const box = $("toast");
+  box.textContent = message;
+  box.classList.add("show");
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(()=>box.classList.remove("show"),1800);
+}
+function toggleForm(id, force){
+  const el = $(id);
+  const shouldOpen = typeof force === "boolean" ? force : !el.classList.contains("open");
+  el.classList.toggle("open", shouldOpen);
+  if(shouldOpen) setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"nearest"}),30);
+}
+function formatDate(dateString){
+  if(!dateString) return "";
+  const d = new Date(dateString + "T00:00:00");
+  if(Number.isNaN(d.getTime())) return dateString;
+  return new Intl.DateTimeFormat("zh-TW",{year:"numeric",month:"long",day:"numeric"}).format(d);
+}
+function daysLeft(dateString){
+  const target = new Date(dateString + "T00:00:00");
+  const now = new Date();
+  const today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  if(Number.isNaN(target.getTime())) return 0;
+  return Math.ceil((target - today)/86400000);
+}
+
+/* ---------- Date ---------- */
+$("today").textContent = new Intl.DateTimeFormat("zh-TW",{month:"long",day:"numeric"}).format(new Date());
+
+/* ---------- Navigation ---------- */
+function switchMode(mode, button){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".mode").forEach(b=>b.classList.remove("active"));
+  $(mode+"Mode").classList.add("active");
+  button?.classList.add("active");
+
+  if(mode==="memories") renderMemories();
+  if(mode==="together") renderShares();
+  if(mode!=="calm" && calmRunning) stopCalm(false);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---------- Quotes ---------- */
+const quotes = [
+  ["今天也慢慢來就好。","You don't have to rush."],
+  ["你正在慢慢靠近想要的生活。","You are getting closer."],
+  ["每一步都算數。","Every step counts."],
+  ["有些美好正在路上。","Some beautiful things are on their way."],
+  ["相信自己的步調。","Trust your own pace."],
+  ["把想念留成一件值得期待的事。","Give longing somewhere gentle to go."],
+  ["喜歡的事，不一定要一個人完成。","Some things feel better together."],
+  ["今天也可以先陪陪自己。","You can stay with yourself today."]
+];
+let quoteIndex = Math.floor(Date.now()/86400000) % quotes.length;
+let favorites = safeParse(localStorage.getItem("closerFavorites"), []);
+
+function showQuote(){
+  $("quote").textContent = quotes[quoteIndex][0];
+  $("quoteEn").textContent = quotes[quoteIndex][1];
+}
+function newQuote(){
+  quoteIndex = (quoteIndex + 1) % quotes.length;
+  showQuote();
+}
+function favoriteQuote(){
+  const quote = quotes[quoteIndex];
+  if(!favorites.some(item => Array.isArray(item) && item[0]===quote[0])){
+    favorites.push(quote);
+    save("closerFavorites",favorites);
+    renderFavorites();
+    showToast("已替你留下這句話 ♡");
+  }else{
+    showToast("這句已經在收藏裡了");
+  }
+}
+function renderFavorites(){
+  const box = $("favorites");
+  if(!favorites.length){
+    box.innerHTML = '<div class="empty" style="padding:10px 0">還沒有收藏的句子。</div>';
+    return;
+  }
+  box.innerHTML = favorites.slice().reverse().map(item => `
+    <div class="note" style="margin-top:8px">
+      ${escapeHTML(item[0] || "")}
+      <div style="color:#999;font-size:10px;margin-top:5px">${escapeHTML(item[1] || "")}</div>
+    </div>`).join("");
+}
+showQuote();
+renderFavorites();
+
+/* ---------- Moments / Countdowns ---------- */
+let countdowns = safeParse(localStorage.getItem("closerCountdowns"), []);
+countdowns = Array.isArray(countdowns) ? countdowns.map(item=>({
+  id: item.id ?? Date.now()+Math.random(),
+  name: item.name || "Something Beautiful",
+  date: item.date || "",
+  with: item.with || item.who || ""
+})) : [];
+
+function addCountdown(){
+  const name = $("eventName").value.trim();
+  const date = $("eventDate").value;
+  const withWho = $("eventWith").value;
+
+  if(!name || !date){
+    showToast("請輸入名稱和日期");
+    return;
+  }
+  countdowns.push({id:Date.now(),name,date,with:withWho});
+  save("closerCountdowns",countdowns);
+  $("eventName").value="";
+  $("eventDate").value="";
+  toggleForm("countdownForm",false);
+  renderCountdowns();
+  showToast("值得期待的日子，記住了");
+}
+function deleteCountdown(id){
+  countdowns = countdowns.filter(item=>String(item.id)!==String(id));
+  save("closerCountdowns",countdowns);
+  renderCountdowns();
+}
+function renderCountdowns(){
+  const box = $("countdowns");
+  const future = countdowns
+    .filter(i=>i.date)
+    .slice()
+    .sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const hero = future.find(i=>daysLeft(i.date)>=0) || future[0];
+
+  if(hero){
+    $("heroNumber").textContent = Math.max(daysLeft(hero.date),0);
+    $("heroName").textContent = hero.name;
+    $("heroDate").textContent = [hero.with,formatDate(hero.date)].filter(Boolean).join(" · ");
+  }else{
+    $("heroNumber").textContent = "—";
+    $("heroName").textContent = "Something Beautiful";
+    $("heroDate").textContent = "把值得期待的事，放在這裡。";
+  }
+
+  if(!countdowns.length){
+    box.innerHTML = '<div class="card"><div class="empty">還沒有倒數。<br>先放進一件你真的期待的事。</div></div>';
+    return;
+  }
+  const sorted = countdowns.slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
+  box.innerHTML = sorted.map(item=>{
+    const d = Math.max(daysLeft(item.date),0);
+    return `
+      <div class="item-card">
+        <div class="countdown-row">
+          <div class="item-main">
+            <div class="item-name">${escapeHTML(item.name)}</div>
+            <div class="item-meta">${escapeHTML(item.with || "屬於你的時刻")} · ${escapeHTML(formatDate(item.date))}</div>
+          </div>
+          <div class="item-right">
+            <div class="item-days">${d}</div>
+            <button class="delete-btn" onclick="deleteCountdown('${escapeHTML(item.id)}')" aria-label="刪除">×</button>
+          </div>
+        </div>
+      </div>`;
+  }).join("");
+}
+renderCountdowns();
+
+/* ---------- Memories ---------- */
+let memories = safeParse(localStorage.getItem("closerMemories"), []);
+memories = Array.isArray(memories) ? memories.map(item=>({
+  id:item.id ?? Date.now()+Math.random(),
+  name:item.name || "未命名",
+  city:item.city || item.source || "",
+  type:item.type || "✨ 其他",
+  link:item.link || "",
+  note:item.note || "",
+  with:item.with || item.who || "",
+  savedAt:item.savedAt || new Date().toLocaleDateString("zh-TW")
+})) : [];
+
+let currentMemoryFilter = "全部";
+const memoryCategories = ["全部","☕ 咖啡廳","🍜 餐廳","🌿 景點","🎨 展覽","🏨 住宿","🎬 電影","🎵 音樂","🎙 Podcast","📺 影集","✨ 其他"];
+
+function addMemory(){
+  const name = $("memoryName").value.trim();
+  if(!name){
+    showToast("先告訴我你想記住什麼");
+    return;
+  }
+  memories.unshift({
+    id:Date.now(),
+    name,
+    type:$("memoryType").value,
+    city:$("memoryCity").value.trim(),
+    with:$("memoryWith").value,
+    link:safeUrl($("memoryLink").value),
+    note:$("memoryNote").value.trim(),
+    savedAt:new Date().toLocaleDateString("zh-TW")
+  });
+  save("closerMemories",memories);
+  ["memoryName","memoryCity","memoryLink","memoryNote"].forEach(id=>$(id).value="");
+  toggleForm("memoryForm",false);
+  renderMemoryFilters();
+  renderMemories();
+  showToast("Closer 幫你記住了");
+}
+function deleteMemory(id){
+  memories = memories.filter(item=>String(item.id)!==String(id));
+  save("closerMemories",memories);
+  renderMemoryFilters();
+  renderMemories();
+}
+function setMemoryFilter(filter){
+  currentMemoryFilter = filter;
+  renderMemoryFilters();
+  renderMemories();
+}
+function renderMemoryFilters(){
+  const available = new Set(memories.map(m=>m.type));
+  const visible = memoryCategories.filter(c=>c==="全部" || available.has(c) || ["☕ 咖啡廳","🍜 餐廳","🌿 景點","🎬 電影","🎙 Podcast","📺 影集"].includes(c));
+  $("memoryFilters").innerHTML = visible.map(cat=>`
+    <button class="chip ${currentMemoryFilter===cat?"active":""}" onclick="setMemoryFilter('${cat.replace(/'/g,"\\'")}')">${escapeHTML(cat)}</button>
+  `).join("");
+}
+function openMemoryLink(id){
+  const item = memories.find(m=>String(m.id)===String(id));
+  const url = safeUrl(item?.link || "");
+  if(url) window.open(url,"_blank","noopener,noreferrer");
+}
+function moveMemoryToTogether(id){
+  const item = memories.find(m=>String(m.id)===String(id));
+  if(!item) return;
+  const exists = shares.some(s=>s.name===item.name && s.link===item.link);
+  if(!exists){
+    shares.unshift({
+      id:Date.now(),
+      name:item.name,
+      type:item.type,
+      with:item.with || "🫶 某個人",
+      link:item.link,
+      note:item.note,
+      savedAt:new Date().toLocaleDateString("zh-TW")
+    });
+    save("closerShares",shares);
+  }
+  showToast("放進 Together 了 🫶");
+}
+function renderMemories(){
+  renderMemoryFilters();
+  const box = $("memoriesList");
+  const list = currentMemoryFilter==="全部" ? memories : memories.filter(m=>m.type===currentMemoryFilter);
+
+  if(!list.length){
+    box.innerHTML = '<div class="card"><div class="empty">還沒有這一類收藏。<br>下一次看到心動的東西，就讓 Closer 幫你記住。</div></div>';
+    return;
+  }
+  box.innerHTML = list.map(item=>`
+    <div class="memory-card">
+      <div class="memory-top">
+        <div>
+          <div class="memory-type">${escapeHTML(item.type)}</div>
+          <div class="memory-name">${escapeHTML(item.name)}</div>
+          <div class="memory-meta">${item.city ? escapeHTML(item.city)+" · " : ""}${escapeHTML(item.with || "還沒決定和誰")}</div>
+        </div>
+      </div>
+      ${item.note ? `<div class="note">「${escapeHTML(item.note)}」</div>` : ""}
+      <div class="actions">
+        <button onclick="moveMemoryToTogether('${escapeHTML(item.id)}')">🫶 一起</button>
+        ${safeUrl(item.link) ? `<button onclick="openMemoryLink('${escapeHTML(item.id)}')">🔗 查看</button>` : ""}
+        <button class="danger" onclick="deleteMemory('${escapeHTML(item.id)}')">×</button>
+      </div>
+    </div>`).join("");
+}
+renderMemoryFilters();
+
+/* ---------- Together ---------- */
+let shares = safeParse(localStorage.getItem("closerShares"), []);
+shares = Array.isArray(shares) ? shares : [];
+
+function addShare(){
+  const name = $("shareName").value.trim();
+  if(!name){
+    showToast("先寫下你想一起分享什麼");
+    return;
+  }
+  shares.unshift({
+    id:Date.now(),
+    name,
+    type:$("shareType").value,
+    with:$("shareWith").value,
+    link:safeUrl($("shareLink").value),
+    note:$("shareNote").value.trim(),
+    savedAt:new Date().toLocaleDateString("zh-TW")
+  });
+  save("closerShares",shares);
+  ["shareName","shareLink","shareNote"].forEach(id=>$(id).value="");
+  toggleForm("shareForm",false);
+  renderShares();
+  showToast("留給你們了 🫶");
+}
+function deleteShare(id){
+  shares = shares.filter(item=>String(item.id)!==String(id));
+  save("closerShares",shares);
+  renderShares();
+}
+function openShareLink(id){
+  const item = shares.find(s=>String(s.id)===String(id));
+  const url = safeUrl(item?.link || "");
+  if(url) window.open(url,"_blank","noopener,noreferrer");
+}
+async function nativeShare(id){
+  const item = shares.find(s=>String(s.id)===String(id));
+  if(!item) return;
+  const text = `${item.name}${item.note ? " — "+item.note : ""}`;
+  if(navigator.share){
+    try{
+      await navigator.share({
+        title:item.name,
+        text,
+        url:safeUrl(item.link) || undefined
+      });
+      return;
+    }catch(e){
+      if(e?.name==="AbortError") return;
+    }
+  }
+  const fallback = [text,safeUrl(item.link)].filter(Boolean).join("\n");
+  try{
+    await navigator.clipboard.writeText(fallback);
+    showToast("已複製分享內容");
+  }catch{
+    showToast("此瀏覽器暫不支援快速分享");
+  }
+}
+function renderShares(){
+  const box = $("shareList");
+  if(!shares.length){
+    box.innerHTML = '<div class="card"><div class="empty">還沒有「想一起」的東西。<br>看到某個人會喜歡的，就先放這裡。</div></div>';
+    return;
+  }
+  box.innerHTML = shares.map(item=>`
+    <div class="share-card">
+      <div class="share-top">
+        <div>
+          <div class="share-type">${escapeHTML(item.type || "🔗 分享")}</div>
+          <div class="share-name">${escapeHTML(item.name)}</div>
+          <div class="share-meta">${escapeHTML(item.with || "想和某個人一起")}</div>
+        </div>
+      </div>
+      ${item.note ? `<div class="note">${escapeHTML(item.note)}</div>` : ""}
+      <div class="actions">
+        ${safeUrl(item.link) ? `<button onclick="openShareLink('${escapeHTML(item.id)}')">▶ 打開</button>` : ""}
+        <button onclick="nativeShare('${escapeHTML(item.id)}')">↗ 分享</button>
+        <button class="danger" onclick="deleteShare('${escapeHTML(item.id)}')">×</button>
+      </div>
+    </div>`).join("");
+}
+
+/* ---------- Calm ---------- */
+let calmMinutes = 1;
+let calmRunning = false;
+let calmRemaining = 60;
+let calmTotal = 60;
+let calmTimerId = null;
+let breathTimerId = null;
+let breathPhaseIndex = 0;
+const breathPhases = [
+  {key:"inhale",label:"吸氣",seconds:4},
+  {key:"hold",label:"停留",seconds:2},
+  {key:"exhale",label:"吐氣",seconds:6}
+];
+
+function chooseCalm(min,btn){
+  if(calmRunning) return;
+  calmMinutes = min;
+  calmRemaining = min*60;
+  calmTotal = calmRemaining;
+  document.querySelectorAll(".calm-option").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  updateCalmTimer();
+  $("progressBar").style.width="0%";
+}
+function formatTimer(seconds){
+  const m = Math.floor(seconds/60).toString().padStart(2,"0");
+  const s = Math.floor(seconds%60).toString().padStart(2,"0");
+  return `${m}:${s}`;
+}
+function updateCalmTimer(){
+  $("calmTimer").textContent = formatTimer(calmRemaining);
+  const done = calmTotal ? ((calmTotal-calmRemaining)/calmTotal)*100 : 0;
+  $("progressBar").style.width = `${Math.min(100,Math.max(0,done))}%`;
+}
+function setBreathPhase(){
+  const phase = breathPhases[breathPhaseIndex];
+  const circle = $("breatheCircle");
+  circle.classList.remove("inhale","hold","exhale");
+  circle.classList.add("running",phase.key);
+  $("breatheText").textContent = phase.label;
+  $("calmHint").textContent =
+    phase.key==="inhale" ? "慢慢吸進來。" :
+    phase.key==="hold" ? "不用用力，只停一下。" :
+    "慢慢吐出去。";
+  clearTimeout(breathTimerId);
+  breathTimerId = setTimeout(()=>{
+    if(!calmRunning) return;
+    breathPhaseIndex = (breathPhaseIndex+1)%breathPhases.length;
+    setBreathPhase();
+  },phase.seconds*1000);
+}
+function startCalm(){
+  calmRunning = true;
+  calmRemaining = calmMinutes*60;
+  calmTotal = calmRemaining;
+  $("calmButton").textContent = "暫停";
+  breathPhaseIndex = 0;
+  setBreathPhase();
+  updateCalmTimer();
+  calmTimerId = setInterval(()=>{
+    calmRemaining -= 1;
+    updateCalmTimer();
+    if(calmRemaining<=0){
+      stopCalm(true);
+    }
+  },1000);
+}
+function stopCalm(completed=false){
+  calmRunning = false;
+  clearInterval(calmTimerId);
+  clearTimeout(breathTimerId);
+  calmTimerId = null;
+  breathTimerId = null;
+  const circle = $("breatheCircle");
+  circle.classList.remove("running","inhale","hold","exhale");
+  $("calmButton").textContent = "開始";
+  if(completed){
+    calmRemaining = 0;
+    updateCalmTimer();
+    $("breatheText").textContent = "完成";
+    $("calmHint").textContent = "這一分鐘，是留給你的。";
+    showToast("Quiet moment completed 🌱");
+  }else{
+    $("breatheText").textContent = "準備好了嗎？";
+    $("calmHint").textContent = "選一段時間，讓呼吸慢下來。";
+  }
+}
+function toggleCalm(){
+  if(calmRunning) stopCalm(false);
+  else startCalm();
+}
+chooseCalm(1,document.querySelector(".calm-option.active"));
+
+/* ---------- Initial render ---------- */
+renderMemories();
+renderShares();
+</script>
+</body>
+</html>
