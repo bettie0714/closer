@@ -17,7 +17,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .logo{font-size:18px;letter-spacing:4px;font-weight:750}
 .tagline{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5}
 .today{font-size:12px;color:var(--muted);white-space:nowrap;padding-top:2px}
-.nav{display:grid;grid-template-columns:1fr 1fr;gap:7px;position:sticky;top:0;z-index:20;padding:7px 0 14px;margin-bottom:5px;background:linear-gradient(var(--bg) 74%,rgba(247,245,239,0))}
+.nav{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;position:sticky;top:0;z-index:20;padding:7px 0 14px;margin-bottom:5px;background:linear-gradient(var(--bg) 74%,rgba(247,245,239,0))}
 .nav button{border:0;border-radius:999px;background:var(--soft);color:#77736c;padding:11px 8px;font-size:12px}
 .nav button.active{background:var(--dark);color:#fff}
 .section{display:none}.section.active{display:block}
@@ -120,18 +120,121 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
   font-size:11px;white-space:nowrap
 }
 
+
+.letters-intro{
+  background:linear-gradient(145deg,#f4e9e4,#f9f4ef);
+  border:1px solid #ead9d2;border-radius:28px;padding:23px;margin-bottom:13px
+}
+.letter-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.envelope{
+  position:relative;min-height:132px;border:1px solid #e3dbd2;background:#fffaf5;
+  border-radius:20px;padding:18px 16px 15px;overflow:hidden;text-align:left;
+  transition:transform .16s ease,box-shadow .16s ease
+}
+.envelope:active{transform:scale(.985)}
+.envelope::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:68%;
+  background:linear-gradient(145deg,transparent 49.5%,#efe4da 50%,transparent 50.8%),
+             linear-gradient(215deg,transparent 49.5%,#f3e9e0 50%,transparent 50.8%);
+  opacity:.85;pointer-events:none
+}
+.envelope-date{
+  position:relative;z-index:1;font-size:12px;letter-spacing:.3px;color:#766f68;
+  margin-top:66px
+}
+.envelope-note{
+  position:relative;z-index:1;font-size:10px;color:#aaa;margin-top:4px
+}
+.envelope-seal{
+  position:absolute;z-index:2;left:50%;top:46px;transform:translate(-50%,-50%);
+  width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  background:#c89487;color:white;font-size:14px;box-shadow:0 3px 12px rgba(113,78,69,.12)
+}
+.envelope.opened{background:#f9f7f2}
+.envelope.opened .envelope-seal{background:#a9ad9e}
+.letter-empty{
+  grid-column:1/-1;background:#fff;border-radius:22px;padding:28px 18px;
+  color:var(--muted);font-size:13px;line-height:1.8;text-align:center
+}
+.letter-modal{
+  position:fixed;inset:0;background:rgba(35,32,30,.30);display:none;align-items:flex-end;
+  justify-content:center;z-index:110;padding:18px
+}
+.letter-modal.show{display:flex}
+.letter-sheet{
+  width:min(100%,520px);max-height:82vh;overflow:auto;background:#fffdf9;
+  border-radius:28px;padding:24px;box-shadow:0 20px 70px rgba(35,32,30,.20)
+}
+.letter-sheet-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.letter-sheet-date{font-size:10px;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px}
+.letter-sheet h3{font-size:22px;line-height:1.35;margin:0}
+.letter-close{border:0;background:var(--soft);border-radius:50%;width:34px;height:34px;flex:none}
+.letter-body{
+  margin-top:19px;padding:18px;background:#fff;border:1px solid #ebe4da;border-radius:18px;
+  font-size:15px;line-height:1.9;white-space:pre-wrap
+}
+.locked-letter{text-align:center;padding:10px 4px 4px}
+.lock-icon{font-size:38px;margin-bottom:13px}
+.lock-title{font-size:21px;font-weight:650}
+.lock-sub{font-size:13px;line-height:1.75;color:var(--muted);margin-top:8px}
+.lock-date{
+  display:inline-block;background:var(--warm-soft);border-radius:999px;padding:8px 12px;
+  font-size:12px;color:#765f59;margin-top:14px
+}
+.lock-days{font-size:11px;color:#aaa;margin-top:9px}
+.letter-compose-note{
+  background:var(--warm-soft);border-radius:14px;padding:12px 13px;
+  font-size:11px;line-height:1.65;color:#765f59;margin-top:9px
+}
+@media(max-width:390px){
+  .letter-grid{gap:9px}.envelope{min-height:126px;padding-left:14px;padding-right:14px}
+}
+
+
+.trip-banner{
+  background:#2d2a28;color:white;border-radius:24px;padding:22px;margin:18px 0 15px
+}
+.trip-banner small{color:#b8b2ac;letter-spacing:1.6px;font-size:10px}
+.trip-banner h2{font-size:22px;margin:9px 0 5px}
+.trip-banner p{color:#cbc5bf;font-size:12px;line-height:1.65;margin:0 0 14px}
+.trip-banner select{
+  width:100%;border:0;border-radius:13px;padding:13px 14px;background:white;
+  color:#2d2a28;font-size:14px
+}
+.trip-result{
+  background:#fff;color:#2d2a28;border-radius:16px;padding:14px;margin-top:9px
+}
+.trip-result:first-of-type{margin-top:13px}
+.trip-result-name{font-size:15px;font-weight:630;line-height:1.35}
+.trip-result-meta{font-size:10px;color:#8f8981;line-height:1.5;margin-top:4px}
+.trip-result-actions{display:flex;gap:7px;margin-top:10px}
+.trip-result-actions button{
+  border:0;border-radius:11px;padding:8px 10px;font-size:11px;background:#eee9e1
+}
+.trip-result-actions button:first-child{background:#2d2a28;color:white}
+.trip-empty{
+  color:#c8c1bb;font-size:12px;line-height:1.65;padding:14px 2px 2px;text-align:center
+}
+.vision-line{
+  color:#aaa39b;font-size:10px;line-height:1.6;text-align:center;
+  padding:28px 12px 4px;letter-spacing:.15px
+}
+#memoriesMode .remember-banner{margin-top:3px}
+#lettersMode .list-head{margin-top:20px}
+
 </style>
 </head>
 <body>
 <div class="app">
 <header class="header">
-  <div><div class="logo">CLOSER</div><div class="tagline">你曾經為它心動過。剩下的，交給 Closer 記得。</div></div>
+  <div class="logo">CLOSER</div>
   <div class="today" id="today"></div>
 </header>
 
 <nav class="nav">
   <button class="active" onclick="switchMode('moments',this)">⏳ Moments</button>
   <button onclick="switchMode('memories',this)">🧠 Memories</button>
+  <button onclick="switchMode('letters',this)">✉️ Letters</button>
 </nav>
 
 <section class="section active" id="momentsMode">
@@ -141,14 +244,6 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
     <div class="hero-unit">DAYS</div>
     <div class="hero-name" id="heroName">Something Beautiful</div>
     <div class="hero-sub" id="heroDate">把值得期待的事，放在這裡。</div>
-  </div>
-
-  <div id="smartRecall"></div>
-
-  <div class="companion-card">
-    <div class="companion-kicker">A LITTLE CLOSER</div>
-    <div class="companion-title">有些期待不用一直想著，Closer 會替你留著。</div>
-    <div class="companion-sub">你只要繼續過生活。等到真的要見面、要出發，曾經喜歡過的地方會再回來。</div>
   </div>
 
   <div class="card quote">
@@ -161,58 +256,40 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="eyebrow">MY MOMENTS</div>
-    <div class="big">有什麼值得期待？</div>
-    <div class="sub">見面、旅行、生日或一個想去的日子。Closer 會在時間靠近時，把你以前留下的相關 Memories 找回來。</div>
-    <button class="primary" style="margin-top:17px" onclick="toggleForm('momentForm')">＋ Add a moment</button>
+    <div class="eyebrow">MY DAYS</div>
+    <div id="momentsList"></div>
+    <button class="primary" style="margin-top:14px" onclick="toggleForm('momentForm')">＋ Add a countdown</button>
   </div>
 
   <div class="form" id="momentForm">
-    <div class="form-title">New Moment</div>
+    <div class="form-title">New Countdown</div>
     <label class="field-label" for="momentName">這是什麼？</label>
-    <input id="momentName" placeholder="例如：下次見面 / 宜蘭旅行">
+    <input id="momentName" placeholder="你正在等待什麼？">
     <label class="field-label" for="momentDate">日期</label>
     <input id="momentDate" type="date">
-    <label class="field-label" for="momentWith">和誰？</label>
-    <select id="momentWith">
-      <option value="❤️ 愛人">❤️ 愛人</option>
-      <option value="🫶 朋友">🫶 朋友</option>
-      <option value="👥 一起">👥 一起</option>
-      <option value="🌱 自己">🌱 自己</option>
-    </select>
-    <label class="field-label">這次要去哪裡？ <span class="optional">選填</span></label>
-    <div class="location-grid">
-      <select id="momentCity" onchange="updateMomentLocationPreview()">
-        <option value="">還沒決定</option>
-        <option>台北</option><option>新北</option><option>基隆</option><option>桃園</option>
-        <option>新竹</option><option>苗栗</option><option>台中</option><option>彰化</option>
-        <option>南投</option><option>雲林</option><option>嘉義</option><option>台南</option>
-        <option>高雄</option><option>屏東</option><option>宜蘭</option><option>花蓮</option>
-        <option>台東</option><option>澎湖</option><option>金門</option><option>馬祖</option>
-        <option value="其他">海外 / 其他</option>
-      </select>
-      <input id="momentArea" placeholder="區域 / 城市，例如：冬山、東京" oninput="updateMomentLocationPreview()">
-    </div>
-    <div class="location-preview" id="momentLocationPreview">📍 有選目的地時，Closer 會優先推薦同區域的 Memories。</div>
     <div class="form-actions">
       <button class="secondary" onclick="toggleForm('momentForm',false)">取消</button>
       <button class="primary" onclick="addMoment()">建立</button>
     </div>
   </div>
-  <div id="momentsList"></div>
 </section>
 
 <section class="section" id="memoriesMode">
-  <div class="hero">
-    <div class="hero-label">YOU SAVED IT FOR A REASON</div>
-    <div class="hero-name">替未來的你記住。</div>
-    <div class="hero-sub">先收藏，不急著決定。真正要出發、要見面、要找靈感時，Closer 再幫你找回來。</div>
+
+  <div class="trip-banner">
+    <small>YOUR NEXT PLACE</small>
+    <h2>📍 這次要去哪裡？</h2>
+    <p>選一個城市。Closer 會把你以前存過、還沒去的地方重新找回來。</p>
+    <select id="tripCity" onchange="showTripSuggestions()">
+      <option value="">選擇城市</option>
+    </select>
+    <div id="tripSuggestions"></div>
   </div>
 
   <div class="card dark">
-    <div class="eyebrow">PASTE A LINK</div>
-    <div class="big">看到喜歡的，就先丟進來。</div>
-    <div class="sub">地點、餐廳、住宿、展覽、書籍、影片與貼文都可以。Closer 會先從網址判斷來源、類型與能辨識的地點。</div>
+    <div class="eyebrow">SAVE FOR LATER</div>
+    <div class="big">貼一個你不想忘記的東西。</div>
+    <div class="sub">Closer 會先判斷類型；如果是地點，也會盡量從網址辨識城市。</div>
     <div class="paste-box">
       <input id="quickUrl" inputmode="url" placeholder="貼上網址…" oninput="previewQuickLink()" onpaste="setTimeout(previewQuickLink,0)">
       <div class="paste-icon">↗</div>
@@ -259,7 +336,7 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
     <input id="memoryName" placeholder="例如：山小日子咖啡 / 一本想看的書">
 
     <div id="locationFields">
-      <label class="field-label">在哪裡？ <span class="optional">網址能辨識時會先選好</span></label>
+      <label class="field-label">地點 <span class="optional">一定可以自己選；網址能辨識時先帶入</span></label>
       <div class="location-grid">
         <select id="memoryCity" onchange="updateMemoryLocationPreview()">
           <option value="">選城市</option>
@@ -270,9 +347,9 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
           <option>台東</option><option>澎湖</option><option>金門</option><option>馬祖</option>
           <option value="其他">海外 / 其他</option>
         </select>
-        <input id="memoryArea" placeholder="區域 / 地址 / 海外城市" oninput="updateMemoryLocationPreview()">
+        <input id="memoryArea" placeholder="區域 / 地址，例如：大安、冬山" oninput="updateMemoryLocationPreview()">
       </div>
-      <div class="location-preview" id="memoryLocationPreview">📍 選好地點後，未來有同區域的 Moment，Closer 就能把它找回來。</div>
+      <div class="location-preview" id="memoryLocationPreview">📍 這個地點會用來做未來的城市推薦。</div>
       <div class="auto-note" id="locationStatus">Closer 會先從網址找城市、區域或 Google Maps 地點名稱。</div>
     </div>
 
@@ -295,12 +372,51 @@ textarea{min-height:84px;resize:vertical;line-height:1.55}
   </div>
 
   <div class="remember-banner" id="memorySummary"></div>
-  <div class="location-section-title">PLACES YOU'VE SAVED</div>
   <div class="city-summary" id="citySummary"></div>
   <div class="search-wrap"><span class="search-icon">⌕</span><input id="memorySearch" placeholder="搜尋名稱、地點、原因…" oninput="renderMemories()"></div>
   <div class="chips" id="memoryFilters"></div>
   <div id="memoriesList"></div>
 </section>
+
+<section class="section" id="lettersMode">
+  <div class="card" style="margin-top:18px">
+    <div class="eyebrow">TO FUTURE ME</div>
+    <div class="big" style="font-size:22px">寫給一年後的自己</div>
+    <div class="sub">今天寫下來，一年後的同一天才能拆開。</div>
+    <button class="primary" style="margin-top:15px" onclick="toggleForm('letterForm')">＋ 寫一封信</button>
+  </div>
+
+  <div class="form" id="letterForm">
+    <div class="form-title">寫給一年後的我</div>
+    <label class="field-label" for="letterBody">今天想對未來的自己說什麼？</label>
+    <textarea id="letterBody" style="min-height:190px" placeholder="可以寫今天發生的事、現在在意的人、希望一年後還記得的感受，或只是一句想留給自己的話。"></textarea>
+    <div class="letter-compose-note" id="letterUnlockHint"></div>
+    <div class="form-actions">
+      <button class="secondary" onclick="toggleForm('letterForm',false)">先不寫</button>
+      <button class="primary" onclick="saveLetter()">封好這封信</button>
+    </div>
+  </div>
+
+  <div class="list-head">
+    <div class="list-title">LETTERS TO MYSELF</div>
+  </div>
+  <div class="letter-grid" id="lettersList"></div>
+</section>
+
+<div class="vision-line">記住今天的心動，等對的時候再找回來。</div>
+</div>
+
+<div class="letter-modal" id="letterModal" onclick="closeLetterModal(event)">
+  <div class="letter-sheet" onclick="event.stopPropagation()">
+    <div class="letter-sheet-head">
+      <div>
+        <div class="letter-sheet-date" id="letterModalDate"></div>
+        <h3 id="letterModalTitle">給未來的我</h3>
+      </div>
+      <button class="letter-close" onclick="closeLetterModal()" aria-label="關閉">×</button>
+    </div>
+    <div id="letterModalContent"></div>
+  </div>
 </div>
 
 <div class="manage-modal" id="manageModal" onclick="closeManageModal(event)">
@@ -326,7 +442,7 @@ function dateText(s){if(!s)return "";const d=new Date(s+"T00:00:00");return Numb
 function daysLeft(s){const target=new Date(s+"T00:00:00"),now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());return Number.isNaN(target.getTime())?0:Math.ceil((target-today)/86400000)}
 $("today").textContent=new Intl.DateTimeFormat("zh-TW",{month:"long",day:"numeric"}).format(new Date());
 
-function switchMode(mode,btn){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));$(mode+"Mode").classList.add("active");btn?.classList.add("active");if(mode==="memories")renderMemories();window.scrollTo({top:0,behavior:"smooth"})}
+function switchMode(mode,btn){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));$(mode+"Mode").classList.add("active");btn?.classList.add("active");if(mode==="memories"){renderMemories();populateTripCities();showTripSuggestions();}window.scrollTo({top:0,behavior:"smooth"})}
 
 /* 144 supportive notes. Shuffle-bag: no repeat until all have been shown. */
 const quotes=["今天只做到能做到的，也算有在照顧自己。", "如果今天比較慢，那就讓今天慢一點。", "你不必把每一分鐘都變得有用。", "有些休息不是停下來，而是在把自己接回來。", "今天可以不用證明什麼。", "累的時候，把標準放低一點也可以。", "你可以先照顧眼前這一小步。", "不需要一次把所有事情整理好。", "有些日子，平穩地過完就已經足夠。", "你可以把今天留得鬆一點。", "慢下來，不代表你離想去的地方更遠。", "現在的你，不需要趕上任何人的速度。", "有些答案不用現在就找到。", "不知道下一步是什麼，也是一個可以停留的位置。", "你可以一邊不確定，一邊繼續生活。", "事情還沒明朗，不代表你做錯了。", "你不需要為還沒發生的事先準備好所有答案。", "有時候，先知道自己不想要什麼也很有用。", "不確定的時候，先選一個對自己比較溫柔的方向。", "有些決定值得多放一會兒。", "現在還看不清楚，也不需要勉強自己看懂。", "你可以保留改變心意的空間。", "沒有立刻做決定，也是一種決定。", "未完成的想法，可以先被好好放著。", "你已經在做一些讓事情往前走的事。", "小小的進展，也是真正的進展。", "你願意再試一次，本身就很有力量。", "今天完成的這一點，值得被算進去。", "你不需要做到完美，才算有努力。", "有些改變，是很多個很小的選擇累積起來的。", "你正在練習把注意力放回自己能做的地方。", "能重新開始，不代表前面都白費了。", "你不必用辛苦來證明一件事值得。", "願意調整方法，也是一種能力。", "你走過的路，已經讓現在的你多了一些選擇。", "先做得到的，再決定下一步。", "事情沒有照預期發生，不等於你不夠好。", "一次不順，不需要變成對自己的判決。", "你可以對失望誠實，也不用因此否定全部。", "今天不好過，不代表每一天都會一樣。", "有些退後，只是在重新找位置。", "不喜歡現在的狀態，不代表你必須立刻改掉它。", "你可以承認這件事真的很難。", "失望有它的位置，不需要趕著把它變正面。", "做不到原本預計的，也可以重新安排。", "你可以把失敗看成資訊，而不是身份。", "有些事情需要第二次、第三次，甚至更多次。", "你不是每一次都要表現得很堅強。", "如果是你很在乎的人遇到這件事，你大概不會對他那麼苛刻。", "你也值得收到自己比較溫柔的語氣。", "今天可以少責怪自己一點。", "你不需要先變得更好，才值得被好好對待。", "對自己寬一點，不會讓你失去前進的能力。", "你可以不喜歡一件事，同時不攻擊自己。", "把批評換成描述，事情有時會清楚很多。", "你可以先問自己：現在真正需要的是什麼？", "不必每次都把問題變成自己的問題。", "對自己好一點，不需要任何理由。", "你可以讓自己的感受存在，而不是立刻糾正它。", "今天的你也值得被放在自己的考量裡。", "真正重要的關係，不需要每一刻都很精彩。", "有時候，陪伴只是記得對方說過的一件小事。", "想念不一定要立刻被解決。", "靠近一個人，也可以保留自己的空間。", "你可以在乎別人，同時不把自己放到最後。", "好的關係容得下不同的步調。", "有些話晚一點說，仍然可以很真。", "不是每一次沉默都代表距離變遠。", "被理解很重要，理解自己也一樣。", "你可以選擇在關係裡說出真正需要的東西。", "有些靠近，是從好好聽見彼此開始。", "關係不是考試，不需要每題都答對。", "期待不是催促未來，而是替未來留一個位置。", "有些日子值得慢慢靠近。", "你正在等待的事情，也正在一天一天接近。", "把一件事放進期待裡，本身就很美。", "未來不必很盛大，值得期待就夠了。", "你可以為還沒發生的好事留一點空間。", "有些快樂，是從開始期待的那天就已經發生了。", "等待裡也可以有自己的生活。", "你不需要把所有希望都押在某一天。", "快到的日子，不用被安排得完美。", "期待可以很輕，不必變成壓力。", "有一件想見的人或想去的地方，已經讓日子多了一個方向。", "先回到現在，下一分鐘可以晚一點再想。", "今天真正需要處理的，也許沒有想像中那麼多。", "你可以只看眼前這件事。", "有時候把注意力收回來，事情就會安靜一點。", "現在這一刻，不需要同時容納整個未來。", "先把腳放在今天。", "你可以先完成最靠近自己的那件事。", "有些念頭只是經過，不一定需要跟著走。", "現在能做的，已經足以成為下一步。", "先讓今天有一個舒服的位置。", "你可以把還沒發生的事，先還給未來。", "此刻不用很特別，也值得被好好經過。", "你可以說不，也可以晚一點再回答。", "你的時間不是必須隨時提供給別人的東西。", "改變主意並不等於不可靠。", "你可以選擇哪些事情值得你的力氣。", "不是每一個期待都需要由你完成。", "你可以在乎一個人，也保留自己的界線。", "有些邀請可以拒絕，有些事情可以延後。", "你不需要為每個人的情緒負責。", "你的需求也可以出現在一段關係裡。", "先問自己願不願意，再問自己能不能。", "保留空間，有時候反而讓關係更靠近。", "你可以選擇不解釋那麼多。", "別人的進度，不需要變成你的期限。", "你看到的是別人的一段，不是他的全部。", "你的生活不需要長得像別人的才算成立。", "比較出現時，可以把注意力帶回自己的需要。", "你不必靠比別人快，證明自己走得對。", "有些成長很安靜，外面不一定看得見。", "你擁有的價值，不只出現在成果裡。", "今天沒有被看見的努力，仍然存在。", "你可以欣賞別人的生活，而不否定自己的。", "你的節奏可以沒有參考答案。", "值得的生活，不一定是最忙或最耀眼的那一種。", "你不需要一直成為更厲害的人，才能喜歡現在的自己。", "重新開始不需要等到一個完美的日期。", "今天也可以只是把一件事重新撿起來。", "停了一陣子，不代表你失去繼續的資格。", "回來就好，不用先解釋為什麼離開。", "新的做法可以從很小的地方開始。", "你可以保留以前學到的，再換一條路。", "重來不是歸零，你會帶著已經知道的事情一起走。", "沒有照計畫前進，也可以重新畫一條線。", "有些事情適合放下，有些事情適合再試一次。", "你可以從今天的狀態重新設定期待。", "重新整理，比硬撐原本的計畫更有用時，就值得調整。", "回到自己想要的方向，不需要一次走很遠。", "今天如果有一件小事讓你舒服了一點，可以讓它算數。", "一杯喜歡的飲料，也可以是今天的一個好地方。", "平凡的日子，不需要被填滿才有價值。", "生活有時候只是把幾件小事放回適合的位置。", "你可以為一個很小的喜歡停一下。", "好吃的一餐、好看的天空、想見的人，都值得被記住。", "日子不一定要有大事件，才值得期待。", "你可以讓自己喜歡一些沒有用處的東西。", "有時候，舒服比效率更值得選。", "一個普通的晚上，也可以是你喜歡的生活。", "把喜歡的東西留在身邊，本身就是一種選擇。", "今天可以只是過生活，不必一直改善生活。", "你曾經為它心動過，所以把它留了下來。", "收藏的意義，不是擁有更多，而是在需要時找得回來。", "有些喜歡會被忘記，但不代表它當時不重要。", "你不需要現在決定什麼時候去，先記住就好。", "有些地方適合等到對的人、對的日子再出現。", "你留下的每一個小念頭，都可能成為某天的行程。", "不是所有收藏都要完成，留下喜歡本身也可以。", "以前的你替現在的你留了一些線索。", "有些記憶不是用來回頭，而是用來幫未來做選擇。", "當你真的要出發時，再看看以前的自己喜歡過什麼。", "你可以把記得這件事交給 Closer，把生活留給自己。", "那些差點被忘記的喜歡，也值得有地方安放。"];
@@ -416,7 +532,7 @@ function setCitySelect(id,value){
 }
 function updateMemoryLocationPreview(){
   const loc=makeLocation($("memoryCity")?.value,$("memoryArea")?.value);
-  if($("memoryLocationPreview")) $("memoryLocationPreview").textContent=loc?`📍 會記在：${loc}`:"📍 選好地點後，未來有同區域的 Moment，Closer 就能把它找回來。";
+  if($("memoryLocationPreview")) $("memoryLocationPreview").textContent=loc?`📍 會記在：${loc}`:"📍 選好地點後，未來你選擇這個城市時，Closer 就能把它找回來。";
 }
 function updateMomentLocationPreview(){
   const loc=makeLocation($("momentCity")?.value,$("momentArea")?.value);
@@ -488,7 +604,7 @@ function closeManageModal(event){
 function confirmManagedDelete(){
   const {type,id}=managedDelete;if(!id)return;
   if(type==="memory"){memories=memories.filter(x=>String(x.id)!==String(id));save("closerMemoriesV5",memories);renderMemories();renderMoments()}
-  if(type==="moment"){moments=moments.filter(x=>String(x.id)!==String(id));memories.forEach(m=>{if(String(m.linkedMomentId)===String(id))m.linkedMomentId=""});save("closerMomentsV2",moments);save("closerMemoriesV5",memories);renderMoments()}
+  if(type==="moment"){moments=moments.filter(x=>String(x.id)!==String(id));save("closerMomentsV2",moments);renderMoments()}
   closeManageModal();toast("已刪除")
 }
 function deleteMemory(id){const x=memories.find(m=>String(m.id)===String(id));openManageDelete("memory",id,x?.name||"Memory")}
@@ -525,14 +641,22 @@ function renderMemories(){
     ${x.reason?`<div class="note">當時你寫：「${esc(x.reason)}」</div>`:""}
     <div class="actions">${safeUrl(x.url)?`<button onclick="openMemory('${esc(x.id)}')">↗ 打開</button>`:""}<button onclick="toggleCompleted('${esc(x.id)}')">${esc(action)}</button><button class="manage" onclick="deleteMemory('${esc(x.id)}')">••• 管理</button></div>
    </div>`}).join(""):`<div class="card"><div class="empty">${q?"沒有找到符合的 Memory。":"這個分類還沒有收藏。"}</div></div>`
+ populateTripCities();showTripSuggestions();
 }
 
 /* Moments */
 let moments=safeParse(localStorage.getItem("closerMomentsV2"),[]);
 if(!Array.isArray(moments))moments=[];
-moments=moments.map(x=>{if(x.city!==undefined||x.area!==undefined){x.location=makeLocation(x.city||"",x.area||"")||x.location||"";return x}const lp=locationPartsFromLegacy(x.location||"");return {...x,city:lp.city,area:lp.area,location:makeLocation(lp.city,lp.area)}});save("closerMomentsV2",moments);
-function addMoment(){const name=$("momentName").value.trim(),date=$("momentDate").value;if(!name||!date){toast("請輸入名稱和日期");return}const city=$("momentCity").value,area=$("momentArea").value.trim(),location=makeLocation(city,area);
- moments.push({id:Date.now(),name,date,with:$("momentWith").value,city,area,location});save("closerMomentsV2",moments);["momentName","momentDate","momentArea"].forEach(id=>$(id).value="");$("momentCity").value="";updateMomentLocationPreview();toggleForm("momentForm",false);renderMoments();toast("Moment 建立好了 ⏳")}
+moments=moments.map(x=>({id:x.id??Date.now()+Math.random(),name:x.name||"",date:x.date||""}));
+save("closerMomentsV2",moments);
+function addMoment(){
+ const name=$("momentName").value.trim(),date=$("momentDate").value;
+ if(!name||!date){toast("請輸入名稱和日期");return}
+ moments.push({id:Date.now(),name,date});
+ save("closerMomentsV2",moments);
+ ["momentName","momentDate"].forEach(id=>$(id).value="");
+ toggleForm("momentForm",false);renderMoments();toast("倒數建立好了 ⏳")
+}
 function deleteMoment(id){const x=moments.find(m=>String(m.id)===String(id));openManageDelete("moment",id,x?.name||"Moment")}
 function norm(s=""){return String(s).trim().toLowerCase().replace(/\s+/g,"")}
 const momentFriendly=new Set(["☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","🛍️ 購物","💕 約會","🎬 電影 / 影集","📍 地點"]);
@@ -565,14 +689,157 @@ function renderSmartRecall(upcoming){
  </div>`
 }
 function renderMoments(){
- const future=moments.filter(x=>x.date&&daysLeft(x.date)>=0).slice().sort((a,b)=>new Date(a.date)-new Date(b.date)),hero=future[0];
- if(hero){const d=daysLeft(hero.date);$("heroNumber").textContent=d;$("heroName").textContent=hero.name;$("heroDate").textContent=[hero.with,hero.location?`📍 ${hero.location}`:"",dateText(hero.date)].filter(Boolean).join(" · ")}
- else{$("heroNumber").textContent="—";$("heroName").textContent="Something Beautiful";$("heroDate").textContent="把值得期待的事，放在這裡。"}
- renderSmartRecall(hero);
- if(!moments.length){$("momentsList").innerHTML='<div class="card"><div class="empty">還沒有 Moment。<br>建立下一次見面或旅行，Closer 才知道什麼時候該把 Memories 找回來。</div></div>';return}
- $("momentsList").innerHTML=moments.slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).map(x=>`<div class="moment-card"><div class="item-row"><div class="item-main"><div class="item-name">${esc(x.name)}</div><div class="item-meta">${esc(x.with||"")}${x.location?" · 📍 "+esc(x.location):""}<br>${esc(dateText(x.date))}</div></div><div class="item-days">${Math.max(daysLeft(x.date),0)}</div></div><div class="actions"><button class="manage" onclick="deleteMoment('${esc(x.id)}')">••• 管理</button></div></div>`).join("")
+ const future=moments.filter(x=>x.date&&daysLeft(x.date)>=0).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
+ const hero=future[0];
+ if(hero){
+   $("heroNumber").textContent=daysLeft(hero.date);
+   $("heroName").textContent=hero.name;
+   $("heroDate").textContent=dateText(hero.date);
+ }else{
+   $("heroNumber").textContent="—";
+   $("heroName").textContent="Something Beautiful";
+   $("heroDate").textContent="";
+ }
+ if(!moments.length){
+   $("momentsList").innerHTML='<div class="empty">還沒有倒數。<br>留下一件你正在期待的事。</div>';
+   return;
+ }
+ $("momentsList").innerHTML=moments.slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).map(x=>`
+   <div style="padding:15px 0;border-bottom:1px solid #eee9e1">
+     <div>
+       <div class="item-name">${esc(x.name)}</div>
+       <div class="item-meta">${esc(dateText(x.date))}</div>
+     </div>
+     <div style="display:flex;align-items:center;gap:9px">
+       <div class="item-days">${Math.max(daysLeft(x.date),0)}</div>
+       <button class="manage" style="border:0;background:transparent;padding:7px" onclick="deleteMoment('${esc(x.id)}')">•••</button>
+     </div>
+   </div>`).join("");
 }
-updateLocationField();updateMemoryLocationPreview();updateMomentLocationPreview();renderMemories();renderMoments();
+
+function getMemoryCity(m){
+  if(m.city&&m.city!=="其他")return m.city;
+  const lp=locationPartsFromLegacy(m.location||"");
+  return lp.city&&lp.city!=="其他"?lp.city:(m.area||lp.area||"");
+}
+function populateTripCities(){
+  const select=$("tripCity");if(!select)return;
+  const previous=localStorage.getItem("closerTripCityV1")||"";
+  const saved=[...new Set(memories.filter(m=>!m.completed&&placeLike.has(m.category)).map(getMemoryCity).filter(Boolean))];
+  const standard=[...TAIWAN_CITY_VALUES];
+  const other=saved.filter(c=>!TAIWAN_CITY_VALUES.includes(c)).sort((a,b)=>a.localeCompare(b,"zh-Hant"));
+  const ordered=[...standard,...other];
+  select.innerHTML='<option value="">選擇城市</option>'+ordered.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
+  if(previous&&ordered.includes(previous))select.value=previous;
+}
+function showTripSuggestions(){
+  const city=$("tripCity")?.value||"";
+  localStorage.setItem("closerTripCityV1",city);
+  const box=$("tripSuggestions");if(!box)return;
+  if(!city){box.innerHTML="";return}
+  const list=memories.filter(m=>!m.completed&&placeLike.has(m.category)&&getMemoryCity(m)===city)
+    .sort((a,b)=>(b.reason?1:0)-(a.reason?1:0));
+  if(!list.length){
+    box.innerHTML=`<div class="trip-empty">你目前還沒有存過 ${esc(city)} 的地方。<br>之後看到喜歡的，先丟進 Memories 就好。</div>`;
+    return;
+  }
+  box.innerHTML=`<div style="font-size:11px;color:#c9c2bc;margin-top:13px">${esc(city)} · 你以前留過 ${list.length} 個還沒去的地方</div>`+
+  list.slice(0,6).map(m=>`<div class="trip-result">
+    <div class="trip-result-name">${esc(m.name||"收藏地點")}</div>
+    <div class="trip-result-meta">${esc(m.category)}${m.area?` · ${esc(m.area)}`:""}${m.reason?` · 「${esc(m.reason)}」`:""}</div>
+    <div class="trip-result-actions">
+      <button onclick="openMemory('${esc(m.id)}')">看看</button>
+      <button onclick="toggleCompleted('${esc(m.id)}');setTimeout(()=>{populateTripCities();showTripSuggestions()},0)">✓ 去過了</button>
+    </div>
+  </div>`).join("");
+}
+
+/* Letters to future self */
+let letters=safeParse(localStorage.getItem("closerLettersV1"),[]);
+if(!Array.isArray(letters))letters=[];
+
+function localDateISO(d=new Date()){
+  const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
+}
+function addOneYearClamped(iso){
+  const [y,m,d]=iso.split("-").map(Number);
+  const targetYear=y+1;
+  const lastDay=new Date(targetYear,m,0).getDate();
+  const safeDay=Math.min(d,lastDay);
+  return `${targetYear}-${String(m).padStart(2,"0")}-${String(safeDay).padStart(2,"0")}`;
+}
+function daysUntilISO(iso){
+  const [y,m,d]=iso.split("-").map(Number);
+  const target=new Date(y,m-1,d);
+  const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  return Math.max(0,Math.ceil((target-today)/86400000));
+}
+function updateLetterHint(){
+  const written=localDateISO(),unlock=addOneYearClamped(written);
+  if($("letterUnlockHint")) $("letterUnlockHint").textContent=`這封信會在 ${dateText(unlock)} 才能打開。信封外只會顯示 ${dateText(written)}。`;
+}
+function saveLetter(){
+  const body=$("letterBody").value.trim();
+  if(!body){toast("先寫下一點想留給未來的話");return}
+  const written=localDateISO(),unlock=addOneYearClamped(written);
+  letters.unshift({
+    id:Date.now(),writtenDate:written,unlockDate:unlock,body,openedAt:""
+  });
+  save("closerLettersV1",letters);
+  $("letterBody").value="";
+  toggleForm("letterForm",false);
+  renderLetters();
+  toast("Closer 替你把信收好了 ✉️");
+}
+function renderLetters(){
+  const box=$("lettersList");if(!box)return;
+  if(!letters.length){
+    box.innerHTML='<div class="letter-empty">還沒有信。<br>某一天想留下今天，就寫一封給一年後的自己。</div>';
+    return;
+  }
+  box.innerHTML=letters.map(letter=>{
+    const unlocked=daysUntilISO(letter.unlockDate)===0;
+    const opened=!!letter.openedAt;
+    return `<button class="envelope ${opened?"opened":""}" onclick="openLetter('${esc(letter.id)}')">
+      <div class="envelope-seal">${opened?"♡":"✉"}</div>
+      <div class="envelope-date">${esc(dateText(letter.writtenDate))}</div>
+      <div class="envelope-note">${opened?"已拆開":"寫給未來的我"}</div>
+    </button>`;
+  }).join("");
+}
+function openLetter(id){
+  const letter=letters.find(x=>String(x.id)===String(id));if(!letter)return;
+  const remaining=daysUntilISO(letter.unlockDate);
+  $("letterModalDate").textContent=`寫於 ${dateText(letter.writtenDate)}`;
+  if(remaining>0){
+    $("letterModalTitle").textContent="這封信還在路上";
+    $("letterModalContent").innerHTML=`<div class="locked-letter">
+      <div class="lock-icon">✉️</div>
+      <div class="lock-title">現在還不能拆。</div>
+      <div class="lock-sub">你已經把今天的話交給未來了。先讓它安靜地待在這裡，等那一天真的來到。</div>
+      <div class="lock-date">可以在 ${esc(dateText(letter.unlockDate))} 打開</div>
+      <div class="lock-days">還有 ${remaining} 天</div>
+    </div>`;
+  }else{
+    $("letterModalTitle").textContent="一年前的你，留了一封信";
+    $("letterModalContent").innerHTML=`<div class="letter-body">${esc(letter.body)}</div>`;
+    if(!letter.openedAt){
+      letter.openedAt=new Date().toISOString();
+      save("closerLettersV1",letters);
+      renderLetters();
+    }
+  }
+  $("letterModal").classList.add("show");
+}
+function closeLetterModal(event){
+  if(event&&event.target!==$("letterModal"))return;
+  $("letterModal").classList.remove("show");
+}
+updateLetterHint();
+renderLetters();
+
+updateLocationField();updateMemoryLocationPreview();renderMemories();renderMoments();populateTripCities();showTripSuggestions();
 </script>
 <style>
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);width:min(calc(100% - 36px),520px);background:var(--dark);color:#fff;padding:13px 16px;border-radius:14px;font-size:13px;text-align:center;opacity:0;pointer-events:none;transition:.2s ease;z-index:50}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
