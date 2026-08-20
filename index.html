@@ -6,430 +6,397 @@
 <meta name="theme-color" content="#f7f5ef">
 <title>Closer</title>
 <style>
-:root{--bg:#f8f5ef;--card:#fff;--ink:#2d2a28;--muted:#8f8981;--soft:#eee9e1;--line:#dfd8cf;--dark:#2d2a28;--warm:#b98278;--warm-soft:#f3e8e3;--sage:#e9eee6;--radius:24px}
+:root{
+  --bg:#f7f5ef;--card:#fff;--ink:#292725;--muted:#948f88;--soft:#ece8df;
+  --line:#ded9d0;--dark:#292725;--warm:#bd8d82;--warm-soft:#f3e7e2;
+  --sage:#e8ede5;--radius:23px
+}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang TC","Noto Sans TC",Arial,sans-serif}
-button,input,select,textarea{font:inherit}button{cursor:pointer}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang TC","Noto Sans TC",Arial,sans-serif
+}
+button,input,select,textarea{font:inherit} button{cursor:pointer}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-.app{width:min(100%,560px);min-height:100vh;margin:0 auto;padding:24px 18px calc(76px + env(safe-area-inset-bottom))}
-.header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px}
-.logo{font-size:18px;letter-spacing:4px;font-weight:750}
-.tagline{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5}
-.today{font-size:12px;color:var(--muted);white-space:nowrap;padding-top:2px}
-.nav{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;position:sticky;top:0;z-index:20;padding:7px 0 14px;margin-bottom:5px;background:linear-gradient(var(--bg) 74%,rgba(247,245,239,0))}
-.nav button{border:0;border-radius:999px;background:var(--soft);color:#77736c;padding:11px 8px;font-size:12px}
-.nav button.active{background:var(--dark);color:#fff}
+.app{width:min(100%,540px);min-height:100vh;margin:auto;padding:24px 18px calc(64px + env(safe-area-inset-bottom))}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.logo{font-size:18px;letter-spacing:4px;font-weight:700}
+.today{font-size:12px;color:var(--muted)}
+.nav{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:7px;position:sticky;top:0;z-index:30;
+  background:linear-gradient(var(--bg) 76%,rgba(247,245,239,0));padding:7px 0 14px
+}
+.nav-btn{
+  position:relative;border:0;background:var(--soft);color:#77726d;border-radius:999px;
+  padding:11px 6px;font-size:12px;white-space:nowrap
+}
+.nav-btn.active{background:var(--dark);color:#fff}
+.alert-dot{
+  display:none;position:absolute;right:12px;top:8px;width:6px;height:6px;border-radius:50%;background:#c56f62
+}
+.alert-dot.show{display:block}
 .section{display:none}.section.active{display:block}
-.hero{text-align:center;padding:30px 8px 32px}
-.hero-label{font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:15px}
-.hero-number{font-size:clamp(76px,23vw,110px);font-weight:660;line-height:.88;letter-spacing:-6px}
-.hero-unit{font-size:10px;letter-spacing:4px;margin-top:16px}
-.hero-name{font-size:24px;font-weight:630;line-height:1.3;margin-top:22px}
-.hero-sub{font-size:12px;line-height:1.7;color:var(--muted);margin-top:8px}
-.card,.form,.memory-card,.moment-card{background:var(--card);border-radius:var(--radius);padding:22px;margin-bottom:13px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
-.card.dark{background:var(--dark);color:#fff}
-.eyebrow{font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:13px}.dark .eyebrow{color:#aaa}
-.big{font-size:25px;font-weight:630;line-height:1.3}
-.sub{font-size:13px;line-height:1.7;color:var(--muted);margin-top:8px}.dark .sub{color:#c8c8c8}
-.primary,.secondary,.ghost{width:100%;border:0;border-radius:15px;padding:14px 16px;font-size:14px}
-.primary{background:var(--dark);color:#fff}.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}.ghost{background:var(--soft);color:var(--ink)}
+.hero{text-align:center;padding:27px 8px 31px}
+.hero-label{font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:14px}
+.hero-number{font-size:clamp(78px,23vw,108px);font-weight:650;line-height:.88;letter-spacing:-6px}
+.hero-unit{font-size:10px;letter-spacing:4px;margin-top:15px}
+.hero-name{font-size:24px;font-weight:620;margin-top:22px;line-height:1.3}
+.hero-date{font-size:12px;color:var(--muted);margin-top:7px}
+.card,.form,.memory-card,.letter-panel{
+  background:var(--card);border-radius:var(--radius);padding:22px;margin-bottom:13px;
+  box-shadow:0 1px 0 rgba(0,0,0,.02)
+}
+.eyebrow{font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:13px}
+.big{font-size:24px;font-weight:630;line-height:1.35}
+.sub{font-size:13px;line-height:1.7;color:var(--muted);margin-top:7px}
+.primary,.secondary{
+  width:100%;border-radius:15px;padding:14px 15px;font-size:14px
+}
+.primary{border:0;background:var(--dark);color:#fff}
+.secondary{border:1px solid var(--line);background:#fff;color:var(--ink)}
 .form{display:none}.form.open{display:block}
 .form-title{font-size:20px;font-weight:630;margin-bottom:13px}
-.field-label{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#77736c;font-size:11px;margin:13px 2px 5px}
+.field-label{
+  display:flex;justify-content:space-between;gap:10px;margin:13px 2px 5px;
+  font-size:11px;color:#77726d
+}
 .optional{color:#aaa}
-input,select,textarea{width:100%;border:1px solid var(--line);background:#fbfaf7;color:var(--ink);border-radius:13px;padding:13px 14px}
-textarea{min-height:84px;resize:vertical;line-height:1.55}
+input,select,textarea{
+  width:100%;border:1px solid var(--line);background:#fbfaf7;border-radius:13px;
+  padding:13px 14px;color:var(--ink)
+}
+textarea{min-height:92px;resize:vertical;line-height:1.6}
 .form-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.quote{text-align:center;padding:29px 22px}
-.quote-main{font-size:18px;line-height:1.75;min-height:64px;display:grid;place-items:center}
-.quote-meta{font-size:10px;letter-spacing:1.8px;color:var(--muted);margin-top:8px}
-.quote-actions{display:flex;justify-content:center;gap:12px;margin-top:13px}
-.quote-actions button{border:0;border-radius:999px;background:var(--soft);padding:8px 13px;font-size:12px;color:#666}
-.paste-box{position:relative;margin-top:17px}.paste-box input{padding:16px 48px 16px 15px;background:#fff}
-.paste-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:18px}
-.detected{display:none;align-items:center;justify-content:space-between;gap:10px;background:var(--bg);border-radius:15px;padding:12px 13px;margin-top:9px}
-.detected.show{display:flex}.detect-main{display:flex;gap:10px;align-items:center;min-width:0}
-.detect-icon{font-size:22px}.detect-title{font-size:13px;font-weight:620}.detect-sub{color:var(--muted);font-size:10px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.list-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 1px 11px}
-.list-title{font-size:10px;letter-spacing:2px;color:var(--muted)}
-.item-row{display:flex;align-items:center;justify-content:space-between;gap:14px}.item-main{min-width:0}
-.item-name{font-size:17px;font-weight:600;line-height:1.35}.item-meta{color:var(--muted);font-size:11px;line-height:1.55;margin-top:5px}
-.item-days{font-size:27px;font-weight:660;flex:none}
-.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
-.actions button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;font-size:12px}
-.actions button.manage{color:#777;background:#faf9f6;margin-left:auto}.actions button.manage:hover{background:var(--soft)}
-.note{background:var(--bg);border-radius:13px;padding:12px 13px;margin-top:12px;font-size:13px;line-height:1.65}
-.location-pill{display:inline-flex;align-items:center;gap:5px;background:var(--soft);border-radius:999px;padding:6px 10px;font-size:11px;margin-top:10px;color:#5f5c56}
-.status-pill{display:inline-flex;border-radius:999px;padding:5px 9px;font-size:10px;margin-left:5px;background:#f2f0e9;color:#77736c}
-.smart-card{background:linear-gradient(145deg,#2c2c2c,#1f1f1f);color:#fff;border-radius:28px;padding:23px;margin-bottom:13px;overflow:hidden}
-.smart-title{font-size:21px;font-weight:650;line-height:1.35}.smart-sub{color:#c9c9c9;font-size:12px;line-height:1.65;margin-top:7px}
-.suggestion{background:#fff;color:var(--ink);border-radius:17px;padding:14px;margin-top:9px}
-.suggestion-name{font-weight:620;font-size:15px}.suggestion-meta{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.5}
-.suggestion-actions{display:flex;gap:7px;margin-top:10px}
-.suggestion-actions button{border:0;border-radius:11px;padding:8px 10px;font-size:11px;background:var(--soft)}.suggestion-actions button:first-child{background:var(--dark);color:#fff}
-.linked-label{font-size:10px;letter-spacing:1.5px;color:#aaa;margin-top:16px}
-.remember-banner{background:var(--soft);border-radius:18px;padding:15px 16px;margin-bottom:13px;font-size:12px;line-height:1.7;color:#5f5c56}
-.memory-head{display:flex;justify-content:space-between;gap:12px}.memory-type{font-size:10px;letter-spacing:1px;color:var(--muted)}
-.memory-name{font-size:19px;font-weight:630;line-height:1.35;margin-top:5px}.memory-meta{font-size:11px;line-height:1.55;color:var(--muted);margin-top:6px}
-.chips{display:flex;gap:7px;overflow:auto;padding:1px 0 13px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
-.chip{border:0;border-radius:999px;padding:8px 12px;background:var(--soft);color:#77736c;font-size:12px;white-space:nowrap}.chip.active{background:var(--dark);color:#fff}
-.search-wrap{position:relative;margin:3px 0 12px}.search-wrap input{background:#fff;padding-left:39px}.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:#888}
-.empty{color:var(--muted);font-size:13px;line-height:1.8;text-align:center;padding:25px 10px}
-.small-note{font-size:10px;line-height:1.6;color:var(--muted);margin-top:8px}
-.auto-note{font-size:11px;line-height:1.55;color:#5f5c56;background:var(--soft);padding:10px 12px;border-radius:12px;margin-top:8px}
-.hidden{display:none!important}
-@media(max-width:390px){.app{padding-left:14px;padding-right:14px}.card,.form,.memory-card,.moment-card{padding:19px}.big{font-size:23px}}
-
-.companion-card{
-  background:linear-gradient(145deg,#f3e8e3,#f8f2ec);
-  border:1px solid #ead9d2;border-radius:28px;padding:23px;margin-bottom:13px
+.quote-card{background:#fff;border-radius:24px;padding:28px 22px;text-align:center;margin-bottom:18px}
+.quote{font-size:18px;line-height:1.75;min-height:64px;display:grid;place-items:center}
+.quote-meta{font-size:9px;letter-spacing:1.6px;color:#aaa;margin-top:8px}
+.quote-actions{display:flex;justify-content:center;gap:11px;margin-top:12px}
+.quote-actions button{border:0;background:var(--soft);border-radius:999px;padding:8px 12px;font-size:11px;color:#6f6a65}
+.countdown-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;
+  border-bottom:1px solid #eeeae3
 }
-.companion-kicker{font-size:10px;letter-spacing:2px;color:#a17a70;margin-bottom:10px}
-.companion-title{font-size:21px;font-weight:650;line-height:1.4}
-.companion-sub{font-size:12px;color:#817971;line-height:1.7;margin-top:7px}
-.smart-card{
-  background:linear-gradient(145deg,#f1e4df,#f7efe9)!important;
-  color:var(--ink)!important;border:1px solid #ead7d0!important
+.countdown-row:last-child{border-bottom:0}
+.item-name{font-size:16px;font-weight:590}
+.item-meta{font-size:11px;color:var(--muted);margin-top:5px}
+.item-days{font-size:26px;font-weight:650}
+.row-right{display:flex;align-items:center;gap:8px}
+.more-btn{border:0;background:transparent;color:#aaa;padding:7px;font-size:15px}
+.empty{color:var(--muted);font-size:13px;line-height:1.8;text-align:center;padding:24px 8px}
+.trip-banner{
+  background:var(--dark);color:#fff;border-radius:25px;padding:22px;margin:18px 0 14px
 }
-.smart-card .eyebrow{color:#9c746c!important}
-.smart-card .smart-sub{color:#786f68!important}
-.smart-card .suggestion{box-shadow:0 1px 0 rgba(45,42,40,.03)}
+.trip-banner small{font-size:10px;letter-spacing:1.7px;color:#b9b3ad}
+.trip-banner h2{font-size:22px;margin:9px 0 6px}
+.trip-banner p{font-size:12px;line-height:1.65;color:#cbc5bf;margin:0 0 14px}
+.trip-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.trip-banner select,.trip-banner input{border:0;background:#fff;color:var(--ink)}
+.trip-save{margin-top:8px;background:#fff;color:var(--ink);border:0}
+.trip-reminder{
+  background:var(--warm-soft);color:#6d5751;border-radius:18px;padding:15px 16px;
+  font-size:12px;line-height:1.7;margin:0 0 13px
+}
+.trip-reminder strong{color:#59443f}
+.trip-results-title{font-size:10px;letter-spacing:1.5px;color:#bbb3ad;margin:14px 1px 8px}
+.trip-result{background:#fff;color:var(--ink);border-radius:17px;padding:14px;margin-top:8px}
+.trip-result-name{font-size:15px;font-weight:630;line-height:1.35}
+.trip-result-meta{font-size:10px;color:var(--muted);line-height:1.55;margin-top:4px}
+.trip-result-actions{display:flex;gap:7px;margin-top:10px}
+.trip-result-actions button{border:0;border-radius:11px;padding:8px 10px;font-size:11px;background:var(--soft)}
+.trip-result-actions button:first-child{background:var(--dark);color:#fff}
+.paste-card{background:var(--dark);color:#fff}
+.paste-card .eyebrow{color:#aaa} .paste-card .sub{color:#c9c3bd}
+.paste-box{position:relative;margin-top:16px}
+.paste-box input{background:#fff;padding-right:45px}
+.paste-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#666}
+.detected{
+  display:none;background:#f0ece5;color:var(--ink);border-radius:14px;padding:11px 12px;
+  margin-top:8px;font-size:11px;line-height:1.55
+}
+.detected.show{display:block}
+.location-block{
+  margin-top:13px;padding:14px;background:#f8f5ef;border-radius:17px;border:1px solid #ebe5dc
+}
+.location-title{font-size:12px;font-weight:650;margin-bottom:4px}
+.location-help{font-size:10px;color:var(--muted);line-height:1.55;margin-bottom:9px}
 .location-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.location-preview{
-  display:flex;align-items:center;gap:8px;background:var(--sage);color:#566052;
-  border-radius:13px;padding:11px 12px;margin-top:8px;font-size:11px;line-height:1.5
+.location-preview{font-size:10px;color:#65705f;margin-top:8px;line-height:1.55}
+.search-wrap{position:relative;margin:4px 0 11px}
+.search-wrap input{background:#fff;padding-left:38px}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#999}
+.chips{display:flex;gap:7px;overflow:auto;padding-bottom:12px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{border:0;background:var(--soft);color:#77726d;border-radius:999px;padding:8px 12px;font-size:11px;white-space:nowrap}
+.chip.active{background:var(--dark);color:#fff}
+.city-summary{display:flex;gap:7px;overflow:auto;padding:2px 0 11px;scrollbar-width:none}
+.city-summary::-webkit-scrollbar{display:none}
+.city-chip{border:0;background:var(--warm-soft);color:#755f58;border-radius:999px;padding:8px 11px;font-size:11px;white-space:nowrap}
+.memory-card{padding:19px}
+.memory-type{font-size:10px;letter-spacing:1px;color:var(--muted)}
+.status{display:inline-block;margin-left:5px;background:#f2efe9;border-radius:999px;padding:4px 8px;font-size:9px}
+.memory-name{font-size:18px;font-weight:630;margin-top:5px;line-height:1.4}
+.memory-meta{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.55}
+.location-pill{display:inline-flex;background:var(--sage);color:#586253;border-radius:999px;padding:6px 9px;font-size:10px;margin-top:9px}
+.note{margin-top:11px;background:var(--bg);border-radius:13px;padding:11px 12px;font-size:12px;line-height:1.65}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.actions button{border:1px solid var(--line);background:#fff;border-radius:11px;padding:8px 10px;font-size:11px}
+.actions .manage{margin-left:auto;color:#777}
+.letters-top{margin-top:18px}
+.letter-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.envelope{
+  position:relative;min-height:130px;border:1px solid #e4ddd5;background:#fffaf5;
+  border-radius:20px;padding:17px 15px 14px;text-align:left;overflow:hidden
 }
-.manage-modal{
-  position:fixed;inset:0;background:rgba(35,32,30,.28);display:none;align-items:flex-end;
+.envelope::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:67%;
+  background:linear-gradient(145deg,transparent 49.5%,#eee2d8 50%,transparent 50.8%),
+             linear-gradient(215deg,transparent 49.5%,#f3e9e0 50%,transparent 50.8%);
+  opacity:.9
+}
+.seal{
+  position:absolute;z-index:2;left:50%;top:45px;transform:translate(-50%,-50%);
+  width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  background:#c99386;color:#fff;font-size:14px
+}
+.envelope.opened .seal{background:#a8ad9e}
+.envelope-date{position:relative;z-index:2;margin-top:65px;font-size:12px;color:#716b65}
+.envelope-note{position:relative;z-index:2;font-size:10px;color:#aaa;margin-top:4px}
+.modal{
+  position:fixed;inset:0;background:rgba(35,32,30,.31);display:none;align-items:flex-end;
   justify-content:center;z-index:100;padding:18px
 }
-.manage-modal.show{display:flex}
-.manage-sheet{
-  width:min(100%,520px);background:#fff;border-radius:26px;padding:22px;
-  box-shadow:0 20px 70px rgba(35,32,30,.18)
+.modal.show{display:flex}
+.sheet{
+  width:min(100%,520px);max-height:84vh;overflow:auto;background:#fffdf9;
+  border-radius:27px;padding:23px;box-shadow:0 22px 70px rgba(35,32,30,.2)
 }
-.manage-sheet h3{margin:0;font-size:19px}.manage-sheet p{font-size:12px;color:var(--muted);line-height:1.65;margin:8px 0 18px}
-.manage-sheet-actions{display:grid;gap:8px}
-.danger-confirm{background:#8f4f48!important;color:white!important;border:0!important}
-.location-section-title{font-size:10px;letter-spacing:1.6px;color:var(--muted);margin:18px 1px 9px}
-.city-summary{display:flex;gap:7px;overflow:auto;padding-bottom:10px;scrollbar-width:none}
-.city-summary::-webkit-scrollbar{display:none}
-.city-chip{
-  border:0;background:var(--warm-soft);color:#765f59;border-radius:999px;padding:8px 11px;
-  font-size:11px;white-space:nowrap
+.sheet-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.sheet h3{margin:0;font-size:21px;line-height:1.35}
+.sheet-date{font-size:10px;letter-spacing:1.4px;color:var(--muted);margin-bottom:7px}
+.close-btn{width:34px;height:34px;border:0;background:var(--soft);border-radius:50%;flex:none}
+.letter-body{margin-top:18px;padding:17px;background:#fff;border:1px solid #ebe4da;border-radius:17px;font-size:15px;line-height:1.9;white-space:pre-wrap}
+.locked{text-align:center;padding:12px 3px 3px}
+.lock-icon{font-size:37px} .lock-title{font-size:20px;font-weight:650;margin-top:10px}
+.lock-sub{font-size:12px;line-height:1.75;color:var(--muted);margin-top:7px}
+.lock-date{display:inline-block;background:var(--warm-soft);border-radius:999px;padding:8px 12px;font-size:11px;color:#765f59;margin-top:12px}
+.lock-days{font-size:10px;color:#aaa;margin-top:8px}
+.burn-btn{width:100%;border:0;background:transparent;color:#a66a5e;padding:13px;margin-top:14px;font-size:12px}
+.burning{animation:burnAway .85s ease forwards}
+@keyframes burnAway{0%{opacity:1;filter:none}45%{filter:sepia(.7) saturate(1.8);transform:scale(.99)}100%{opacity:0;filter:sepia(1) blur(4px);transform:scale(.94) translateY(10px)}}
+.vision{font-size:10px;color:#aaa39c;text-align:center;padding:29px 8px 3px;line-height:1.6}
+.toast{
+  position:fixed;left:50%;bottom:calc(23px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(16px);width:min(calc(100% - 36px),510px);
+  background:var(--dark);color:#fff;border-radius:14px;padding:12px 15px;font-size:12px;
+  text-align:center;opacity:0;pointer-events:none;transition:.18s;z-index:120
 }
-
-
-.letters-intro{
-  background:linear-gradient(145deg,#f4e9e4,#f9f4ef);
-  border:1px solid #ead9d2;border-radius:28px;padding:23px;margin-bottom:13px
-}
-.letter-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.envelope{
-  position:relative;min-height:132px;border:1px solid #e3dbd2;background:#fffaf5;
-  border-radius:20px;padding:18px 16px 15px;overflow:hidden;text-align:left;
-  transition:transform .16s ease,box-shadow .16s ease
-}
-.envelope:active{transform:scale(.985)}
-.envelope::before{
-  content:"";position:absolute;left:0;right:0;top:0;height:68%;
-  background:linear-gradient(145deg,transparent 49.5%,#efe4da 50%,transparent 50.8%),
-             linear-gradient(215deg,transparent 49.5%,#f3e9e0 50%,transparent 50.8%);
-  opacity:.85;pointer-events:none
-}
-.envelope-date{
-  position:relative;z-index:1;font-size:12px;letter-spacing:.3px;color:#766f68;
-  margin-top:66px
-}
-.envelope-note{
-  position:relative;z-index:1;font-size:10px;color:#aaa;margin-top:4px
-}
-.envelope-seal{
-  position:absolute;z-index:2;left:50%;top:46px;transform:translate(-50%,-50%);
-  width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
-  background:#c89487;color:white;font-size:14px;box-shadow:0 3px 12px rgba(113,78,69,.12)
-}
-.envelope.opened{background:#f9f7f2}
-.envelope.opened .envelope-seal{background:#a9ad9e}
-.letter-empty{
-  grid-column:1/-1;background:#fff;border-radius:22px;padding:28px 18px;
-  color:var(--muted);font-size:13px;line-height:1.8;text-align:center
-}
-.letter-modal{
-  position:fixed;inset:0;background:rgba(35,32,30,.30);display:none;align-items:flex-end;
-  justify-content:center;z-index:110;padding:18px
-}
-.letter-modal.show{display:flex}
-.letter-sheet{
-  width:min(100%,520px);max-height:82vh;overflow:auto;background:#fffdf9;
-  border-radius:28px;padding:24px;box-shadow:0 20px 70px rgba(35,32,30,.20)
-}
-.letter-sheet-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
-.letter-sheet-date{font-size:10px;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px}
-.letter-sheet h3{font-size:22px;line-height:1.35;margin:0}
-.letter-close{border:0;background:var(--soft);border-radius:50%;width:34px;height:34px;flex:none}
-.letter-body{
-  margin-top:19px;padding:18px;background:#fff;border:1px solid #ebe4da;border-radius:18px;
-  font-size:15px;line-height:1.9;white-space:pre-wrap
-}
-.locked-letter{text-align:center;padding:10px 4px 4px}
-.lock-icon{font-size:38px;margin-bottom:13px}
-.lock-title{font-size:21px;font-weight:650}
-.lock-sub{font-size:13px;line-height:1.75;color:var(--muted);margin-top:8px}
-.lock-date{
-  display:inline-block;background:var(--warm-soft);border-radius:999px;padding:8px 12px;
-  font-size:12px;color:#765f59;margin-top:14px
-}
-.lock-days{font-size:11px;color:#aaa;margin-top:9px}
-.letter-compose-note{
-  background:var(--warm-soft);border-radius:14px;padding:12px 13px;
-  font-size:11px;line-height:1.65;color:#765f59;margin-top:9px
-}
-@media(max-width:390px){
-  .letter-grid{gap:9px}.envelope{min-height:126px;padding-left:14px;padding-right:14px}
-}
-
-
-.trip-banner{
-  background:#2d2a28;color:white;border-radius:24px;padding:22px;margin:18px 0 15px
-}
-.trip-banner small{color:#b8b2ac;letter-spacing:1.6px;font-size:10px}
-.trip-banner h2{font-size:22px;margin:9px 0 5px}
-.trip-banner p{color:#cbc5bf;font-size:12px;line-height:1.65;margin:0 0 14px}
-.trip-banner select{
-  width:100%;border:0;border-radius:13px;padding:13px 14px;background:white;
-  color:#2d2a28;font-size:14px
-}
-.trip-result{
-  background:#fff;color:#2d2a28;border-radius:16px;padding:14px;margin-top:9px
-}
-.trip-result:first-of-type{margin-top:13px}
-.trip-result-name{font-size:15px;font-weight:630;line-height:1.35}
-.trip-result-meta{font-size:10px;color:#8f8981;line-height:1.5;margin-top:4px}
-.trip-result-actions{display:flex;gap:7px;margin-top:10px}
-.trip-result-actions button{
-  border:0;border-radius:11px;padding:8px 10px;font-size:11px;background:#eee9e1
-}
-.trip-result-actions button:first-child{background:#2d2a28;color:white}
-.trip-empty{
-  color:#c8c1bb;font-size:12px;line-height:1.65;padding:14px 2px 2px;text-align:center
-}
-.vision-line{
-  color:#aaa39b;font-size:10px;line-height:1.6;text-align:center;
-  padding:28px 12px 4px;letter-spacing:.15px
-}
-#memoriesMode .remember-banner{margin-top:3px}
-#lettersMode .list-head{margin-top:20px}
-
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:390px){.app{padding-left:14px;padding-right:14px}.card,.form,.memory-card,.letter-panel{padding:19px}.letter-grid{gap:8px}}
 </style>
 </head>
 <body>
 <div class="app">
-<header class="header">
-  <div class="logo">CLOSER</div>
-  <div class="today" id="today"></div>
-</header>
+  <header class="header">
+    <div class="logo">CLOSER</div>
+    <div class="today" id="today"></div>
+  </header>
 
-<nav class="nav">
-  <button class="active" onclick="switchMode('moments',this)">⏳ Moments</button>
-  <button onclick="switchMode('memories',this)">🧠 Memories</button>
-  <button onclick="switchMode('letters',this)">✉️ Letters</button>
-</nav>
+  <nav class="nav">
+    <button class="nav-btn active" onclick="switchMode('moments',this)">⏳ Moments</button>
+    <button class="nav-btn" id="memoriesTab" onclick="switchMode('memories',this)">🧠 Memories<span class="alert-dot" id="memoryAlertDot"></span></button>
+    <button class="nav-btn" onclick="switchMode('letters',this)">✉️ Letters</button>
+  </nav>
 
-<section class="section active" id="momentsMode">
-  <div class="hero">
-    <div class="hero-label">COUNTING DOWN TO</div>
-    <div class="hero-number" id="heroNumber">—</div>
-    <div class="hero-unit">DAYS</div>
-    <div class="hero-name" id="heroName">Something Beautiful</div>
-    <div class="hero-sub" id="heroDate">把值得期待的事，放在這裡。</div>
-  </div>
-
-  <div class="card quote">
-    <div class="quote-main" id="quote"></div>
-    <div class="quote-meta" id="quoteMeta">A LITTLE NOTE</div>
-    <div class="quote-actions">
-      <button onclick="favoriteQuote()">♡ 留下這句</button>
-      <button onclick="newQuote()">換一句 ↻</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="eyebrow">MY DAYS</div>
-    <div id="momentsList"></div>
-    <button class="primary" style="margin-top:14px" onclick="toggleForm('momentForm')">＋ Add a countdown</button>
-  </div>
-
-  <div class="form" id="momentForm">
-    <div class="form-title">New Countdown</div>
-    <label class="field-label" for="momentName">這是什麼？</label>
-    <input id="momentName" placeholder="你正在等待什麼？">
-    <label class="field-label" for="momentDate">日期</label>
-    <input id="momentDate" type="date">
-    <div class="form-actions">
-      <button class="secondary" onclick="toggleForm('momentForm',false)">取消</button>
-      <button class="primary" onclick="addMoment()">建立</button>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="memoriesMode">
-
-  <div class="trip-banner">
-    <small>YOUR NEXT PLACE</small>
-    <h2>📍 這次要去哪裡？</h2>
-    <p>選一個城市。Closer 會把你以前存過、還沒去的地方重新找回來。</p>
-    <select id="tripCity" onchange="showTripSuggestions()">
-      <option value="">選擇城市</option>
-    </select>
-    <div id="tripSuggestions"></div>
-  </div>
-
-  <div class="card dark">
-    <div class="eyebrow">SAVE FOR LATER</div>
-    <div class="big">貼一個你不想忘記的東西。</div>
-    <div class="sub">Closer 會先判斷類型；如果是地點，也會盡量從網址辨識城市。</div>
-    <div class="paste-box">
-      <input id="quickUrl" inputmode="url" placeholder="貼上網址…" oninput="previewQuickLink()" onpaste="setTimeout(previewQuickLink,0)">
-      <div class="paste-icon">↗</div>
-    </div>
-    <div class="detected" id="quickDetected">
-      <div class="detect-main">
-        <div class="detect-icon" id="quickIcon">🔗</div>
-        <div style="min-width:0"><div class="detect-title" id="quickTitle">一般連結</div><div class="detect-sub" id="quickHost"></div></div>
-      </div><div>✓</div>
-    </div>
-    <button class="secondary" style="margin-top:10px" onclick="openMemoryFromQuick()">下一步</button>
-  </div>
-
-  <div class="form" id="memoryForm">
-    <div class="form-title">🧠 Save to Memories</div>
-    <label class="field-label" for="memoryUrl">網址</label>
-    <input id="memoryUrl" inputmode="url" placeholder="https://…" oninput="detectMemoryLink()">
-    <div class="detected" id="detectedBox">
-      <div class="detect-main">
-        <div class="detect-icon" id="detectedIcon">🔗</div>
-        <div style="min-width:0"><div class="detect-title" id="detectedTitle">一般連結</div><div class="detect-sub" id="detectedHost"></div></div>
-      </div><div>✓</div>
+  <section class="section active" id="momentsMode">
+    <div class="hero">
+      <div class="hero-label">COUNTING DOWN TO</div>
+      <div class="hero-number" id="heroNumber">—</div>
+      <div class="hero-unit">DAYS</div>
+      <div class="hero-name" id="heroName">Something Beautiful</div>
+      <div class="hero-date" id="heroDate"></div>
     </div>
 
-    <label class="field-label" for="memoryCategory">分類 <span class="optional">自動判斷，可修改</span></label>
-    <select id="memoryCategory" onchange="updateLocationField()">
-      <option value="☕ 咖啡 / 餐廳">☕ 咖啡 / 餐廳</option>
-      <option value="🌿 景點">🌿 景點</option>
-      <option value="🏨 住宿">🏨 住宿</option>
-      <option value="🎨 展覽">🎨 展覽</option>
-      <option value="📚 書籍">📚 書籍</option>
-      <option value="🛍️ 購物">🛍️ 購物</option>
-      <option value="💕 約會">💕 約會</option>
-      <option value="🎙 Podcast">🎙 Podcast</option>
-      <option value="🎵 音樂">🎵 音樂</option>
-      <option value="🎬 電影 / 影集">🎬 電影 / 影集</option>
-      <option value="▶️ 影片">▶️ 影片</option>
-      <option value="📷 貼文 / Reels">📷 貼文 / Reels</option>
-      <option value="📍 地點">📍 地點</option>
-      <option value="🔗 其他連結">🔗 其他連結</option>
-    </select>
-
-    <label class="field-label" for="memoryName">名稱 <span class="optional">能辨識時自動帶入</span></label>
-    <input id="memoryName" placeholder="例如：山小日子咖啡 / 一本想看的書">
-
-    <div id="locationFields">
-      <label class="field-label">地點 <span class="optional">一定可以自己選；網址能辨識時先帶入</span></label>
-      <div class="location-grid">
-        <select id="memoryCity" onchange="updateMemoryLocationPreview()">
-          <option value="">選城市</option>
-          <option>台北</option><option>新北</option><option>基隆</option><option>桃園</option>
-          <option>新竹</option><option>苗栗</option><option>台中</option><option>彰化</option>
-          <option>南投</option><option>雲林</option><option>嘉義</option><option>台南</option>
-          <option>高雄</option><option>屏東</option><option>宜蘭</option><option>花蓮</option>
-          <option>台東</option><option>澎湖</option><option>金門</option><option>馬祖</option>
-          <option value="其他">海外 / 其他</option>
-        </select>
-        <input id="memoryArea" placeholder="區域 / 地址，例如：大安、冬山" oninput="updateMemoryLocationPreview()">
+    <div class="quote-card">
+      <div class="quote" id="quote"></div>
+      <div class="quote-meta" id="quoteMeta">A LITTLE NOTE</div>
+      <div class="quote-actions">
+        <button onclick="favoriteQuote()">♡ 留下這句</button>
+        <button onclick="newQuote()">換一句 ↻</button>
       </div>
-      <div class="location-preview" id="memoryLocationPreview">📍 這個地點會用來做未來的城市推薦。</div>
-      <div class="auto-note" id="locationStatus">Closer 會先從網址找城市、區域或 Google Maps 地點名稱。</div>
     </div>
 
-    <label class="field-label" for="memoryWith">想和誰？</label>
-    <select id="memoryWith">
-      <option value="❤️ 愛人">❤️ 愛人</option>
-      <option value="🫶 朋友">🫶 朋友</option>
-      <option value="👥 一起">👥 一起</option>
-      <option value="🌱 自己">🌱 自己</option>
-    </select>
-
-    <label class="field-label" for="memoryReason">為什麼想留下？ <span class="optional">完全選填</span></label>
-    <textarea id="memoryReason" placeholder="不想寫就留白；有一天看到它時，這句話也許會幫你想起當時為什麼喜歡。"></textarea>
-
-    <div class="form-actions">
-      <button class="secondary" onclick="toggleForm('memoryForm',false)">取消</button>
-      <button class="primary" onclick="saveMemory()">記住它</button>
+    <div class="card">
+      <div class="eyebrow">MY DAYS</div>
+      <div id="momentsList"></div>
+      <button class="primary" style="margin-top:14px" onclick="toggleForm('momentForm')">＋ Add a countdown</button>
     </div>
-    <div class="small-note">Google Maps 完整連結通常能辨識較多資訊；Instagram Reels 與 Maps 短連結本身常沒有店名／地址，純 GitHub 頁面無法讀取貼文內容，因此這類仍可能需要補一次。</div>
-  </div>
 
-  <div class="remember-banner" id="memorySummary"></div>
-  <div class="city-summary" id="citySummary"></div>
-  <div class="search-wrap"><span class="search-icon">⌕</span><input id="memorySearch" placeholder="搜尋名稱、地點、原因…" oninput="renderMemories()"></div>
-  <div class="chips" id="memoryFilters"></div>
-  <div id="memoriesList"></div>
-</section>
-
-<section class="section" id="lettersMode">
-  <div class="card" style="margin-top:18px">
-    <div class="eyebrow">TO FUTURE ME</div>
-    <div class="big" style="font-size:22px">寫給一年後的自己</div>
-    <div class="sub">今天寫下來，一年後的同一天才能拆開。</div>
-    <button class="primary" style="margin-top:15px" onclick="toggleForm('letterForm')">＋ 寫一封信</button>
-  </div>
-
-  <div class="form" id="letterForm">
-    <div class="form-title">寫給一年後的我</div>
-    <label class="field-label" for="letterBody">今天想對未來的自己說什麼？</label>
-    <textarea id="letterBody" style="min-height:190px" placeholder="可以寫今天發生的事、現在在意的人、希望一年後還記得的感受，或只是一句想留給自己的話。"></textarea>
-    <div class="letter-compose-note" id="letterUnlockHint"></div>
-    <div class="form-actions">
-      <button class="secondary" onclick="toggleForm('letterForm',false)">先不寫</button>
-      <button class="primary" onclick="saveLetter()">封好這封信</button>
+    <div class="form" id="momentForm">
+      <div class="form-title">New Countdown</div>
+      <label class="field-label" for="momentName">你正在等待什麼？</label>
+      <input id="momentName" placeholder="例如：下一次見面">
+      <label class="field-label" for="momentDate">日期</label>
+      <input id="momentDate" type="date">
+      <div class="form-actions">
+        <button class="secondary" onclick="toggleForm('momentForm',false)">取消</button>
+        <button class="primary" onclick="addMoment()">Create</button>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="list-head">
-    <div class="list-title">LETTERS TO MYSELF</div>
-  </div>
-  <div class="letter-grid" id="lettersList"></div>
-</section>
+  <section class="section" id="memoriesMode">
+    <div class="trip-banner">
+      <small>BEFORE YOU GO</small>
+      <h2>📍 這次要去哪裡？</h2>
+      <p>先告訴 Closer 目的地。等真的快出發時，它會把你以前存過、差點忘記的地方重新找回來。</p>
+      <div class="trip-grid">
+        <select id="tripCity" onchange="previewTrip()"></select>
+        <input id="tripDate" type="date" onchange="previewTrip()">
+      </div>
+      <button class="primary trip-save" onclick="saveTrip()">記住這次出發</button>
+      <div id="tripSuggestions"></div>
+    </div>
 
-<div class="vision-line">記住今天的心動，等對的時候再找回來。</div>
+    <div id="upcomingTripReminder"></div>
+
+    <div class="card paste-card">
+      <div class="eyebrow">SAVE FOR LATER</div>
+      <div class="big">貼一個你不想忘記的東西。</div>
+      <div class="sub">IG Reels、Google Maps、咖啡廳、景點、展覽、住宿、書籍都可以。</div>
+      <div class="paste-box">
+        <input id="quickUrl" inputmode="url" placeholder="貼上網址…" oninput="previewQuickLink()" onpaste="setTimeout(previewQuickLink,0)">
+        <div class="paste-icon">↗</div>
+      </div>
+      <div class="detected" id="quickDetected"></div>
+      <button class="secondary" style="margin-top:9px" onclick="openMemoryFormFromQuick()">下一步</button>
+    </div>
+
+    <div class="form" id="memoryForm">
+      <div class="form-title" id="memoryFormTitle">Save to Memories</div>
+
+      <label class="field-label" for="memoryUrl">網址</label>
+      <input id="memoryUrl" inputmode="url" placeholder="https://…" oninput="applyMemoryDetection()">
+      <div class="detected" id="memoryDetected"></div>
+
+      <label class="field-label" for="memoryCategory">分類 <span class="optional">自動判斷，可修改</span></label>
+      <select id="memoryCategory">
+        <option value="☕ 咖啡 / 餐廳">☕ 咖啡 / 餐廳</option>
+        <option value="🌿 景點">🌿 景點</option>
+        <option value="🏨 住宿">🏨 住宿</option>
+        <option value="🎨 展覽">🎨 展覽</option>
+        <option value="📚 書籍">📚 書籍</option>
+        <option value="🛍️ 購物">🛍️ 購物</option>
+        <option value="💕 約會">💕 約會</option>
+        <option value="🎙 Podcast">🎙 Podcast</option>
+        <option value="🎵 音樂">🎵 音樂</option>
+        <option value="🎬 電影 / 影集">🎬 電影 / 影集</option>
+        <option value="▶️ 影片">▶️ 影片</option>
+        <option value="📷 IG / 貼文">📷 IG / 貼文</option>
+        <option value="📍 地點">📍 地點</option>
+        <option value="🔗 其他">🔗 其他</option>
+      </select>
+
+      <label class="field-label" for="memoryName">名稱 <span class="optional">可以自己改</span></label>
+      <input id="memoryName" placeholder="例如：山小日子咖啡">
+
+      <div class="location-block">
+        <div class="location-title">📍 地點</div>
+        <div class="location-help">這裡固定保留。IG 連結如果看不出店在哪裡，你就直接選城市；未來 Closer 才找得回來。</div>
+        <div class="location-grid">
+          <select id="memoryCity" onchange="updateLocationPreview()"></select>
+          <input id="memoryArea" placeholder="區域 / 地址，例如：冬山、大安" oninput="updateLocationPreview()">
+        </div>
+        <div class="location-preview" id="locationPreview">還沒有設定地點。</div>
+      </div>
+
+      <label class="field-label" for="memoryWith">想和誰？ <span class="optional">選填</span></label>
+      <select id="memoryWith">
+        <option value="">還沒決定</option>
+        <option value="❤️ 愛人">❤️ 愛人</option>
+        <option value="🫶 朋友">🫶 朋友</option>
+        <option value="👥 一起">👥 一起</option>
+        <option value="🌱 自己">🌱 自己</option>
+      </select>
+
+      <label class="field-label" for="memoryReason">為什麼想留下？ <span class="optional">選填</span></label>
+      <textarea id="memoryReason" placeholder="可以完全不寫。"></textarea>
+
+      <div class="form-actions">
+        <button class="secondary" onclick="cancelMemoryEdit()">取消</button>
+        <button class="primary" id="memorySaveButton" onclick="saveMemory()">記住它</button>
+      </div>
+    </div>
+
+    <div class="city-summary" id="citySummary"></div>
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input id="memorySearch" placeholder="搜尋名稱、地點、原因…" oninput="renderMemories()">
+    </div>
+    <div class="chips" id="memoryFilters"></div>
+    <div id="memoriesList"></div>
+  </section>
+
+  <section class="section" id="lettersMode">
+    <div class="card letters-top">
+      <div class="eyebrow">TO FUTURE ME</div>
+      <div class="big" style="font-size:22px">寫給一年後的自己</div>
+      <div class="sub">今天寫下來，一年後的同一天才能拆開。</div>
+      <button class="primary" style="margin-top:14px" onclick="toggleForm('letterForm')">＋ 寫一封信</button>
+    </div>
+
+    <div class="form" id="letterForm">
+      <div class="form-title">寫給一年後的我</div>
+      <textarea id="letterBody" style="min-height:190px" placeholder="今天想對未來的自己說什麼？"></textarea>
+      <div class="sub" id="letterHint"></div>
+      <div class="form-actions">
+        <button class="secondary" onclick="toggleForm('letterForm',false)">先不寫</button>
+        <button class="primary" onclick="saveLetter()">封好這封信</button>
+      </div>
+    </div>
+
+    <div class="letter-grid" id="lettersList"></div>
+  </section>
+
+  <div class="vision">記住今天的心動，等對的時候再找回來。</div>
 </div>
 
-<div class="letter-modal" id="letterModal" onclick="closeLetterModal(event)">
-  <div class="letter-sheet" onclick="event.stopPropagation()">
-    <div class="letter-sheet-head">
-      <div>
-        <div class="letter-sheet-date" id="letterModalDate"></div>
-        <h3 id="letterModalTitle">給未來的我</h3>
-      </div>
-      <button class="letter-close" onclick="closeLetterModal()" aria-label="關閉">×</button>
+<div class="modal" id="manageModal" onclick="closeManageModal(event)">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-head">
+      <div><div class="sheet-date">MANAGE</div><h3 id="manageTitle">管理</h3></div>
+      <button class="close-btn" onclick="closeManageModal()">×</button>
+    </div>
+    <div class="sub" id="manageText">刪除後無法復原。</div>
+    <button class="primary" id="manageDeleteButton" style="margin-top:17px;background:#8d544c" onclick="confirmManagedDelete()">確定刪除</button>
+  </div>
+</div>
+
+<div class="modal" id="letterModal" onclick="closeLetterModal(event)">
+  <div class="sheet" id="letterSheet" onclick="event.stopPropagation()">
+    <div class="sheet-head">
+      <div><div class="sheet-date" id="letterModalDate"></div><h3 id="letterModalTitle">給未來的我</h3></div>
+      <button class="close-btn" onclick="closeLetterModal()">×</button>
     </div>
     <div id="letterModalContent"></div>
+    <button class="burn-btn" id="burnLetterButton" onclick="askBurnLetter()">🔥 燒掉這封信</button>
   </div>
 </div>
 
-<div class="manage-modal" id="manageModal" onclick="closeManageModal(event)">
-  <div class="manage-sheet" onclick="event.stopPropagation()">
-    <h3 id="manageTitle">管理這個項目</h3>
-    <p id="manageText">刪除後無法復原，所以 Closer 不會把刪除放在容易誤觸的位置。</p>
-    <div class="manage-sheet-actions">
-      <button class="secondary" onclick="closeManageModal()">先保留</button>
-      <button class="primary danger-confirm" id="confirmDeleteButton" onclick="confirmManagedDelete()">確定刪除</button>
+<div class="modal" id="burnModal" onclick="closeBurnModal(event)">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-head">
+      <div><div class="sheet-date">BURN LETTER</div><h3>真的要燒掉嗎？</h3></div>
+      <button class="close-btn" onclick="closeBurnModal()">×</button>
     </div>
+    <div class="sub">燒掉後就不會再回來。Closer 會讓這個動作多一步確認，避免不小心碰到。</div>
+    <button class="primary" style="margin-top:17px;background:#9b5c4e" onclick="burnCurrentLetter()">🔥 燒掉</button>
+    <button class="secondary" style="margin-top:8px" onclick="closeBurnModal()">留下它</button>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script>
 const $=id=>document.getElementById(id);
 const safeParse=(v,f)=>{try{return JSON.parse(v)??f}catch{return f}};
@@ -439,410 +406,306 @@ function safeUrl(v=""){let x=String(v).trim();if(!x)return "";if(!/^https?:\/\//
 function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove("show"),1800)}
 function toggleForm(id,force){const el=$(id),open=typeof force==="boolean"?force:!el.classList.contains("open");el.classList.toggle("open",open);if(open)setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"nearest"}),30)}
 function dateText(s){if(!s)return "";const d=new Date(s+"T00:00:00");return Number.isNaN(d.getTime())?s:new Intl.DateTimeFormat("zh-TW",{year:"numeric",month:"long",day:"numeric"}).format(d)}
-function daysLeft(s){const target=new Date(s+"T00:00:00"),now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());return Number.isNaN(target.getTime())?0:Math.ceil((target-today)/86400000)}
+function localISO(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function daysLeft(s){if(!s)return null;const [y,m,d]=s.split("-").map(Number),target=new Date(y,m-1,d),n=new Date(),today=new Date(n.getFullYear(),n.getMonth(),n.getDate());return Math.ceil((target-today)/86400000)}
 $("today").textContent=new Intl.DateTimeFormat("zh-TW",{month:"long",day:"numeric"}).format(new Date());
 
-function switchMode(mode,btn){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));$(mode+"Mode").classList.add("active");btn?.classList.add("active");if(mode==="memories"){renderMemories();populateTripCities();showTripSuggestions();}window.scrollTo({top:0,behavior:"smooth"})}
+function switchMode(mode,btn){
+  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".nav-btn").forEach(x=>x.classList.remove("active"));
+  $(mode+"Mode").classList.add("active");btn?.classList.add("active");
+  if(mode==="memories"){renderMemories();renderTrip();}
+  if(mode==="letters")renderLetters();
+  window.scrollTo({top:0,behavior:"smooth"})
+}
 
-/* 144 supportive notes. Shuffle-bag: no repeat until all have been shown. */
+/* Supportive notes: shuffle bag prevents repeats until the whole set is exhausted. */
 const quotes=["今天只做到能做到的，也算有在照顧自己。", "如果今天比較慢，那就讓今天慢一點。", "你不必把每一分鐘都變得有用。", "有些休息不是停下來，而是在把自己接回來。", "今天可以不用證明什麼。", "累的時候，把標準放低一點也可以。", "你可以先照顧眼前這一小步。", "不需要一次把所有事情整理好。", "有些日子，平穩地過完就已經足夠。", "你可以把今天留得鬆一點。", "慢下來，不代表你離想去的地方更遠。", "現在的你，不需要趕上任何人的速度。", "有些答案不用現在就找到。", "不知道下一步是什麼，也是一個可以停留的位置。", "你可以一邊不確定，一邊繼續生活。", "事情還沒明朗，不代表你做錯了。", "你不需要為還沒發生的事先準備好所有答案。", "有時候，先知道自己不想要什麼也很有用。", "不確定的時候，先選一個對自己比較溫柔的方向。", "有些決定值得多放一會兒。", "現在還看不清楚，也不需要勉強自己看懂。", "你可以保留改變心意的空間。", "沒有立刻做決定，也是一種決定。", "未完成的想法，可以先被好好放著。", "你已經在做一些讓事情往前走的事。", "小小的進展，也是真正的進展。", "你願意再試一次，本身就很有力量。", "今天完成的這一點，值得被算進去。", "你不需要做到完美，才算有努力。", "有些改變，是很多個很小的選擇累積起來的。", "你正在練習把注意力放回自己能做的地方。", "能重新開始，不代表前面都白費了。", "你不必用辛苦來證明一件事值得。", "願意調整方法，也是一種能力。", "你走過的路，已經讓現在的你多了一些選擇。", "先做得到的，再決定下一步。", "事情沒有照預期發生，不等於你不夠好。", "一次不順，不需要變成對自己的判決。", "你可以對失望誠實，也不用因此否定全部。", "今天不好過，不代表每一天都會一樣。", "有些退後，只是在重新找位置。", "不喜歡現在的狀態，不代表你必須立刻改掉它。", "你可以承認這件事真的很難。", "失望有它的位置，不需要趕著把它變正面。", "做不到原本預計的，也可以重新安排。", "你可以把失敗看成資訊，而不是身份。", "有些事情需要第二次、第三次，甚至更多次。", "你不是每一次都要表現得很堅強。", "如果是你很在乎的人遇到這件事，你大概不會對他那麼苛刻。", "你也值得收到自己比較溫柔的語氣。", "今天可以少責怪自己一點。", "你不需要先變得更好，才值得被好好對待。", "對自己寬一點，不會讓你失去前進的能力。", "你可以不喜歡一件事，同時不攻擊自己。", "把批評換成描述，事情有時會清楚很多。", "你可以先問自己：現在真正需要的是什麼？", "不必每次都把問題變成自己的問題。", "對自己好一點，不需要任何理由。", "你可以讓自己的感受存在，而不是立刻糾正它。", "今天的你也值得被放在自己的考量裡。", "真正重要的關係，不需要每一刻都很精彩。", "有時候，陪伴只是記得對方說過的一件小事。", "想念不一定要立刻被解決。", "靠近一個人，也可以保留自己的空間。", "你可以在乎別人，同時不把自己放到最後。", "好的關係容得下不同的步調。", "有些話晚一點說，仍然可以很真。", "不是每一次沉默都代表距離變遠。", "被理解很重要，理解自己也一樣。", "你可以選擇在關係裡說出真正需要的東西。", "有些靠近，是從好好聽見彼此開始。", "關係不是考試，不需要每題都答對。", "期待不是催促未來，而是替未來留一個位置。", "有些日子值得慢慢靠近。", "你正在等待的事情，也正在一天一天接近。", "把一件事放進期待裡，本身就很美。", "未來不必很盛大，值得期待就夠了。", "你可以為還沒發生的好事留一點空間。", "有些快樂，是從開始期待的那天就已經發生了。", "等待裡也可以有自己的生活。", "你不需要把所有希望都押在某一天。", "快到的日子，不用被安排得完美。", "期待可以很輕，不必變成壓力。", "有一件想見的人或想去的地方，已經讓日子多了一個方向。", "先回到現在，下一分鐘可以晚一點再想。", "今天真正需要處理的，也許沒有想像中那麼多。", "你可以只看眼前這件事。", "有時候把注意力收回來，事情就會安靜一點。", "現在這一刻，不需要同時容納整個未來。", "先把腳放在今天。", "你可以先完成最靠近自己的那件事。", "有些念頭只是經過，不一定需要跟著走。", "現在能做的，已經足以成為下一步。", "先讓今天有一個舒服的位置。", "你可以把還沒發生的事，先還給未來。", "此刻不用很特別，也值得被好好經過。", "你可以說不，也可以晚一點再回答。", "你的時間不是必須隨時提供給別人的東西。", "改變主意並不等於不可靠。", "你可以選擇哪些事情值得你的力氣。", "不是每一個期待都需要由你完成。", "你可以在乎一個人，也保留自己的界線。", "有些邀請可以拒絕，有些事情可以延後。", "你不需要為每個人的情緒負責。", "你的需求也可以出現在一段關係裡。", "先問自己願不願意，再問自己能不能。", "保留空間，有時候反而讓關係更靠近。", "你可以選擇不解釋那麼多。", "別人的進度，不需要變成你的期限。", "你看到的是別人的一段，不是他的全部。", "你的生活不需要長得像別人的才算成立。", "比較出現時，可以把注意力帶回自己的需要。", "你不必靠比別人快，證明自己走得對。", "有些成長很安靜，外面不一定看得見。", "你擁有的價值，不只出現在成果裡。", "今天沒有被看見的努力，仍然存在。", "你可以欣賞別人的生活，而不否定自己的。", "你的節奏可以沒有參考答案。", "值得的生活，不一定是最忙或最耀眼的那一種。", "你不需要一直成為更厲害的人，才能喜歡現在的自己。", "重新開始不需要等到一個完美的日期。", "今天也可以只是把一件事重新撿起來。", "停了一陣子，不代表你失去繼續的資格。", "回來就好，不用先解釋為什麼離開。", "新的做法可以從很小的地方開始。", "你可以保留以前學到的，再換一條路。", "重來不是歸零，你會帶著已經知道的事情一起走。", "沒有照計畫前進，也可以重新畫一條線。", "有些事情適合放下，有些事情適合再試一次。", "你可以從今天的狀態重新設定期待。", "重新整理，比硬撐原本的計畫更有用時，就值得調整。", "回到自己想要的方向，不需要一次走很遠。", "今天如果有一件小事讓你舒服了一點，可以讓它算數。", "一杯喜歡的飲料，也可以是今天的一個好地方。", "平凡的日子，不需要被填滿才有價值。", "生活有時候只是把幾件小事放回適合的位置。", "你可以為一個很小的喜歡停一下。", "好吃的一餐、好看的天空、想見的人，都值得被記住。", "日子不一定要有大事件，才值得期待。", "你可以讓自己喜歡一些沒有用處的東西。", "有時候，舒服比效率更值得選。", "一個普通的晚上，也可以是你喜歡的生活。", "把喜歡的東西留在身邊，本身就是一種選擇。", "今天可以只是過生活，不必一直改善生活。", "你曾經為它心動過，所以把它留了下來。", "收藏的意義，不是擁有更多，而是在需要時找得回來。", "有些喜歡會被忘記，但不代表它當時不重要。", "你不需要現在決定什麼時候去，先記住就好。", "有些地方適合等到對的人、對的日子再出現。", "你留下的每一個小念頭，都可能成為某天的行程。", "不是所有收藏都要完成，留下喜歡本身也可以。", "以前的你替現在的你留了一些線索。", "有些記憶不是用來回頭，而是用來幫未來做選擇。", "當你真的要出發時，再看看以前的自己喜歡過什麼。", "你可以把記得這件事交給 Closer，把生活留給自己。", "那些差點被忘記的喜歡，也值得有地方安放。"];
-let favorites=safeParse(localStorage.getItem("closerFavoritesV5"),[]);
-let quoteBag=safeParse(localStorage.getItem("closerQuoteBagV5"),[]);
+let quoteBag=safeParse(localStorage.getItem("closerQuoteBagV9"),[]);
+let quoteFavorites=safeParse(localStorage.getItem("closerFavoritesV9"),[]);
 let currentQuote="";
 function shuffledIndexes(){
   const a=Array.from({length:quotes.length},(_,i)=>i);
   for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
-  const last=Number(localStorage.getItem("closerLastQuoteIndexV5"));
-  if(a.length>1&&Number.isInteger(last)&&a[a.length-1]===last)[a[a.length-1],a[a.length-2]]=[a[a.length-2],a[a.length-1]];
   return a
 }
 function newQuote(){
-  if(!Array.isArray(quoteBag)||!quoteBag.length)quoteBag=shuffledIndexes();
-  const idx=quoteBag.pop();save("closerQuoteBagV5",quoteBag);localStorage.setItem("closerLastQuoteIndexV5",String(idx));
-  currentQuote=quotes[idx];$("quote").textContent=currentQuote;$("quoteMeta").textContent=`A LITTLE NOTE · ${quotes.length-quoteBag.length} / ${quotes.length}`
+  if(!quoteBag.length)quoteBag=shuffledIndexes();
+  const idx=quoteBag.pop();save("closerQuoteBagV9",quoteBag);currentQuote=quotes[idx];
+  $("quote").textContent=currentQuote;$("quoteMeta").textContent=`A LITTLE NOTE · ${quotes.length-quoteBag.length} / ${quotes.length}`
 }
 function favoriteQuote(){
-  if(!currentQuote)return;
-  if(!favorites.includes(currentQuote)){favorites.push(currentQuote);save("closerFavoritesV5",favorites);toast("已替你留下這句 ♡")}
+  if(!quoteFavorites.includes(currentQuote)){quoteFavorites.push(currentQuote);save("closerFavoritesV9",quoteFavorites);toast("已替你留下這句 ♡")}
   else toast("這句已經留著了")
 }
 newQuote();
 
-/* memory migration */
-function normalizeCategory(type=""){
- const t=String(type);
- if(/書|book|goodreads|博客來|誠品/i.test(t))return "📚 書籍";
- if(/咖啡|餐廳|美食/.test(t))return "☕ 咖啡 / 餐廳";
- if(/景點/.test(t))return "🌿 景點";if(/住宿|飯店|酒店/.test(t))return "🏨 住宿";
- if(/展覽|event|活動/.test(t))return "🎨 展覽";if(/購物/.test(t))return "🛍️ 購物";if(/約會/.test(t))return "💕 約會";
- if(/Podcast/i.test(t))return "🎙 Podcast";if(/音樂|Music/i.test(t))return "🎵 音樂";
- if(/電影|影集|Netflix/.test(t))return "🎬 電影 / 影集";if(/影片|YouTube|TikTok/.test(t))return "▶️ 影片";
- if(/Reels|貼文|Instagram|IG/.test(t))return "📷 貼文 / Reels";if(/地點|地方/.test(t))return "📍 地點";
- return "🔗 其他連結"
+/* Moments — deliberately only event + date. */
+let moments=safeParse(localStorage.getItem("closerMomentsV3"),null);
+if(!Array.isArray(moments)){
+  const old=safeParse(localStorage.getItem("closerMomentsV2"),safeParse(localStorage.getItem("closerCountdowns"),[]));
+  moments=Array.isArray(old)?old.map(x=>({id:x.id??Date.now()+Math.random(),name:x.name||"",date:x.date||""})):[];
+  save("closerMomentsV3",moments)
 }
-let memories=safeParse(localStorage.getItem("closerMemoriesV5"),null);
-if(!Array.isArray(memories)){
- memories=[];
- const sources=[
-  ...(safeParse(localStorage.getItem("closerMemoriesV3"),[])||[]),
-  ...(safeParse(localStorage.getItem("closerMemories"),[])||[]),
-  ...(safeParse(localStorage.getItem("closerTogether"),[])||[]),
-  ...(safeParse(localStorage.getItem("closerShares"),[])||[])
- ];
- const seen=new Set();
- sources.forEach(x=>{
-  const key=String(x.url||x.link||"")+"|"+String(x.name||"");
-  if(seen.has(key))return;seen.add(key);
-  const legacyLoc=x.location||x.city||"";const lp=locationPartsFromLegacy(legacyLoc);
-  memories.push({id:x.id??("old_"+Date.now()+Math.random()),url:x.url||x.link||"",category:normalizeCategory(x.category||x.type),name:x.name||"",city:x.cityNormalized||lp.city,area:x.area||lp.area,location:makeLocation(x.cityNormalized||lp.city,x.area||lp.area),with:x.with||x.who||"",reason:x.reason||x.note||"",completed:!!(x.completed||x.visited),linkedMomentId:x.linkedMomentId||"",source:x.source||"",createdAt:x.createdAt||"",savedAt:x.savedAt||""})
- });
- save("closerMemoriesV5",memories)
-}
-
-const TAIWAN_AREAS=[
- ["台北","台北"],["臺北","台北"],["taipei","台北"],["新北","新北"],["new taipei","新北"],["newtaipei","新北"],["基隆","基隆"],["keelung","基隆"],
- ["桃園","桃園"],["taoyuan","桃園"],["新竹","新竹"],["hsinchu","新竹"],["苗栗","苗栗"],["miaoli","苗栗"],["台中","台中"],["臺中","台中"],["taichung","台中"],
- ["彰化","彰化"],["changhua","彰化"],["南投","南投"],["nantou","南投"],["雲林","雲林"],["yunlin","雲林"],["嘉義","嘉義"],["chiayi","嘉義"],
- ["台南","台南"],["臺南","台南"],["tainan","台南"],["高雄","高雄"],["kaohsiung","高雄"],["屏東","屏東"],["pingtung","屏東"],["宜蘭","宜蘭"],["yilan","宜蘭"],
- ["花蓮","花蓮"],["hualien","花蓮"],["台東","台東"],["臺東","台東"],["taitung","台東"],["澎湖","澎湖"],["penghu","澎湖"],["金門","金門"],["kinmen","金門"],["馬祖","馬祖"],["matsu","馬祖"]
-];
-function cleanReadable(v=""){try{v=decodeURIComponent(v)}catch{}return String(v).replace(/[+_]/g," ").replace(/[-]+/g," ").replace(/\s+/g," ").trim()}
-
-const TAIWAN_CITY_VALUES=["台北","新北","基隆","桃園","新竹","苗栗","台中","彰化","南投","雲林","嘉義","台南","高雄","屏東","宜蘭","花蓮","台東","澎湖","金門","馬祖"];
-function makeLocation(city="",area=""){
-  const c=String(city||"").trim(),a=String(area||"").trim();
-  if(c==="其他") return a;
-  return [c,a].filter(Boolean).join("・");
-}
-function locationPartsFromLegacy(location=""){
-  const loc=String(location||"").trim();
-  if(!loc)return {city:"",area:""};
-  const inferred=inferLocationFromText(loc);
-  if(inferred){
-    const area=loc.replace(inferred,"").replace(/^[・·,\s-]+|[・·,\s-]+$/g,"");
-    return {city:inferred,area};
-  }
-  return {city:"其他",area:loc};
-}
-function setCitySelect(id,value){
-  const el=$(id); if(!el)return;
-  const v=String(value||"").trim();
-  if(!v){el.value="";return}
-  el.value=TAIWAN_CITY_VALUES.includes(v)?v:"其他";
-}
-function updateMemoryLocationPreview(){
-  const loc=makeLocation($("memoryCity")?.value,$("memoryArea")?.value);
-  if($("memoryLocationPreview")) $("memoryLocationPreview").textContent=loc?`📍 會記在：${loc}`:"📍 選好地點後，未來你選擇這個城市時，Closer 就能把它找回來。";
-}
-function updateMomentLocationPreview(){
-  const loc=makeLocation($("momentCity")?.value,$("momentArea")?.value);
-  if($("momentLocationPreview")) $("momentLocationPreview").textContent=loc?`📍 這次會優先找：${loc} 的 Memories`:"📍 有選目的地時，Closer 會優先推薦同區域的 Memories。";
-}
-
-function inferLocationFromText(text=""){const raw=cleanReadable(text),low=raw.toLowerCase();for(const [needle,label] of TAIWAN_AREAS)if(low.includes(String(needle).toLowerCase()))return label;const m=raw.match(/(台北市|臺北市|新北市|桃園市|台中市|臺中市|台南市|臺南市|高雄市|基隆市|新竹市|嘉義市|新竹縣|苗栗縣|彰化縣|南投縣|雲林縣|嘉義縣|屏東縣|宜蘭縣|花蓮縣|台東縣|臺東縣|澎湖縣|金門縣|連江縣)/);return m?m[1].replace("臺","台").replace(/[市縣]$/g,""):""}
-function extractGooglePlace(u){const m=u.pathname.match(/\/place\/([^/]+)/i);if(m)return cleanReadable(m[1]);for(const key of ["q","query","destination"]){const value=u.searchParams.get(key);if(value&&!/^[-+]?\d+(\.\d+)?\s*,\s*[-+]?\d+(\.\d+)?$/.test(value))return cleanReadable(value)}return ""}
-function readableSlugName(u){
- const parts=u.pathname.split("/").filter(Boolean).reverse();
- for(const part of parts){const x=cleanReadable(part.replace(/\.html?$/i,""));if(x.length>=4&&!/^\d+$/.test(x)&&!/^[a-f0-9-]{16,}$/i.test(x))return x}
- return ""
-}
-
-memories=memories.map(x=>{
-  if(x.city!==undefined||x.area!==undefined){x.location=makeLocation(x.city||"",x.area||"")||x.location||"";return x}
-  const lp=locationPartsFromLegacy(x.location||"");
-  return {...x,city:lp.city,area:lp.area,location:makeLocation(lp.city,lp.area)}
-});
-save("closerMemoriesV5",memories);
-
-function detectLink(raw){
- const url=safeUrl(raw);if(!url)return null;let u;try{u=new URL(url)}catch{return null}
- const host=u.hostname.replace(/^www\./,"").toLowerCase(),path=u.pathname.toLowerCase(),readable=cleanReadable(`${u.pathname} ${u.search} ${u.hash}`);
- let r={category:"🔗 其他連結",icon:"🔗",label:"一般連結",source:host,url,host,guessedName:"",guessedLocation:inferLocationFromText(readable)};
- if(host.includes("instagram.com"))r={...r,category:"📷 貼文 / Reels",icon:"📷",label:path.includes("/reel")?"Instagram Reels":"Instagram 貼文",source:"Instagram"};
- else if(host.includes("tiktok.com"))r={...r,category:"▶️ 影片",icon:"▶️",label:"TikTok 影片",source:"TikTok"};
- else if(host.includes("youtube.com")||host==="youtu.be")r={...r,category:"▶️ 影片",icon:"▶️",label:"YouTube 影片",source:"YouTube"};
- else if(host.includes("spotify.com"))r={...r,category:(path.includes("/episode")||path.includes("/show"))?"🎙 Podcast":"🎵 音樂",icon:(path.includes("/episode")||path.includes("/show"))?"🎙":"🎵",label:(path.includes("/episode")||path.includes("/show"))?"Spotify Podcast":"Spotify 音樂",source:"Spotify"};
- else if(host.includes("netflix.com")||host.includes("disneyplus.com")||host.includes("primevideo.com"))r={...r,category:"🎬 電影 / 影集",icon:"🎬",label:"電影 / 影集",source:host.includes("netflix")?"Netflix":host.includes("disney")?"Disney+":"Prime Video"};
- else if(/books\.com\.tw|goodreads\.com|eslite\.com|bookwalker|readmoo|kobo/.test(host)){r={...r,category:"📚 書籍",icon:"📚",label:"書籍",source:host.includes("books.com.tw")?"博客來":host.includes("goodreads")?"Goodreads":host.includes("eslite")?"誠品":host.includes("readmoo")?"Readmoo":host.includes("kobo")?"Kobo":"電子書"};r.guessedName=readableSlugName(u)}
- else if(/opentix|accupass|kktix/.test(host)){r={...r,category:"🎨 展覽",icon:"🎨",label:"展覽 / 活動",source:host.includes("opentix")?"OPENTIX":host.includes("accupass")?"ACCUPASS":"KKTIX"};r.guessedName=readableSlugName(u)}
- else if(host.includes("booking.com")||host.includes("agoda.com")||host.includes("airbnb.")){r={...r,category:"🏨 住宿",icon:"🏨",label:"住宿",source:host.includes("booking")?"Booking.com":host.includes("agoda")?"Agoda":"Airbnb"};const h=u.pathname.match(/\/hotel\/[^/]+\/([^/.]+)/i);if(h)r.guessedName=cleanReadable(h[1])}
- else if(host.includes("maps.google.")||(host.includes("google.")&&path.includes("/maps"))||host==="maps.app.goo.gl"){r={...r,category:"📍 地點",icon:"📍",label:host==="maps.app.goo.gl"?"Google Maps 短連結":"Google Maps 地點",source:"Google Maps"};r.guessedName=extractGooglePlace(u);r.guessedLocation=inferLocationFromText(`${readable} ${r.guessedName}`)||r.guessedLocation}
- else if(/klook|kkday/.test(host))r={...r,category:"🌿 景點",icon:"🌿",label:"行程 / 景點",source:host.includes("klook")?"Klook":"KKday",guessedName:readableSlugName(u)};
- if(!r.guessedLocation)r.guessedLocation=inferLocationFromText(`${readable} ${r.guessedName}`);
- return r
-}
-function showDetected(prefix,r){
- const quick=prefix==="quick",box=$(quick?"quickDetected":"detectedBox");
- if(!r){box.classList.remove("show");return}
- $(quick?"quickIcon":"detectedIcon").textContent=r.icon;$(quick?"quickTitle":"detectedTitle").textContent=r.label;
- $(quick?"quickHost":"detectedHost").textContent=[r.source,r.guessedLocation?`📍 ${r.guessedLocation}`:""].filter(Boolean).join(" · ");box.classList.add("show");
- if(!quick){
-  $("locationStatus").textContent=r.guessedLocation?`✓ 已從網址判斷地點：${r.guessedLocation}`:r.host==="maps.app.goo.gl"?"Google Maps 短連結本身沒有店名／地址；完整 Maps 連結能判斷更多。":r.source==="Instagram"?"Instagram 網址通常只有貼文 ID；純 GitHub 頁面無法讀取貼文內容，因此地點可能需要補一次。":"網址裡沒有足夠地點資訊；如果這不是地點類收藏，可以直接略過。"
- }
-}
-function previewQuickLink(){showDetected("quick",detectLink($("quickUrl").value))}
-function applyDetectedMemory(r){if(!r)return;$("memoryCategory").value=r.category;if(!$("memoryName").value.trim()&&r.guessedName)$("memoryName").value=r.guessedName;if(r.guessedLocation){setCitySelect("memoryCity",r.guessedLocation);if($("memoryCity").value==="其他"&&!$("memoryArea").value.trim())$("memoryArea").value=r.guessedLocation}showDetected("full",r);updateLocationField();updateMemoryLocationPreview()}
-function openMemoryFromQuick(){const r=detectLink($("quickUrl").value);if(!r){toast("先貼上一個網址");return}$("memoryUrl").value=r.url;applyDetectedMemory(r);toggleForm("memoryForm",true)}
-function detectMemoryLink(){applyDetectedMemory(detectLink($("memoryUrl").value))}
-const placeLike=new Set(["☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","🛍️ 購物","💕 約會","📍 地點"]);
-function updateLocationField(){const isPlace=placeLike.has($("memoryCategory").value);$("locationFields").classList.toggle("hidden",!isPlace);if(isPlace)updateMemoryLocationPreview()}
-function saveMemory(){
- const r=detectLink($("memoryUrl").value);if(!r){toast("請貼上一個有效網址");return}
- const city=$("memoryCity").value,area=$("memoryArea").value.trim(),location=makeLocation(city,area);
- memories.unshift({id:Date.now(),url:r.url,category:$("memoryCategory").value,name:$("memoryName").value.trim()||r.guessedName||r.label,city,area,location,with:$("memoryWith").value,reason:$("memoryReason").value.trim(),completed:false,linkedMomentId:"",source:r.source,createdAt:new Date().toISOString(),savedAt:new Date().toLocaleDateString("zh-TW")});
- save("closerMemoriesV5",memories);["quickUrl","memoryUrl","memoryName","memoryArea","memoryReason"].forEach(id=>$(id).value="");$("memoryCity").value="";updateMemoryLocationPreview();$("quickDetected").classList.remove("show");$("detectedBox").classList.remove("show");toggleForm("memoryForm",false);renderMemories();renderMoments();toast("Closer 幫你記住了 🧠")
-}
-let managedDelete={type:"",id:""};
-function openManageDelete(type,id,name){
-  managedDelete={type,id};$("manageTitle").textContent=`刪除「${name||"這個項目"}」？`;
-  $("manageModal").classList.add("show");
-}
-function closeManageModal(event){
-  if(event&&event.target!==$("manageModal"))return;
-  $("manageModal").classList.remove("show");managedDelete={type:"",id:""};
-}
-function confirmManagedDelete(){
-  const {type,id}=managedDelete;if(!id)return;
-  if(type==="memory"){memories=memories.filter(x=>String(x.id)!==String(id));save("closerMemoriesV5",memories);renderMemories();renderMoments()}
-  if(type==="moment"){moments=moments.filter(x=>String(x.id)!==String(id));save("closerMomentsV2",moments);renderMoments()}
-  closeManageModal();toast("已刪除")
-}
-function deleteMemory(id){const x=memories.find(m=>String(m.id)===String(id));openManageDelete("memory",id,x?.name||"Memory")}
-function statusLabels(category,done){
- if(category==="📚 書籍")return done?["已讀","↩ 還沒讀"]:["想讀","✓ 讀完了"];
- if(category==="🎙 Podcast"||category==="🎵 音樂")return done?["聽過","↩ 還沒聽"]:["想聽","✓ 聽過了"];
- if(category==="🎬 電影 / 影集"||category==="▶️ 影片")return done?["看過","↩ 還沒看"]:["想看","✓ 看過了"];
- return done?["✓ 已去過","↩ 還沒去"]:["想去","✓ 去過了"]
-}
-function toggleCompleted(id){const x=memories.find(m=>String(m.id)===String(id));if(!x)return;x.completed=!x.completed;if(x.completed)x.linkedMomentId="";save("closerMemoriesV5",memories);renderMemories();renderMoments();toast(x.completed?"已幫你更新 ✓":"放回待完成清單")}
-function openMemory(id){const x=memories.find(m=>String(m.id)===String(id)),u=safeUrl(x?.url||"");if(u)window.open(u,"_blank","noopener,noreferrer")}
-let memoryFilter="全部";
-const memoryCategories=["全部","☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","📚 書籍","🛍️ 購物","💕 約會","🎙 Podcast","🎵 音樂","🎬 電影 / 影集","▶️ 影片","📷 貼文 / Reels","📍 地點","🔗 其他連結","✓ 已完成"];
-function setMemoryFilter(v){memoryFilter=v;renderMemories()}
-function searchCity(city){$("memorySearch").value=city;memoryFilter="全部";renderMemories();$("memorySearch").scrollIntoView({behavior:"smooth",block:"center"})}
-function renderMemories(){
- const existing=new Set(memories.map(x=>x.category));$("memoryFilters").innerHTML=memoryCategories.filter(x=>x==="全部"||x==="✓ 已完成"||existing.has(x)).map(x=>`<button class="chip ${memoryFilter===x?"active":""}" onclick="setMemoryFilter('${x.replace(/'/g,"\\'")}')">${esc(x)}</button>`).join("");
- const locations=[...new Set(memories.filter(x=>!x.completed).map(x=>x.location).filter(Boolean))],pending=memories.filter(x=>!x.completed).length;
- $("memorySummary").innerHTML=memories.length?`你留了 <strong>${pending}</strong> 個「以後想做」的念頭${locations.length?`，其中 <strong>${locations.length}</strong> 個地方已經有位置。`:"。"}<br><span style="color:#8d8981">不用現在安排。等真的要去那裡時，Closer 會把以前的你喜歡過的東西找回來。</span>`:`還沒有 Memories。下一次看到讓你心動的東西，先留在這裡。`;
- const cityCounts={};memories.filter(x=>!x.completed&&x.location).forEach(x=>{const k=x.city&&x.city!=="其他"?x.city:(x.area||x.location);if(k)cityCounts[k]=(cityCounts[k]||0)+1});
- $("citySummary").innerHTML=Object.entries(cityCounts).sort((a,b)=>b[1]-a[1]).map(([city,count])=>`<button class="city-chip" onclick="searchCity('${city.replace(/'/g,"\\'")}')">📍 ${esc(city)} · ${count}</button>`).join("")||`<span class="small-note">有地點的收藏會在這裡慢慢累積。</span>`;
- const q=($("memorySearch")?.value||"").trim().toLowerCase();
- let list=memoryFilter==="✓ 已完成"?memories.filter(x=>x.completed):memoryFilter==="全部"?memories:memories.filter(x=>x.category===memoryFilter);
- if(q)list=list.filter(x=>[x.name,x.location,x.reason,x.category,x.source,x.with].some(v=>String(v||"").toLowerCase().includes(q)));
- $("memoriesList").innerHTML=list.length?list.map(x=>{
-   const [status,action]=statusLabels(x.category,x.completed);
-   return `<div class="memory-card">
-    <div class="memory-head"><div>
-      <div class="memory-type">${esc(x.category)} <span class="status-pill">${esc(status)}</span></div>
-      <div class="memory-name">${esc(x.name||"收藏連結")}</div>
-      <div class="memory-meta">${esc(x.source||"")}${x.source?" · ":""}${esc(x.with||"")}</div>
-      ${x.location?`<div class="location-pill">📍 ${esc(x.location)}</div>`:""}
-    </div></div>
-    ${x.reason?`<div class="note">當時你寫：「${esc(x.reason)}」</div>`:""}
-    <div class="actions">${safeUrl(x.url)?`<button onclick="openMemory('${esc(x.id)}')">↗ 打開</button>`:""}<button onclick="toggleCompleted('${esc(x.id)}')">${esc(action)}</button><button class="manage" onclick="deleteMemory('${esc(x.id)}')">••• 管理</button></div>
-   </div>`}).join(""):`<div class="card"><div class="empty">${q?"沒有找到符合的 Memory。":"這個分類還沒有收藏。"}</div></div>`
- populateTripCities();showTripSuggestions();
-}
-
-/* Moments */
-let moments=safeParse(localStorage.getItem("closerMomentsV2"),[]);
-if(!Array.isArray(moments))moments=[];
-moments=moments.map(x=>({id:x.id??Date.now()+Math.random(),name:x.name||"",date:x.date||""}));
-save("closerMomentsV2",moments);
 function addMoment(){
- const name=$("momentName").value.trim(),date=$("momentDate").value;
- if(!name||!date){toast("請輸入名稱和日期");return}
- moments.push({id:Date.now(),name,date});
- save("closerMomentsV2",moments);
- ["momentName","momentDate"].forEach(id=>$(id).value="");
- toggleForm("momentForm",false);renderMoments();toast("倒數建立好了 ⏳")
-}
-function deleteMoment(id){const x=moments.find(m=>String(m.id)===String(id));openManageDelete("moment",id,x?.name||"Moment")}
-function norm(s=""){return String(s).trim().toLowerCase().replace(/\s+/g,"")}
-const momentFriendly=new Set(["☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","🛍️ 購物","💕 約會","🎬 電影 / 影集","📍 地點"]);
-function suggestionsFor(moment){
- let candidates=memories.filter(m=>!m.completed&&!m.linkedMomentId&&momentFriendly.has(m.category));
- const who=moment.with,mCity=moment.city||locationPartsFromLegacy(moment.location||"").city,mArea=norm(moment.area||"");
- if(who)candidates=candidates.filter(m=>!m.with||m.with===who||m.with==="👥 一起");
- const scored=candidates.map(m=>{
-   let score=0;const c=m.city||locationPartsFromLegacy(m.location||"").city,a=norm(m.area||"");
-   if(mCity){if(c===mCity)score+=10;else score-=20}
-   if(mArea&&a&&(a.includes(mArea)||mArea.includes(a)))score+=4;
-   if(m.with===who)score+=2;if(m.reason)score+=1;
-   return {m,score}
- });
- return scored.filter(x=>!mCity||x.score>=8).sort((a,b)=>b.score-a.score).slice(0,5).map(x=>x.m)
-}
-function linkToMoment(memoryId,momentId){const m=memories.find(x=>String(x.id)===String(memoryId));if(!m)return;m.linkedMomentId=momentId;save("closerMemoriesV5",memories);renderMoments();renderMemories();toast("加入這次了 ♡")}
-function unlinkFromMoment(memoryId){const m=memories.find(x=>String(x.id)===String(memoryId));if(!m)return;m.linkedMomentId="";save("closerMemoriesV5",memories);renderMoments();renderMemories()}
-function renderSmartRecall(upcoming){
- const box=$("smartRecall");if(!upcoming){box.innerHTML="";return}
- const days=Math.max(daysLeft(upcoming.date),0),sug=suggestionsFor(upcoming),linked=memories.filter(m=>String(m.linkedMomentId)===String(upcoming.id)&&!m.completed);
- if(!sug.length&&!linked.length){box.innerHTML="";return}
- const context=upcoming.location?`你要去「${esc(upcoming.location)}」了。Closer 記得，你以前在這裡留過一些想去的地方。`:`這個 Moment 快到了。Closer 從你以前留下的 Memories 裡找了一些可能適合的選擇。`;
- box.innerHTML=`<div class="smart-card">
-   <div class="eyebrow">CLOSER REMEMBERS</div>
-   <div class="smart-title">${days<=7?"以前的你，已經替這次留過一些靈感。":"先不用安排。只是把那些差點忘記的喜歡，放回你眼前。"}</div>
-   <div class="smart-sub">${context}<br>${days} 天後，就是「${esc(upcoming.name)}」。</div>
-   ${sug.map(m=>`<div class="suggestion"><div class="suggestion-name">${esc(m.name||"收藏連結")}</div><div class="suggestion-meta">${esc(m.category)}${m.location?" · 📍 "+esc(m.location):""}${m.reason?" · 「"+esc(m.reason)+"」":""}</div><div class="suggestion-actions"><button onclick="linkToMoment('${esc(m.id)}','${esc(upcoming.id)}')">＋ 加入這次</button><button onclick="openMemory('${esc(m.id)}')">看看</button></div></div>`).join("")}
-   ${linked.length?`<div class="linked-label">FOR THIS MOMENT</div>${linked.map(m=>`<div class="suggestion"><div class="suggestion-name">✓ ${esc(m.name)}</div><div class="suggestion-meta">${esc(m.category)}${m.location?" · 📍 "+esc(m.location):""}</div><div class="suggestion-actions"><button onclick="openMemory('${esc(m.id)}')">打開</button><button onclick="unlinkFromMoment('${esc(m.id)}')">移除</button></div></div>`).join("")}`:""}
- </div>`
+  const name=$("momentName").value.trim(),date=$("momentDate").value;
+  if(!name||!date){toast("請輸入名稱和日期");return}
+  moments.push({id:Date.now(),name,date});save("closerMomentsV3",moments);
+  $("momentName").value="";$("momentDate").value="";toggleForm("momentForm",false);renderMoments();toast("倒數建立好了 ⏳")
 }
 function renderMoments(){
- const future=moments.filter(x=>x.date&&daysLeft(x.date)>=0).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
- const hero=future[0];
- if(hero){
-   $("heroNumber").textContent=daysLeft(hero.date);
-   $("heroName").textContent=hero.name;
-   $("heroDate").textContent=dateText(hero.date);
- }else{
-   $("heroNumber").textContent="—";
-   $("heroName").textContent="Something Beautiful";
-   $("heroDate").textContent="";
- }
- if(!moments.length){
-   $("momentsList").innerHTML='<div class="empty">還沒有倒數。<br>留下一件你正在期待的事。</div>';
-   return;
- }
- $("momentsList").innerHTML=moments.slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).map(x=>`
-   <div style="padding:15px 0;border-bottom:1px solid #eee9e1">
-     <div>
-       <div class="item-name">${esc(x.name)}</div>
-       <div class="item-meta">${esc(dateText(x.date))}</div>
-     </div>
-     <div style="display:flex;align-items:center;gap:9px">
-       <div class="item-days">${Math.max(daysLeft(x.date),0)}</div>
-       <button class="manage" style="border:0;background:transparent;padding:7px" onclick="deleteMoment('${esc(x.id)}')">•••</button>
-     </div>
-   </div>`).join("");
+  const future=moments.filter(x=>x.date&&daysLeft(x.date)>=0).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const hero=future[0];
+  if(hero){$("heroNumber").textContent=daysLeft(hero.date);$("heroName").textContent=hero.name;$("heroDate").textContent=dateText(hero.date)}
+  else{$("heroNumber").textContent="—";$("heroName").textContent="Something Beautiful";$("heroDate").textContent=""}
+  $("momentsList").innerHTML=moments.length?moments.slice().sort((a,b)=>new Date(a.date)-new Date(b.date)).map(x=>`
+    <div class="countdown-row">
+      <div><div class="item-name">${esc(x.name)}</div><div class="item-meta">${esc(dateText(x.date))}</div></div>
+      <div class="row-right"><div class="item-days">${Math.max(daysLeft(x.date),0)}</div><button class="more-btn" onclick="openManage('moment','${esc(x.id)}','${esc(x.name)}')">•••</button></div>
+    </div>`).join(""):`<div class="empty">還沒有倒數。<br>留下一件你正在期待的事。</div>`
 }
+renderMoments();
 
-function getMemoryCity(m){
-  if(m.city&&m.city!=="其他")return m.city;
-  const lp=locationPartsFromLegacy(m.location||"");
-  return lp.city&&lp.city!=="其他"?lp.city:(m.area||lp.area||"");
+/* Locations */
+const CITY_LIST=["台北","新北","基隆","桃園","新竹","苗栗","台中","彰化","南投","雲林","嘉義","台南","高雄","屏東","宜蘭","花蓮","台東","澎湖","金門","馬祖"];
+const CITY_ALIASES=[
+ ["台北","台北"],["臺北","台北"],["taipei","台北"],["新北","新北"],["new taipei","新北"],["newtaipei","新北"],
+ ["基隆","基隆"],["keelung","基隆"],["桃園","桃園"],["taoyuan","桃園"],["新竹","新竹"],["hsinchu","新竹"],
+ ["苗栗","苗栗"],["miaoli","苗栗"],["台中","台中"],["臺中","台中"],["taichung","台中"],["彰化","彰化"],["changhua","彰化"],
+ ["南投","南投"],["nantou","南投"],["雲林","雲林"],["yunlin","雲林"],["嘉義","嘉義"],["chiayi","嘉義"],
+ ["台南","台南"],["臺南","台南"],["tainan","台南"],["高雄","高雄"],["kaohsiung","高雄"],["屏東","屏東"],["pingtung","屏東"],
+ ["宜蘭","宜蘭"],["yilan","宜蘭"],["花蓮","花蓮"],["hualien","花蓮"],["台東","台東"],["臺東","台東"],["taitung","台東"],
+ ["澎湖","澎湖"],["penghu","澎湖"],["金門","金門"],["kinmen","金門"],["馬祖","馬祖"],["matsu","馬祖"]
+];
+function fillCitySelect(id,includeBlank=true){
+  const el=$(id);if(!el)return;
+  el.innerHTML=(includeBlank?'<option value="">選擇城市</option>':'')+
+    CITY_LIST.map(c=>`<option value="${c}">${c}</option>`).join("")+
+    '<option value="其他">海外 / 其他</option>'
 }
-function populateTripCities(){
-  const select=$("tripCity");if(!select)return;
-  const previous=localStorage.getItem("closerTripCityV1")||"";
-  const saved=[...new Set(memories.filter(m=>!m.completed&&placeLike.has(m.category)).map(getMemoryCity).filter(Boolean))];
-  const standard=[...TAIWAN_CITY_VALUES];
-  const other=saved.filter(c=>!TAIWAN_CITY_VALUES.includes(c)).sort((a,b)=>a.localeCompare(b,"zh-Hant"));
-  const ordered=[...standard,...other];
-  select.innerHTML='<option value="">選擇城市</option>'+ordered.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
-  if(previous&&ordered.includes(previous))select.value=previous;
-}
-function showTripSuggestions(){
-  const city=$("tripCity")?.value||"";
-  localStorage.setItem("closerTripCityV1",city);
-  const box=$("tripSuggestions");if(!box)return;
-  if(!city){box.innerHTML="";return}
-  const list=memories.filter(m=>!m.completed&&placeLike.has(m.category)&&getMemoryCity(m)===city)
-    .sort((a,b)=>(b.reason?1:0)-(a.reason?1:0));
-  if(!list.length){
-    box.innerHTML=`<div class="trip-empty">你目前還沒有存過 ${esc(city)} 的地方。<br>之後看到喜歡的，先丟進 Memories 就好。</div>`;
-    return;
+fillCitySelect("memoryCity");fillCitySelect("tripCity");
+function inferCity(text=""){const low=decodeURIComponent(String(text)).toLowerCase();for(const [needle,label] of CITY_ALIASES)if(low.includes(String(needle).toLowerCase()))return label;return ""}
+function clean(v=""){try{v=decodeURIComponent(v)}catch{}return String(v).replace(/[+_]/g," ").replace(/\s+/g," ").trim()}
+function makeLocation(city,area){if(city==="其他")return area.trim();return [city,area.trim()].filter(Boolean).join("・")}
+function legacyParts(loc=""){const city=inferCity(loc);if(city)return {city,area:String(loc).replace(city,"").replace(/^[・·,\s-]+|[・·,\s-]+$/g,"")};return loc?{city:"其他",area:loc}:{city:"",area:""}}
+
+/* Link analysis. Pure GitHub can analyze the URL itself, not private IG caption content. */
+function detectLink(raw){
+  const url=safeUrl(raw);if(!url)return null;let u;try{u=new URL(url)}catch{return null}
+  const host=u.hostname.replace(/^www\./,"").toLowerCase(),path=u.pathname.toLowerCase(),all=clean(u.pathname+" "+u.search+" "+u.hash);
+  let r={url,source:host,category:"🔗 其他",label:"一般連結",name:"",city:inferCity(all)};
+  if(host.includes("instagram.com"))r={...r,source:"Instagram",category:"📷 IG / 貼文",label:path.includes("/reel")?"Instagram Reels":"Instagram 貼文"};
+  else if(host.includes("maps.google.")||(host.includes("google.")&&path.includes("/maps"))||host==="maps.app.goo.gl"){
+    r={...r,source:"Google Maps",category:"📍 地點",label:host==="maps.app.goo.gl"?"Google Maps 短連結":"Google Maps 地點"};
+    const pm=u.pathname.match(/\/place\/([^/]+)/i);const q=u.searchParams.get("q")||u.searchParams.get("query");
+    r.name=clean(pm?pm[1]:(q||""));r.city=inferCity(all+" "+r.name)||r.city
   }
-  box.innerHTML=`<div style="font-size:11px;color:#c9c2bc;margin-top:13px">${esc(city)} · 你以前留過 ${list.length} 個還沒去的地方</div>`+
-  list.slice(0,6).map(m=>`<div class="trip-result">
-    <div class="trip-result-name">${esc(m.name||"收藏地點")}</div>
-    <div class="trip-result-meta">${esc(m.category)}${m.area?` · ${esc(m.area)}`:""}${m.reason?` · 「${esc(m.reason)}」`:""}</div>
-    <div class="trip-result-actions">
-      <button onclick="openMemory('${esc(m.id)}')">看看</button>
-      <button onclick="toggleCompleted('${esc(m.id)}');setTimeout(()=>{populateTripCities();showTripSuggestions()},0)">✓ 去過了</button>
-    </div>
-  </div>`).join("");
+  else if(/booking\.com|agoda\.com|airbnb\./.test(host))r={...r,source:host.includes("booking")?"Booking.com":host.includes("agoda")?"Agoda":"Airbnb",category:"🏨 住宿",label:"住宿"};
+  else if(/klook|kkday/.test(host))r={...r,source:host.includes("klook")?"Klook":"KKday",category:"🌿 景點",label:"景點 / 行程"};
+  else if(/opentix|accupass|kktix/.test(host))r={...r,source:host.includes("opentix")?"OPENTIX":host.includes("accupass")?"ACCUPASS":"KKTIX",category:"🎨 展覽",label:"展覽 / 活動"};
+  else if(/books\.com\.tw|goodreads|eslite|readmoo|kobo|bookwalker/.test(host))r={...r,source:host.includes("books.com.tw")?"博客來":host.includes("eslite")?"誠品":host,category:"📚 書籍",label:"書籍"};
+  else if(host.includes("youtube.com")||host==="youtu.be")r={...r,source:"YouTube",category:"▶️ 影片",label:"YouTube 影片"};
+  else if(host.includes("tiktok.com"))r={...r,source:"TikTok",category:"▶️ 影片",label:"TikTok 影片"};
+  else if(host.includes("spotify.com"))r={...r,source:"Spotify",category:(path.includes("/episode")||path.includes("/show"))?"🎙 Podcast":"🎵 音樂",label:(path.includes("/episode")||path.includes("/show"))?"Spotify Podcast":"Spotify 音樂"};
+  else if(host.includes("netflix.com")||host.includes("disneyplus.com")||host.includes("primevideo.com"))r={...r,source:host.includes("netflix")?"Netflix":host.includes("disney")?"Disney+":"Prime Video",category:"🎬 電影 / 影集",label:"電影 / 影集"};
+  return r
+}
+function previewQuickLink(){
+  const r=detectLink($("quickUrl").value),box=$("quickDetected");
+  if(!r){box.classList.remove("show");box.textContent="";return}
+  box.textContent=`${r.label} · ${r.source}${r.city?` · 📍 ${r.city}`:""}`;
+  box.classList.add("show")
 }
 
-/* Letters to future self */
+/* Memories + migration */
+let memories=safeParse(localStorage.getItem("closerMemoriesV9"),null);
+if(!Array.isArray(memories)){
+  const old=safeParse(localStorage.getItem("closerMemoriesV5"),safeParse(localStorage.getItem("closerMemoriesV3"),safeParse(localStorage.getItem("closerMemories"),[])));
+  memories=Array.isArray(old)?old.map(x=>{
+    const lp=legacyParts(x.location||x.city||"");
+    return {
+      id:x.id??Date.now()+Math.random(),url:x.url||x.link||"",source:x.source||"",category:x.category||x.type||"🔗 其他",
+      name:x.name||"",city:x.cityNormalized||x.city||lp.city,area:x.area||lp.area,with:x.with||x.who||"",
+      reason:x.reason||x.note||"",completed:!!(x.completed||x.visited),createdAt:x.createdAt||new Date().toISOString()
+    }
+  }):[];
+  save("closerMemoriesV9",memories)
+}
+let editingMemoryId=null;
+let memoryFilter="全部";
+const FILTERS=["全部","☕ 咖啡 / 餐廳","🌿 景點","🏨 住宿","🎨 展覽","📚 書籍","🛍️ 購物","💕 約會","🎙 Podcast","🎵 音樂","🎬 電影 / 影集","▶️ 影片","📷 IG / 貼文","📍 地點","🔗 其他","✓ 已完成"];
+
+function openMemoryFormFromQuick(){
+  const r=detectLink($("quickUrl").value);if(!r){toast("先貼上一個網址");return}
+  cancelMemoryEdit(false);$("memoryUrl").value=r.url;$("memoryCategory").value=r.category;$("memoryName").value=r.name||"";
+  if(r.city)$("memoryCity").value=r.city;applyMemoryDetection(false);toggleForm("memoryForm",true)
+}
+function applyMemoryDetection(overwrite=true){
+  const r=detectLink($("memoryUrl").value),box=$("memoryDetected");
+  if(!r){box.classList.remove("show");return}
+  box.textContent=`Closer 判斷：${r.label} · ${r.source}${r.city?` · 📍 ${r.city}`:""}`;
+  box.classList.add("show");
+  if(overwrite)$("memoryCategory").value=r.category;
+  if(!$("memoryName").value.trim()&&r.name)$("memoryName").value=r.name;
+  if(!$("memoryCity").value&&r.city)$("memoryCity").value=r.city;
+  updateLocationPreview()
+}
+function updateLocationPreview(){
+  const loc=makeLocation($("memoryCity").value,$("memoryArea").value);
+  $("locationPreview").textContent=loc?`會記在：${loc}。之後你選這個城市，Closer 就能把它找回來。`:"還沒有設定地點。IG 景點／咖啡廳建議至少選城市。"
+}
+function cancelMemoryEdit(close=true){
+  editingMemoryId=null;$("memoryFormTitle").textContent="Save to Memories";$("memorySaveButton").textContent="記住它";
+  ["memoryUrl","memoryName","memoryArea","memoryReason"].forEach(id=>$(id).value="");
+  $("memoryCity").value="";$("memoryWith").value="";$("memoryCategory").value="☕ 咖啡 / 餐廳";
+  $("memoryDetected").classList.remove("show");updateLocationPreview();if(close)toggleForm("memoryForm",false)
+}
+function saveMemory(){
+  const url=safeUrl($("memoryUrl").value);if(!url){toast("請貼上一個有效網址");return}
+  const r=detectLink(url),city=$("memoryCity").value,area=$("memoryArea").value.trim();
+  const data={url,source:r?.source||"",category:$("memoryCategory").value,name:$("memoryName").value.trim()||r?.name||r?.label||"收藏連結",city,area,with:$("memoryWith").value,reason:$("memoryReason").value.trim()};
+  if(editingMemoryId){
+    const x=memories.find(m=>String(m.id)===String(editingMemoryId));if(x)Object.assign(x,data)
+    toast("已更新這個 Memory")
+  }else{
+    memories.unshift({id:Date.now(),...data,completed:false,createdAt:new Date().toISOString()});
+    toast("Closer 幫你記住了 🧠")
+  }
+  save("closerMemoriesV9",memories);$("quickUrl").value="";$("quickDetected").classList.remove("show");cancelMemoryEdit();renderMemories();renderTrip()
+}
+function editMemory(id){
+  const x=memories.find(m=>String(m.id)===String(id));if(!x)return;
+  editingMemoryId=x.id;$("memoryFormTitle").textContent="Edit Memory";$("memorySaveButton").textContent="儲存修改";
+  $("memoryUrl").value=x.url||"";$("memoryCategory").value=x.category||"🔗 其他";$("memoryName").value=x.name||"";
+  $("memoryCity").value=CITY_LIST.includes(x.city)?x.city:(x.city?"其他":"");$("memoryArea").value=x.city==="其他"?(x.area||x.city):(x.area||"");
+  $("memoryWith").value=x.with||"";$("memoryReason").value=x.reason||"";applyMemoryDetection(false);updateLocationPreview();
+  toggleForm("memoryForm",true)
+}
+function memoryStatus(x){
+  if(x.category==="📚 書籍")return x.completed?["已讀","↩ 還沒讀"]:["想讀","✓ 讀完了"];
+  if(x.category==="🎙 Podcast"||x.category==="🎵 音樂")return x.completed?["聽過","↩ 還沒聽"]:["想聽","✓ 聽過了"];
+  if(x.category==="🎬 電影 / 影集"||x.category==="▶️ 影片")return x.completed?["看過","↩ 還沒看"]:["想看","✓ 看過了"];
+  return x.completed?["已去過","↩ 還沒去"]:["想去","✓ 去過了"]
+}
+function toggleMemoryDone(id){
+  const x=memories.find(m=>String(m.id)===String(id));if(!x)return;x.completed=!x.completed;save("closerMemoriesV9",memories);renderMemories();renderTrip();toast(x.completed?"已幫你更新 ✓":"放回想完成的清單")
+}
+function openMemory(id){const x=memories.find(m=>String(m.id)===String(id)),u=safeUrl(x?.url||"");if(u)window.open(u,"_blank","noopener,noreferrer")}
+function setMemoryFilter(v){memoryFilter=v;renderMemories()}
+function memoryLocation(x){return makeLocation(x.city||"",x.area||"")}
+function renderMemories(){
+  const existing=new Set(memories.map(x=>x.category));
+  $("memoryFilters").innerHTML=FILTERS.filter(f=>f==="全部"||f==="✓ 已完成"||existing.has(f)).map(f=>`<button class="chip ${memoryFilter===f?"active":""}" onclick="setMemoryFilter('${f.replace(/'/g,"\\'")}')">${esc(f)}</button>`).join("");
+  const cityCount={};memories.filter(x=>!x.completed&&x.city).forEach(x=>{const key=x.city==="其他"?(x.area||"其他"):x.city;cityCount[key]=(cityCount[key]||0)+1});
+  $("citySummary").innerHTML=Object.entries(cityCount).sort((a,b)=>b[1]-a[1]).map(([c,n])=>`<button class="city-chip" onclick="searchCity('${c.replace(/'/g,"\\'")}')">📍 ${esc(c)} · ${n}</button>`).join("");
+  const q=$("memorySearch").value.trim().toLowerCase();
+  let list=memoryFilter==="✓ 已完成"?memories.filter(x=>x.completed):memoryFilter==="全部"?memories:memories.filter(x=>x.category===memoryFilter);
+  if(q)list=list.filter(x=>[x.name,x.city,x.area,x.reason,x.category,x.source,x.with].some(v=>String(v||"").toLowerCase().includes(q)));
+  $("memoriesList").innerHTML=list.length?list.map(x=>{
+    const [status,action]=memoryStatus(x),loc=memoryLocation(x);
+    return `<div class="memory-card">
+      <div class="memory-type">${esc(x.category)} <span class="status">${esc(status)}</span></div>
+      <div class="memory-name">${esc(x.name||"收藏連結")}</div>
+      <div class="memory-meta">${esc(x.source||"")}${x.with?` · ${esc(x.with)}`:""}</div>
+      ${loc?`<div class="location-pill">📍 ${esc(loc)}</div>`:""}
+      ${x.reason?`<div class="note">「${esc(x.reason)}」</div>`:""}
+      <div class="actions">
+        <button onclick="openMemory('${esc(x.id)}')">↗ 打開</button>
+        <button onclick="editMemory('${esc(x.id)}')">✎ 編輯</button>
+        <button onclick="toggleMemoryDone('${esc(x.id)}')">${esc(action)}</button>
+        <button class="manage" onclick="openManage('memory','${esc(x.id)}','${esc(x.name)}')">•••</button>
+      </div>
+    </div>`
+  }).join(""):`<div class="card"><div class="empty">${q?"沒有找到符合的 Memory。":"這裡還沒有收藏。"}</div></div>`
+}
+function searchCity(city){$("memorySearch").value=city;memoryFilter="全部";renderMemories()}
+renderMemories();updateLocationPreview();
+
+/* Trip memory: select destination now, optionally date it for an automatic in-app reminder later. */
+let trip=safeParse(localStorage.getItem("closerTripV2"),{city:"",date:""});
+function saveTrip(){
+  const city=$("tripCity").value,date=$("tripDate").value;
+  if(!city){toast("先選一個目的地");return}
+  trip={city,date};save("closerTripV2",trip);renderTrip();toast(date?`Closer 會記得你要去 ${city}`:`先把 ${city} 的收藏找出來了`)
+}
+function matchingTripMemories(city){
+  return memories.filter(x=>!x.completed&&x.city&&((city==="其他"&&x.city==="其他")||x.city===city))
+    .sort((a,b)=>{const aa=a.createdAt||"",bb=b.createdAt||"";return aa.localeCompare(bb)})
+}
+function previewTrip(){renderTrip(false)}
+function renderTrip(useSaved=true){
+  const selected=useSaved&&trip.city?trip.city:$("tripCity").value;
+  if(useSaved&&trip.city){$("tripCity").value=trip.city;$("tripDate").value=trip.date||""}
+  const city=$("tripCity").value,box=$("tripSuggestions");
+  if(!city){box.innerHTML="";renderUpcomingReminder();return}
+  const list=matchingTripMemories(city);
+  box.innerHTML=`<div class="trip-results-title">${list.length?`CLOSER REMEMBERS · ${list.length} PLACES`:"CLOSER REMEMBERS"}</div>`+
+    (list.length?list.slice(0,7).map(x=>`<div class="trip-result">
+      <div class="trip-result-name">${esc(x.name||"收藏地點")}</div>
+      <div class="trip-result-meta">${esc(x.category)}${x.area?` · ${esc(x.area)}`:""}${x.reason?` · 「${esc(x.reason)}」`:""}</div>
+      <div class="trip-result-actions"><button onclick="openMemory('${esc(x.id)}')">看看</button><button onclick="editMemory('${esc(x.id)}')">編輯</button><button onclick="toggleMemoryDone('${esc(x.id)}')">✓ 去過了</button></div>
+    </div>`).join(""):`<div class="trip-results-title" style="line-height:1.6;text-transform:none">你目前還沒有存過 ${esc(city)} 的地方。之後在 IG 或地圖看到喜歡的，就先丟進 Memories。</div>`);
+  renderUpcomingReminder()
+}
+function renderUpcomingReminder(){
+  const box=$("upcomingTripReminder"),dot=$("memoryAlertDot");
+  if(!trip.city||!trip.date){box.innerHTML="";dot.classList.remove("show");return}
+  const d=daysLeft(trip.date),list=matchingTripMemories(trip.city);
+  if(d!==null&&d>=0&&d<=14&&list.length){
+    box.innerHTML=`<div class="trip-reminder"><strong>${d===0?"今天要出發了":`${d} 天後要去 ${esc(trip.city)}`}</strong><br>Closer 記得，你以前在這裡存過 ${list.length} 個還沒去的地方。上面已經替你找出來了。</div>`;
+    dot.classList.add("show")
+  }else{box.innerHTML="";dot.classList.remove("show")}
+}
+renderTrip();
+
+/* Safe delete management */
+let manageTarget={type:"",id:""};
+function openManage(type,id,name){manageTarget={type,id};$("manageTitle").textContent=`刪除「${name||"這個項目"}」？`;$("manageText").textContent="刪除後無法復原，所以 Closer 不會把刪除放在容易誤觸的位置。";$("manageModal").classList.add("show")}
+function closeManageModal(event){if(event&&event.target!==$("manageModal"))return;$("manageModal").classList.remove("show");manageTarget={type:"",id:""}}
+function confirmManagedDelete(){
+  if(manageTarget.type==="moment"){moments=moments.filter(x=>String(x.id)!==String(manageTarget.id));save("closerMomentsV3",moments);renderMoments()}
+  if(manageTarget.type==="memory"){memories=memories.filter(x=>String(x.id)!==String(manageTarget.id));save("closerMemoriesV9",memories);renderMemories();renderTrip()}
+  closeManageModal();toast("已刪除")
+}
+
+/* Letters */
 let letters=safeParse(localStorage.getItem("closerLettersV1"),[]);
 if(!Array.isArray(letters))letters=[];
-
-function localDateISO(d=new Date()){
-  const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
-  return `${y}-${m}-${day}`;
-}
-function addOneYearClamped(iso){
-  const [y,m,d]=iso.split("-").map(Number);
-  const targetYear=y+1;
-  const lastDay=new Date(targetYear,m,0).getDate();
-  const safeDay=Math.min(d,lastDay);
-  return `${targetYear}-${String(m).padStart(2,"0")}-${String(safeDay).padStart(2,"0")}`;
-}
-function daysUntilISO(iso){
-  const [y,m,d]=iso.split("-").map(Number);
-  const target=new Date(y,m-1,d);
-  const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-  return Math.max(0,Math.ceil((target-today)/86400000));
-}
-function updateLetterHint(){
-  const written=localDateISO(),unlock=addOneYearClamped(written);
-  if($("letterUnlockHint")) $("letterUnlockHint").textContent=`這封信會在 ${dateText(unlock)} 才能打開。信封外只會顯示 ${dateText(written)}。`;
-}
+function addYearClamped(iso){const [y,m,d]=iso.split("-").map(Number),yy=y+1,last=new Date(yy,m,0).getDate();return `${yy}-${String(m).padStart(2,"0")}-${String(Math.min(d,last)).padStart(2,"0")}`}
+function updateLetterHint(){const w=localISO(),u=addYearClamped(w);$("letterHint").textContent=`這封信會在 ${dateText(u)} 才能打開。信封外只會顯示今天的日期。`}
 function saveLetter(){
-  const body=$("letterBody").value.trim();
-  if(!body){toast("先寫下一點想留給未來的話");return}
-  const written=localDateISO(),unlock=addOneYearClamped(written);
-  letters.unshift({
-    id:Date.now(),writtenDate:written,unlockDate:unlock,body,openedAt:""
-  });
-  save("closerLettersV1",letters);
-  $("letterBody").value="";
-  toggleForm("letterForm",false);
-  renderLetters();
-  toast("Closer 替你把信收好了 ✉️");
+  const body=$("letterBody").value.trim();if(!body){toast("先寫下一點想留給未來的話");return}
+  const writtenDate=localISO(),unlockDate=addYearClamped(writtenDate);
+  letters.unshift({id:Date.now(),writtenDate,unlockDate,body,openedAt:""});save("closerLettersV1",letters);$("letterBody").value="";toggleForm("letterForm",false);renderLetters();toast("Closer 替你把信收好了 ✉️")
 }
 function renderLetters(){
-  const box=$("lettersList");if(!box)return;
-  if(!letters.length){
-    box.innerHTML='<div class="letter-empty">還沒有信。<br>某一天想留下今天，就寫一封給一年後的自己。</div>';
-    return;
-  }
-  box.innerHTML=letters.map(letter=>{
-    const unlocked=daysUntilISO(letter.unlockDate)===0;
-    const opened=!!letter.openedAt;
-    return `<button class="envelope ${opened?"opened":""}" onclick="openLetter('${esc(letter.id)}')">
-      <div class="envelope-seal">${opened?"♡":"✉"}</div>
-      <div class="envelope-date">${esc(dateText(letter.writtenDate))}</div>
-      <div class="envelope-note">${opened?"已拆開":"寫給未來的我"}</div>
-    </button>`;
-  }).join("");
+  $("lettersList").innerHTML=letters.length?letters.map(x=>`<button class="envelope ${x.openedAt?"opened":""}" onclick="openLetter('${esc(x.id)}')">
+    <div class="seal">${x.openedAt?"♡":"✉"}</div><div class="envelope-date">${esc(dateText(x.writtenDate))}</div><div class="envelope-note">${x.openedAt?"已拆開":"寫給未來的我"}</div>
+  </button>`).join(""):`<div class="empty" style="grid-column:1/-1;background:#fff;border-radius:22px">還沒有信。<br>某一天想留下今天，就寫一封給一年後的自己。</div>`
 }
+let currentLetterId=null;
 function openLetter(id){
-  const letter=letters.find(x=>String(x.id)===String(id));if(!letter)return;
-  const remaining=daysUntilISO(letter.unlockDate);
-  $("letterModalDate").textContent=`寫於 ${dateText(letter.writtenDate)}`;
-  if(remaining>0){
+  const x=letters.find(l=>String(l.id)===String(id));if(!x)return;currentLetterId=x.id;
+  const remain=Math.max(daysLeft(x.unlockDate),0);$("letterModalDate").textContent=`寫於 ${dateText(x.writtenDate)}`;
+  if(daysLeft(x.unlockDate)>0){
     $("letterModalTitle").textContent="這封信還在路上";
-    $("letterModalContent").innerHTML=`<div class="locked-letter">
-      <div class="lock-icon">✉️</div>
-      <div class="lock-title">現在還不能拆。</div>
-      <div class="lock-sub">你已經把今天的話交給未來了。先讓它安靜地待在這裡，等那一天真的來到。</div>
-      <div class="lock-date">可以在 ${esc(dateText(letter.unlockDate))} 打開</div>
-      <div class="lock-days">還有 ${remaining} 天</div>
-    </div>`;
+    $("letterModalContent").innerHTML=`<div class="locked"><div class="lock-icon">✉️</div><div class="lock-title">現在還不能拆。</div><div class="lock-sub">你已經把今天的話交給未來了。先讓它安靜地待在這裡。</div><div class="lock-date">可以在 ${dateText(x.unlockDate)} 打開</div><div class="lock-days">還有 ${remain} 天</div></div>`
   }else{
     $("letterModalTitle").textContent="一年前的你，留了一封信";
-    $("letterModalContent").innerHTML=`<div class="letter-body">${esc(letter.body)}</div>`;
-    if(!letter.openedAt){
-      letter.openedAt=new Date().toISOString();
-      save("closerLettersV1",letters);
-      renderLetters();
-    }
+    $("letterModalContent").innerHTML=`<div class="letter-body">${esc(x.body)}</div>`;
+    if(!x.openedAt){x.openedAt=new Date().toISOString();save("closerLettersV1",letters);renderLetters()}
   }
-  $("letterModal").classList.add("show");
+  $("letterSheet").classList.remove("burning");$("letterModal").classList.add("show")
 }
-function closeLetterModal(event){
-  if(event&&event.target!==$("letterModal"))return;
-  $("letterModal").classList.remove("show");
+function closeLetterModal(event){if(event&&event.target!==$("letterModal"))return;$("letterModal").classList.remove("show");currentLetterId=null}
+function askBurnLetter(){if(!currentLetterId)return;$("burnModal").classList.add("show")}
+function closeBurnModal(event){if(event&&event.target!==$("burnModal"))return;$("burnModal").classList.remove("show")}
+function burnCurrentLetter(){
+  if(!currentLetterId)return;closeBurnModal();$("letterSheet").classList.add("burning");
+  const id=currentLetterId;
+  setTimeout(()=>{letters=letters.filter(x=>String(x.id)!==String(id));save("closerLettersV1",letters);$("letterModal").classList.remove("show");$("letterSheet").classList.remove("burning");currentLetterId=null;renderLetters();toast("這封信已經燒掉了 🔥")},820)
 }
-updateLetterHint();
-renderLetters();
-
-updateLocationField();updateMemoryLocationPreview();renderMemories();renderMoments();populateTripCities();showTripSuggestions();
+updateLetterHint();renderLetters();
 </script>
-<style>
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);width:min(calc(100% - 36px),520px);background:var(--dark);color:#fff;padding:13px 16px;border-radius:14px;font-size:13px;text-align:center;opacity:0;pointer-events:none;transition:.2s ease;z-index:50}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-</style>
 </body>
 </html>
